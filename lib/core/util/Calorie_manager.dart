@@ -1,0 +1,3 @@
+class Calorie_Manager{
+  
+}

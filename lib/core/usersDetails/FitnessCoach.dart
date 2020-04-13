@@ -1,0 +1,3 @@
+class Fitness_coach{
+  
+}
