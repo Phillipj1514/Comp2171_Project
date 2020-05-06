@@ -1,0 +1,4 @@
+
+class Daily_Consumption{
+  
+}
