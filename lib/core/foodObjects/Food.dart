@@ -26,8 +26,8 @@ class Food{
 
   // Setters
   void setName(String name) => this.name = name;
-  void setMeasure(double quantity) => this.quantity = quantity;
-  void  setMeasureType(String measure){
+  void setQuantity(double quantity) => this.quantity = quantity;
+  void  setMeasure(String measure){
     this.measure = measure == "NUMBER" ? Measure.number : Measure.weight;
   }
 
