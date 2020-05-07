@@ -1,4 +1,5 @@
 import 'package:Comp2171_Project/core/foodObjects/Daily_Consumption.dart';
+import 'package:Comp2171_Project/core/foodObjects/Food.dart';
 import 'package:Comp2171_Project/core/foodObjects/MealPlan_List.dart';
 import 'package:Comp2171_Project/core/usersDetails/User_Profile.dart';
 import 'package:Comp2171_Project/core/util/Report_Manager.dart';
@@ -59,12 +60,20 @@ class Client extends User_Profile{
 
   }
 
+  Future<int> checkFoodCalorie(Food food) async{
+    Food newFood = food;
+    await newFood.updateNutritionalDetail();
+    print(newFood.getCalorie());
+    return newFood.getCalorie();
+  } 
+
 
 }
-void main(List<String> args) {
+void main(List<String> args) async{
   Client tc = new Client("John","Paul","jp","pswd",3,12,1990,30,5,160,140,20);
   print(tc.getExpectedWeight());
   tc.setExpectedWeight(200);
   print(tc.getExpectedWeight());
+  await tc.checkFoodCalorie(new Food("mango",3,"NUMBER"));
   
 }
