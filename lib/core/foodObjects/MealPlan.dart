@@ -7,7 +7,7 @@ class MealPlan {
   int numDays; 
 
   MealPlan(this.name, List<Meal> meals, this.numDays){
-    this.meals = List<Meal>();
+    this.meals = meals;
   }
 
   //SETTERS
@@ -47,8 +47,5 @@ class MealPlan {
     //}else{
       //return false;
     //}
-    
-
-  
 
 }
