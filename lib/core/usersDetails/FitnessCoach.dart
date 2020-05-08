@@ -136,7 +136,4 @@ class Fitness_coach extends User_Profile{
   /// Allows for the removal of a particular MealPlan from the Global MealPlan List 
   /// given a MealPlan name.
   void removeMealPlanThroughName(String name) => allMealPlans.removeMealPlanThroughName(name);
-}
-
-
-  
+} 
