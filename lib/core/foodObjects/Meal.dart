@@ -1,20 +1,21 @@
 import 'package:Comp2171_Project/core/foodObjects/Food.dart';
 
-void main(){
-  Meal testMeal = Meal("lunch", "having", 500.0);
-}
 
 class Meal {
   //ATTRIBUTES
+  /// The name given to a meal. By default is set to "meal".
   String name; 
+  /// The list of all the foods making up a Meal.
   List<Food> foods;
+  /// The method.
   String method;
+  /// The overal caloric value of a meal. By default is set to 0.0.
   double totalCalorie;
 
   // CONSTRUCTOR
   /// This constructs a Meal Object with optional attributes 
   /// of Meal Name, method, and a total caloric value for the meal.
-  Meal([this.name, this.method, this.totalCalorie]){
+  Meal({this.name = 'meal', this.method,this.totalCalorie = 0.0}){
     this.foods = [];
   }
 
@@ -64,6 +65,8 @@ class Meal {
   /// Used to retrieve the total caloric value of the Meal object. 
   double getTotalCalorie()=>this.totalCalorie;
 
+  /// Retrieves the number of food items that make up the meal
+  int getFoodCount()=> foods.length;
 
   
   //MODIFIERS
