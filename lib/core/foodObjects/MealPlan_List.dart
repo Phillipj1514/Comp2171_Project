@@ -3,13 +3,15 @@ import 'package:Comp2171_Project/core/foodObjects/MealPlan.dart' show MealPlan;
 class MealPlan_List {
   // ATTRIBUTES
   /// A list containing all the created MealPlans.
-  List<MealPlan> mealPlanLst; 
+  static List<MealPlan> mealPlanLst = List<MealPlan>(); 
+
+  List<MealPlan> availablePlans;
 
   //CONSTRUCTOR
   /// Builds a MealPlan List object which consist of a list containing all created MealPlans. 
   MealPlan_List(){
     // Initializing dynamic list.
-    this.mealPlanLst = [];
+    availablePlans = mealPlanLst;
   }
 
 
@@ -29,7 +31,7 @@ class MealPlan_List {
   }
     
   /// Allows a MealPlan to be retieved from the MealPlan List given the name of the MealPlan.
-  MealPlan getMealPlanThroghName(String planName){
+  MealPlan getMealPlanThroughName(String planName){
     MealPlan gotit;
     flow:for(var plan in mealPlanLst){
       if(plan.getName() == planName){
