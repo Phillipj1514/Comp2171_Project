@@ -3,10 +3,22 @@ import 'package:Comp2171_Project/core/foodObjects/Meal.dart';
 
 class MealPlan {
   //ATTRIBUTES
+
+  /// The name given to the MealPlan. 
+  /// By default is set to "Healthy Lifestyle".
   String name;
+
+  /// The list of all the meals making up a MealPlan.
   List<Meal> meals;
+
+  /// The duration in number of days the MealPlan will last. 
+  /// By default set to 7 days. 
   int numDays; 
+
+  /// A unique ID that is given to each MealPlan when created.
   int id;
+
+  /// Used to enable autoincrement on assigning an ID to MealPlans
   static int mealPlanID = 0;
 
   //CONSTRUCTORS
