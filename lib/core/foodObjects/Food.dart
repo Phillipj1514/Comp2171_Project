@@ -1,4 +1,4 @@
-import 'package:Comp2171_Project/core/util/Calorie_manager.dart';
+import 'package:Comp2171_Project/core/util/Nutrition_Manager.dart';
 
 enum Measure{number, weight}
 class Food{
@@ -10,7 +10,7 @@ class Food{
   double carbohydrates = 0;
   double sugar = 0;
   double protein = 0;
-  Calorie_Manager calorie_manager = new Calorie_Manager();
+  Nutrition_Manager nutrition_manager = new Nutrition_Manager();
 
   Food(this.name, this.quantity, String measure){
     if(measure == "NUMBER"){this.measure = Measure.number;}
@@ -40,42 +40,42 @@ class Food{
   // Modifiers
   Future<void> updateCalorie() async{
     String food = this.quantity.toString()+" "+this.name;
-    var foodData = await calorie_manager.queryFood(food);
-    this.calorie = calorie_manager.extractCalorie(foodData);
+    var foodData = await nutrition_manager.queryFood(food);
+    this.calorie = nutrition_manager.extractCalorie(foodData);
   }
 
   Future<void> updateFat() async{
     String food = this.quantity.toString()+" "+this.name;
-    var foodData = await calorie_manager.queryFood(food);
-    this.fat = calorie_manager.extractFat(foodData);
+    var foodData = await nutrition_manager.queryFood(food);
+    this.fat = nutrition_manager.extractFat(foodData);
   }
 
   Future<void> updateCarbohydrates() async{
     String food = this.quantity.toString()+" "+this.name;
-    var foodData = await calorie_manager.queryFood(food);
-    this.carbohydrates = calorie_manager.extractCarbohydrate(foodData);
+    var foodData = await nutrition_manager.queryFood(food);
+    this.carbohydrates = nutrition_manager.extractCarbohydrate(foodData);
   }
 
   Future<void> updateSugar() async{
     String food = this.quantity.toString()+" "+this.name;
-    var foodData = await calorie_manager.queryFood(food);
-    this.sugar = calorie_manager.extractSugar(foodData);
+    var foodData = await nutrition_manager.queryFood(food);
+    this.sugar = nutrition_manager.extractSugar(foodData);
   }
 
   Future<void> updateProtein() async{
     String food = this.quantity.toString()+" "+this.name;
-    var foodData = await calorie_manager.queryFood(food);
-    this.protein = calorie_manager.extractProtien(foodData);
+    var foodData = await nutrition_manager.queryFood(food);
+    this.protein = nutrition_manager.extractProtien(foodData);
   }
 
   Future<void> updateNutritionalDetail() async{
     String food = this.quantity.toString()+" "+this.name;
-    var foodData = await calorie_manager.queryFood(food);
-    this.calorie = calorie_manager.extractCalorie(foodData);
-    this.fat = calorie_manager.extractFat(foodData);
-    this.carbohydrates = calorie_manager.extractCarbohydrate(foodData);
-    this.sugar = calorie_manager.extractSugar(foodData);
-    this.protein = calorie_manager.extractProtien(foodData);
+    var foodData = await nutrition_manager.queryFood(food);
+    this.calorie = nutrition_manager.extractCalorie(foodData);
+    this.fat = nutrition_manager.extractFat(foodData);
+    this.carbohydrates = nutrition_manager.extractCarbohydrate(foodData);
+    this.sugar = nutrition_manager.extractSugar(foodData);
+    this.protein = nutrition_manager.extractProtien(foodData);
 
   }
 
