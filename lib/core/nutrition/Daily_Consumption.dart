@@ -1,21 +1,23 @@
-import 'package:Comp2171_Project/core/foodObjects/Meal.dart';
-import 'package:Comp2171_Project/core/foodObjects/Food.dart';
+import 'package:Comp2171_Project/core/nutrition/Meal.dart';
+import 'package:Comp2171_Project/core/nutrition/Food.dart';
+import 'package:Comp2171_Project/core/nutrition/Nutrition_Data.dart';
 
 class Daily_Consumption{
   /// The identifying date associated with the Daily Consumption Object
   /// In utf Year Month Day. 
-  DateTime date;
+  DateTime date = DateTime.now();
   /// Represents the list of Meals consumed within a given day. 
-  List<Meal> meals;
-  /// The overal caloric value of all meals presumed to be consumed 
+  List<Meal> meals = List<Meal>();
+  /// The overal nutritional value of all meals presumed to be consumed 
   /// in a given day. 
-  double totalCalorie;
+  Nutrition_Data nutrition_data = new Nutrition_Data();
 
   // CONSTRUCTOR
-  Daily_Consumption(int year, int month, int day){
+  Daily_Consumption();
+  Daily_Consumption.withDate(int year, int month, int day){
     this.date = new DateTime.utc(year, month, day);
-    this.meals = List<Meal>();
   }
+
 
   // SETTER 
   ///  This calls the method 'calcTotalCalorie' to recompute the 
@@ -24,7 +26,7 @@ class Daily_Consumption{
   /// 
   /// Used when a modification of the list is done through 'addFoodItem' 
   /// or 'removeFoodItem', to update/preserve the total caloric count. 
-  void updateTotalCalorie()=> this.totalCalorie = calcTotalCalorie();
+  void updateTotalCalorie()=> this.nutrition_data.setCalorie(calcTotalCalorie());
   
 
   // GETTERS
@@ -35,11 +37,14 @@ class Daily_Consumption{
   List<Meal> getMeals()=>this.meals;
 
   /// Retrieves the caloric value presumed to have been consumed in a given day. 
-  double getTotalCalValForDay() => this.totalCalorie;
+  int getTotalCalVal() => this.nutrition_data.getCalorie();
 
   // MODIFIERS
   /// Used to add a Meal to the Consumption List.
-  void addMeal(Meal meal) =>  meals.add(meal);
+  void addMeal(Meal meal){
+    this.meals.add(meal);
+    this.calcTotalCalorie();
+  }
 
   /// Allows a meal within the consumprion list 
   ///to be replaced with an updated meal.
@@ -65,12 +70,22 @@ class Daily_Consumption{
 
   // LOGIC 
   /// Computes the total caloric value of all the food items that make up the Food List (which constitutes the Meal).
-  double calcTotalCalorie(){
-    double sumCalorieOfMeal;
+  int calcTotalCalorie(){
+    int sumCalorieOfMeal = 0;
     for(var meal in meals){
       List<Food> foodsInMeal = meal.getFoods();
       foodsInMeal.forEach((food) {sumCalorieOfMeal += food.getCalorie();});
     }
     return sumCalorieOfMeal;    
   }  
+}
+
+/// unit test
+void main(List<String> args) {
+  Daily_Consumption tdc = new Daily_Consumption();
+  print(tdc.getDate().toString());
+  tdc.addMeal(new Meal());
+  print(tdc.getMeals()[0].toString());
+  print(tdc.getMeals()[0].getName());
+  print(tdc.getTotalCalVal());
 }

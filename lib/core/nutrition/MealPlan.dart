@@ -1,4 +1,4 @@
-import 'package:Comp2171_Project/core/foodObjects/Meal.dart';
+import 'package:Comp2171_Project/core/nutrition/Meal.dart';
 
 
 class MealPlan {
@@ -16,7 +16,7 @@ class MealPlan {
   int numDays; 
 
   /// A unique ID that is given to each MealPlan when created.
-  int id;
+  String id;
 
   /// Used to enable autoincrement on assigning an ID to MealPlans
   static int mealPlanID = 0;
@@ -24,9 +24,10 @@ class MealPlan {
   //CONSTRUCTORS
   /// A MealPlan constructor that takes in a predefined list of Meals 
   /// and optionally sets the MealPlan's name and duration.
-  MealPlan(List<Meal> meals, {this.name = "Healthy Lifestyle", this.numDays = 7}){
+  MealPlan({this.name = "Healthy Lifestyle", this.numDays = 7, List<Meal> meals}){
     this.meals = meals;
-    this.id = mealPlanID++;
+    mealPlanID++;
+    this.id = "mealplan_"+mealPlanID.toString();
   }
 
   /// A MealPlan constructor that initializes a Meal List while
@@ -34,6 +35,7 @@ class MealPlan {
   /// are not given. These attributes are set up with default values. 
   MealPlan.defaultConst({this.name = "Healthy Lifestyle", this.numDays = 7}){
     this.meals = [];
+    this.id = "mealplan_"+mealPlanID.toString();
   }
 
 
@@ -53,7 +55,15 @@ class MealPlan {
   String getName()=> this.name;
 
   /// Used to get the meal at a particular index from the MealPlan List. 
-  Meal getMeal(int index)=> this.meals[index];
+  Meal getMeal(int index){
+    try{
+        Meal tmp = this.meals[index];
+        return tmp;
+    } on Exception catch(e){
+      print('Exception details:\n $e');
+    }
+    return null;
+  }
 
   /// Used to get all the Meals that make up the MealPlan
   List<Meal> getMealList()=> this.meals;
@@ -62,7 +72,7 @@ class MealPlan {
   int getNumDays() => this.numDays;
 
   /// Gets the ID for the created MealPlan object. 
-  int getMealPlanID() => this.id;
+  String getMealPlanID() => this.id;
 
 
   //MODIFIER
@@ -89,4 +99,17 @@ class MealPlan {
     meals.add(meal);
   }
 
+}
+// Unit testing
+void main(List<String> args) {
+  MealPlan tmpln = new MealPlan.defaultConst();
+  print(tmpln.getMealPlanID());
+   MealPlan tmpln2 = new MealPlan();
+  print(tmpln2.getMealPlanID());
+  print(tmpln.getName());
+  print(tmpln.getNumDays());
+  tmpln.addMeal(new Meal());
+  print(tmpln.getMealList().length);
+  tmpln.removeMealAt(0);
+  print(tmpln.getMealList().length);
 }

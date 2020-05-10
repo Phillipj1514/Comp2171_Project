@@ -1,22 +1,31 @@
-import 'package:Comp2171_Project/core/foodObjects/Food.dart';
+import 'package:Comp2171_Project/core/nutrition/Food.dart';
+import 'package:Comp2171_Project/core/nutrition/Nutrition_Data.dart';
 
 
 class Meal {
   //ATTRIBUTES
+
+  ///counting variable for the meals
+  static int cnt = 1;
+
+  /// The id given to the meal. set automatically
+  String id;
   /// The name given to a meal. By default is set to "meal".
   String name; 
   /// The list of all the foods making up a Meal.
   List<Food> foods;
   /// The method.
   String method;
-  /// The overal caloric value of a meal. By default is set to 0.0.
-  double totalCalorie;
+  /// The overal nutritional value of a meal. By default is set to 0.0.
+  Nutrition_Data nutrition_data = new Nutrition_Data();
 
   // CONSTRUCTOR
   /// This constructs a Meal Object with optional attributes 
   /// of Meal Name, method, and a total caloric value for the meal.
-  Meal({this.name = 'meal', this.method,this.totalCalorie = 0.0}){
+  Meal({this.name = 'meal', this.method = "Prepare the meal as fit"}){
     this.foods = [];
+    this.id = "meal_"+cnt.toString();
+    Meal.cnt++;
   }
 
   //SETTERS
@@ -32,8 +41,8 @@ class Meal {
 
   /// This allows an update of the Meal's total calories 
   /// given a caloric value. 
-  void setTotalCalorie(double calorie){
-    this.totalCalorie = calorie;
+  void setTotalCalorie(int calorie){
+    this.nutrition_data.setCalorie(calorie);
   }
 
   ///  This calls the method 'calcTotalCalorie' to recompute the 
@@ -42,11 +51,15 @@ class Meal {
   /// Used when a modification of the list is done through 'addFoodItem' 
   /// or 'removeFoodItem', to update/preserve the total caloric count. 
   void updateTotalCalorie(){
-    this.totalCalorie = calcTotalCalorie();
+    this.nutrition_data.setCalorie(calcTotalCalorie());
   }
 
   
   //GETTERS
+
+  //Retrieved the meal id
+  String getId() => this.id;
+
   /// Allows the Meal name to be retrieved 
   String getName()=>this.name;
 
@@ -63,7 +76,7 @@ class Meal {
   String getMethod()=> this.method;
 
   /// Used to retrieve the total caloric value of the Meal object. 
-  double getTotalCalorie()=>this.totalCalorie;
+  int getTotalCalorie()=>this.nutrition_data.getCalorie();
 
   /// Retrieves the number of food items that make up the meal
   int getFoodCount()=> foods.length;
@@ -71,9 +84,10 @@ class Meal {
   
   //MODIFIERS
   /// Allows a food item to be added to the Food List which constitutes the Meal.
-  void addFoodItem(Food foodItem){
+  Future<void> addFoodItem(Food foodItem) async{
+    await foodItem.updateCalorie();
     foods.add(foodItem);
-    //updateTotalCalorie();
+    updateTotalCalorie();
   }
 
   /// Allows a Food Object to be removed from a particular index in the Food List.
@@ -97,9 +111,21 @@ class Meal {
   }
 
   /// Computes the total caloric value of all the food items that make up the Food List (which constitutes the Meal).
-  double calcTotalCalorie(){
-    double sumCalorieOfMeal;
-    foods.forEach((foodItem) {sumCalorieOfMeal += foodItem.calorie;});
+  int calcTotalCalorie(){
+    int sumCalorieOfMeal = 0;
+    foods.forEach((foodItem) {sumCalorieOfMeal += foodItem.getCalorie();});
     return sumCalorieOfMeal;    
   }
+}
+
+// unit testing
+void main(List<String> args) async{
+  Meal tml = new Meal();
+  print(tml.getId().toString());
+  print(tml.getName());
+  await tml.addFoodItem(new Food(name:"beef", quantity: 1));
+  print(tml.getTotalCalorie());
+  print(tml.getMethod());
+  Meal tml2 = new Meal();
+  print(tml2.getId().toString());
 }

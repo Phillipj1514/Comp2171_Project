@@ -1,3 +1,4 @@
+import 'package:Comp2171_Project/core/nutrition/Nutrition_Data.dart';
 import 'package:Comp2171_Project/core/util/Nutrition_Manager.dart';
 
 enum Measure{number, weight}
@@ -5,14 +6,10 @@ class Food{
   String name;
   double quantity = 0;
   Measure measure;
-  int calorie = 0;
-  double fat = 0;
-  double carbohydrates = 0;
-  double sugar = 0;
-  double protein = 0;
+  Nutrition_Data nutrition_data = new Nutrition_Data();
   Nutrition_Manager nutrition_manager = new Nutrition_Manager();
 
-  Food(this.name, this.quantity, String measure){
+  Food({this.name = "EDIBLE", this.quantity =0, String measure="NUMBER"}){
     if(measure == "NUMBER"){this.measure = Measure.number;}
     else{this.measure = Measure.weight;}
   }
@@ -24,11 +21,11 @@ class Food{
     if(measure == Measure.number){return "NUMBER";}
     return "WEIGHT";
   }
-  int getCalorie() => this.calorie;
-  double getFat() => this.fat;
-  double getCarbohydrates() => this.carbohydrates;
-  double getSugar() => this.sugar;
-  double getProtein() => this.protein;
+  int getCalorie() => this.nutrition_data.getCalorie();
+  double getFat() => this.nutrition_data.getFat();
+  double getCarbohydrates() => this.nutrition_data.getCarbohydrates();
+  double getSugar() => this.nutrition_data.getSugar();
+  double getProtein() => this.nutrition_data.getProtein();
 
   // Setters
   void setName(String name) => this.name = name;
@@ -41,49 +38,46 @@ class Food{
   Future<void> updateCalorie() async{
     String food = this.quantity.toString()+" "+this.name;
     var foodData = await nutrition_manager.queryFood(food);
-    this.calorie = nutrition_manager.extractCalorie(foodData);
+    this.nutrition_data.setCalorie(nutrition_manager.extractCalorie(foodData));
   }
 
   Future<void> updateFat() async{
     String food = this.quantity.toString()+" "+this.name;
     var foodData = await nutrition_manager.queryFood(food);
-    this.fat = nutrition_manager.extractFat(foodData);
+    this.nutrition_data.setFat(nutrition_manager.extractFat(foodData));
   }
 
   Future<void> updateCarbohydrates() async{
     String food = this.quantity.toString()+" "+this.name;
     var foodData = await nutrition_manager.queryFood(food);
-    this.carbohydrates = nutrition_manager.extractCarbohydrate(foodData);
+    this.nutrition_data.setCarbohydrates(nutrition_manager.extractCarbohydrate(foodData));
   }
 
   Future<void> updateSugar() async{
     String food = this.quantity.toString()+" "+this.name;
     var foodData = await nutrition_manager.queryFood(food);
-    this.sugar = nutrition_manager.extractSugar(foodData);
+    this.nutrition_data.setSugar(nutrition_manager.extractSugar(foodData));
   }
 
   Future<void> updateProtein() async{
     String food = this.quantity.toString()+" "+this.name;
     var foodData = await nutrition_manager.queryFood(food);
-    this.protein = nutrition_manager.extractProtien(foodData);
+    this.nutrition_data.setProtein(nutrition_manager.extractProtien(foodData));
   }
 
   Future<void> updateNutritionalDetail() async{
     String food = this.quantity.toString()+" "+this.name;
     var foodData = await nutrition_manager.queryFood(food);
-    this.calorie = nutrition_manager.extractCalorie(foodData);
-    this.fat = nutrition_manager.extractFat(foodData);
-    this.carbohydrates = nutrition_manager.extractCarbohydrate(foodData);
-    this.sugar = nutrition_manager.extractSugar(foodData);
-    this.protein = nutrition_manager.extractProtien(foodData);
-
+    this.nutrition_data.setCalorie(nutrition_manager.extractCalorie(foodData));
+    this.nutrition_data.setFat(nutrition_manager.extractFat(foodData));
+    this.nutrition_data.setCarbohydrates(nutrition_manager.extractCarbohydrate(foodData));
+    this.nutrition_data.setSugar(nutrition_manager.extractSugar(foodData));
+    this.nutrition_data.setProtein(nutrition_manager.extractProtien(foodData));
   }
-
-
 }
 
 void main(List<String> args) async{
-  Food tf = new Food("apple",1,"NUMBER");
+  Food tf = new Food(name: "apple",quantity: 1);
   print(tf.getMeasure());
   tf.setMeasure("WEIGHT");
   print(tf.getMeasure());
