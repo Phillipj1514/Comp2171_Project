@@ -36,10 +36,10 @@ class Fitness_Coach extends User_Profile{
   /// Used to retrieve a specific Client via their username.
   Client getSpecificClient(String username){
     Client gotit;
-    flow: for(var client in allClients){
+    for(var client in allClients){
       if(client.getUsername() == username){
         gotit = client;
-        break flow;
+        break;
       }
     }
     return gotit;
@@ -154,5 +154,7 @@ void main(List<String> args) {
   print(tfc.getName());
   print(tfc.getDOB().toString());
   tfc.createClientProfile("John","Paul","jp","pswd",3,12,1990,30,5,160,140,20);
-  print(tfc.getClientByIndex(0));
+
+  //print(tfc.getClientByIndex(0));
+  print(tfc.getClientByIndex(0).getName());
 }
