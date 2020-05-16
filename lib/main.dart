@@ -1,3 +1,5 @@
+import 'package:Vainfitness/firebase_services/auth.dart';
+import 'package:Vainfitness/firebase_services/databaseManager.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -51,8 +53,28 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  AuthService _auth =  AuthService();
+  DatabaseManager db = DatabaseManager();
 
-  void _incrementCounter() {
+  // Just a testing space for console code before ui
+  void testArea() async{
+    // dynamic result = await _auth.signInAnon();
+    
+    // dynamic regUser = await _auth.registerUser("test@text.com", "123456");
+    //await _auth.signInUser("test@text.com", "123456");
+    //await _auth.signOut();
+    // Get the current User
+    // dynamic result = await _auth.user;
+    // print(await result.elementAt(0)); 
+    
+    // Database Testing
+    db.createNewUser(12);
+  }
+
+  void _incrementCounter() async{
+    // Testing function for built in functionalities
+    testArea();
+
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below

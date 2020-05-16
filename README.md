@@ -1,6 +1,6 @@
-# vain_fitness
+# vainfitness
 
-Comp2171 web Application vain fitness
+A new Flutter project.
 
 ## Getting Started
 
