@@ -1,8 +1,8 @@
-import 'package:Comp2171_Project/core/nutrition/MealPlan_List.dart';
-import 'package:Comp2171_Project/core/nutrition/MealPlan.dart';
-import 'package:Comp2171_Project/core/user/Client.dart';
-import 'package:Comp2171_Project/core/user/User_Profile.dart';
-import 'package:Comp2171_Project/core/user/Client.dart';
+import 'package:Vainfitness/core/nutrition/MealPlan_List.dart';
+import 'package:Vainfitness/core/nutrition/MealPlan.dart';
+import 'package:Vainfitness/core/user/Client.dart';
+import 'package:Vainfitness/core/user/User_Profile.dart';
+import 'package:Vainfitness/core/user/Client.dart';
 
 class Fitness_Coach extends User_Profile{
   // UNIQUE FITNESS COACH ATTRIBUTES__________
@@ -78,12 +78,12 @@ class Fitness_Coach extends User_Profile{
   }
   
   ///Allows a Fitness Coach to create a userProfile for a client 
-  void createClientProfile(String firstname, String lastname, String username, 
-    String password, int month, int day, int year, int age, double height, 
+  void createClientProfile(String uid, String firstname, String lastname, String username, 
+   int month, int day, int year, int age, double height, 
     double weight, double expectedWeight, int numDays){
     // Creating the new client object with the new clients details
-    Client myClients = Client( firstname,  lastname,  username, 
-     password, month, day, year, age, height, weight, expectedWeight, numDays);
+    Client myClients = Client(uid, firstname,  lastname,  username, 
+     month, day, year, age, height, weight, expectedWeight, numDays);
      addClient(myClients);
      //Establish a profile for the created user
   }
@@ -147,10 +147,33 @@ class Fitness_Coach extends User_Profile{
   /// Allows for the removal of a particular MealPlan from the Global MealPlan List 
   /// given a MealPlan name.
   void removeMealPlanThroughName(String name) => allMealPlans.removeMealPlanThroughName(name);
+
+  
+  Map<String, dynamic> mapify(){
+    return {
+      "id":this.uid,
+      "type":"coach",
+      "username":this.username,
+      "firstname": this.firstname,
+      "lastname":this.lastname,
+      "age": this.age,
+      "DOB": this.dob,
+      "height": this.height,
+      "weight": this.weight,
+      "date_created": this.dateCreated,
+      "recommendedDailyCaloricValue":this.recommendedDailyCaloricValue,
+      "clients": [for (var client in this.allClients) client.getUid()]
+    };
+  }
+  Fitness_Coach.fromMap(Map mapdata):super.withDate(mapdata["id"],mapdata["firstname"],mapdata["lastname"], 
+                mapdata["username"],new DateTime.fromMillisecondsSinceEpoch(mapdata["DOB"].millisecondsSinceEpoch), 
+                mapdata["age"],mapdata["height"],mapdata["weight"],new DateTime.fromMillisecondsSinceEpoch(mapdata["date_created"].millisecondsSinceEpoch)){
+    this.recommendedDailyCaloricValue = mapdata["recommendedDailyCaloricValue"];
+  }
 }
 // unit testing
 void main(List<String> args) {
-  Fitness_Coach tfc = new Fitness_Coach("Simon", "Peter","sp","pswd",1,1,1982,26,5,150);
+  Fitness_Coach tfc = new Fitness_Coach("sd23ek32k","Simon", "Peter","sp",1,1,1982,26,5,150);
   print(tfc.getName());
   print(tfc.getDOB().toString());
   tfc.createClientProfile("John","Paul","jp","pswd",3,12,1990,30,5,160,140,20);

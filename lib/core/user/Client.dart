@@ -1,9 +1,9 @@
-import 'package:Comp2171_Project/core/nutrition/Daily_Consumption.dart';
-import 'package:Comp2171_Project/core/nutrition/Food.dart';
-import 'package:Comp2171_Project/core/nutrition/MealPlan_List.dart';
-import 'package:Comp2171_Project/core/user/User_Profile.dart';
-import 'package:Comp2171_Project/core/util/Report_Manager.dart';
-import 'package:Comp2171_Project/core/nutrition/MealPlan.dart' show MealPlan;
+import 'package:Vainfitness/core/nutrition/Daily_Consumption.dart';
+import 'package:Vainfitness/core/nutrition/Food.dart';
+import 'package:Vainfitness/core/nutrition/MealPlan_List.dart';
+import 'package:Vainfitness/core/user/User_Profile.dart';
+import 'package:Vainfitness/core/util/Report_Manager.dart';
+import 'package:Vainfitness/core/nutrition/MealPlan.dart' show MealPlan;
 
 class Client extends User_Profile{
   double initialWeight;
@@ -14,9 +14,9 @@ class Client extends User_Profile{
   Report_Manager nutritionalReportManager;
   MealPlan_List availableMealPlans = new MealPlan_List();
 
-  Client(String firstname, String lastname, String username, 
-    String password, int month, int day, int year, int age, double height, double weight, this.expectedWeight, this.numDays)
-    :super(firstname, lastname, username, password, month, day, year, age, height, weight){
+  Client(String uid, String firstname, String lastname, String username, 
+   int month, int day, int year, int age, double height, double weight, this.expectedWeight, this.numDays)
+    :super(uid,firstname, lastname, username, month, day, year, age, height, weight){
       this. initialWeight = weight;
       this.dailyCalorie = 0;
       this.dailyConsumptions = [];
@@ -68,6 +68,34 @@ class Client extends User_Profile{
     return newFood.getCalorie();
   } 
 
+  Map<String, dynamic> mapify(){
+    return {
+      "id":this.uid,
+      "type":"client",
+      "username":this.username,
+      "firstname": this.firstname,
+      "lastname":this.lastname,
+      "age": this.age,
+      "DOB": this.dob,
+      "height": this.height,
+      "weight": this.weight,
+      "initial_weight": this.initialWeight,
+      "expected_weight": this.expectedWeight,
+      "daily_calorie": this.dailyCalorie,
+      "num_days": this.numDays,
+      "date_created": this.dateCreated,
+      "daily_consumptions":  [for (var dailyCons in this.dailyConsumptions) dailyCons.mapify()] 
+    };
+  }
+  Client.fromMap(Map mapdata):super.withDate(mapdata["id"],mapdata["firstname"],mapdata["lastname"], 
+                mapdata["username"],new DateTime.fromMillisecondsSinceEpoch(mapdata["DOB"].millisecondsSinceEpoch), 
+                mapdata["age"],mapdata["height"],mapdata["weight"],new DateTime.fromMillisecondsSinceEpoch(mapdata["date_created"].millisecondsSinceEpoch)){
+    this.initialWeight = mapdata["initial_weight"];
+    this.expectedWeight = mapdata["expected_weight"];
+    this.dailyCalorie = mapdata["daily_calorie"];
+    this.numDays = mapdata["num_days"];
+    this.dailyConsumptions = [for(var dailyCon in mapdata["daily_consumptions"]) new Daily_Consumption.fromMap(dailyCon)];
+  }
 
 }
 void main(List<String> args) async{

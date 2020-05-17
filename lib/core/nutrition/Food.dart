@@ -1,5 +1,5 @@
-import 'package:Comp2171_Project/core/nutrition/Nutrition_Data.dart';
-import 'package:Comp2171_Project/core/util/Nutrition_Manager.dart';
+import 'package:Vainfitness/core/nutrition/Nutrition_Data.dart';
+import 'package:Vainfitness/core/util/Nutrition_Manager.dart';
 
 enum Measure{number, weight}
 class Food{
@@ -73,6 +73,21 @@ class Food{
     this.nutrition_data.setCarbohydrates(nutrition_manager.extractCarbohydrate(foodData));
     this.nutrition_data.setSugar(nutrition_manager.extractSugar(foodData));
     this.nutrition_data.setProtein(nutrition_manager.extractProtien(foodData));
+  }
+
+  Map<String, dynamic> mapify(){
+    return{
+      "name": this.name,
+      "quantity": this.quantity,
+      "measure": this.getMeasure(),
+      "nutrition_detail": this.nutrition_data.mapify()
+    };
+  }
+  Food.fromMap(Map mapdata){
+    this.name = mapdata["name"];
+    this.quantity = mapdata["quantity"];
+    this.setMeasure(mapdata["measure"]);
+    this.nutrition_data = new Nutrition_Data.fromMap(mapdata["nutrition_details"]);
   }
 }
 

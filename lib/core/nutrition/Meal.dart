@@ -1,5 +1,5 @@
-import 'package:Comp2171_Project/core/nutrition/Food.dart';
-import 'package:Comp2171_Project/core/nutrition/Nutrition_Data.dart';
+import 'package:Vainfitness/core/nutrition/Food.dart';
+import 'package:Vainfitness/core/nutrition/Nutrition_Data.dart';
 
 
 class Meal {
@@ -115,6 +115,23 @@ class Meal {
     int sumCalorieOfMeal = 0;
     foods.forEach((foodItem) {sumCalorieOfMeal += foodItem.getCalorie();});
     return sumCalorieOfMeal;    
+  }
+
+  Map<String, dynamic> mapify(){
+    return{
+      "id":this.id,
+      "name": this.name,
+      "method": this.method,
+      "foods":  [for (var food in this.foods) food.mapify()],
+      "nutrition_details": this.nutrition_data.mapify()
+    };
+  }
+  Meal.fromMap(Map mapdata){
+    this.id = mapdata["id"];
+    this.name = mapdata["name"];
+    this.method = mapdata["method"];
+    this.foods = [for (var food in mapdata["foods"]) new Food.fromMap(food)];
+    this.nutrition_data = new Nutrition_Data.fromMap(mapdata["nutrition_details"]);
   }
 }
 

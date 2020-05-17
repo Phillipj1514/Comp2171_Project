@@ -1,6 +1,6 @@
-import 'package:Comp2171_Project/core/nutrition/Meal.dart';
-import 'package:Comp2171_Project/core/nutrition/Food.dart';
-import 'package:Comp2171_Project/core/nutrition/Nutrition_Data.dart';
+import 'package:Vainfitness/core/nutrition/Meal.dart';
+import 'package:Vainfitness/core/nutrition/Food.dart';
+import 'package:Vainfitness/core/nutrition/Nutrition_Data.dart';
 
 class Daily_Consumption{
   /// The identifying date associated with the Daily Consumption Object
@@ -35,6 +35,9 @@ class Daily_Consumption{
 
   /// Retrieves the list of all meals in the consumption list for a given day. 
   List<Meal> getMeals()=>this.meals;
+
+  /// Retrieves a specific meal in the list
+  Meal getMeal(String id) => this.meals.firstWhere((Meal meal) => meal.getId() == id);
 
   /// Retrieves the caloric value presumed to have been consumed in a given day. 
   int getTotalCalVal() => this.nutrition_data.getCalorie();
@@ -78,6 +81,19 @@ class Daily_Consumption{
     }
     return sumCalorieOfMeal;    
   }  
+
+  Map<String, dynamic> mapify(){
+    return{
+      "date":this.date,
+      "meals":  [for (var meal in this.meals) meal.mapify()],
+      "nutrition_details": this.nutrition_data.mapify()
+    };
+  }
+  Daily_Consumption.fromMap(Map mapdata){
+    this.date = new DateTime.fromMillisecondsSinceEpoch(mapdata["date"].millisecondsSinceEpoch);
+    this.meals = [ for(var meal in mapdata["meals"]) new Meal.fromMap(meal)];
+    this.nutrition_data = new Nutrition_Data.fromMap(mapdata["nutrition_details"]);
+  }
 }
 
 /// unit test

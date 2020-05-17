@@ -50,5 +50,22 @@ class Nutrition_Data{
     this.sugar = sugar;
     this.protein = protein;
   }
+  Map<String, dynamic> mapify(){
+    return{
+      "calorie": this.calorie,
+      "fat": this.fat,
+      "carbohydrates":this.carbohydrates,
+      "sugar": this.sugar,
+      "protein": this.protein
+    };
+  }
+
+  Nutrition_Data.fromMap(Map mapdata){
+    this.calorie = mapdata["calorie"];
+    this.fat = mapdata["fat"];
+    this.carbohydrates = mapdata["carbohydrates"];
+    this.sugar = mapdata["sugar"];
+    this.protein = mapdata["protein"];
+  }
 
 }

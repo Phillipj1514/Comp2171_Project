@@ -1,4 +1,4 @@
-import 'package:Comp2171_Project/core/nutrition/Meal.dart';
+import 'package:Vainfitness/core/nutrition/Meal.dart';
 
 
 class MealPlan {
@@ -19,15 +19,15 @@ class MealPlan {
   String id;
 
   /// Used to enable autoincrement on assigning an ID to MealPlans
-  static int mealPlanID = 0;
+  static int mealPlanCnt = 0;
 
   //CONSTRUCTORS
   /// A MealPlan constructor that takes in a predefined list of Meals 
   /// and optionally sets the MealPlan's name and duration.
   MealPlan({this.name = "Healthy Lifestyle", this.numDays = 7, List<Meal> meals}){
     this.meals = meals;
-    mealPlanID++;
-    this.id = "mealplan_"+mealPlanID.toString();
+    mealPlanCnt++;
+    this.id = "mealplan_"+mealPlanCnt.toString();
   }
 
   /// A MealPlan constructor that initializes a Meal List while
@@ -35,7 +35,7 @@ class MealPlan {
   /// are not given. These attributes are set up with default values. 
   MealPlan.defaultConst({this.name = "Healthy Lifestyle", this.numDays = 7}){
     this.meals = [];
-    this.id = "mealplan_"+mealPlanID.toString();
+    this.id = "mealplan_"+mealPlanCnt.toString();
   }
 
 
@@ -51,6 +51,9 @@ class MealPlan {
   }
 
   //GETTERS
+  /// Used to retrieve the id for the MealPlan
+  String getId() => this.id;
+  
   /// Used to retrieve the name of the MealPlan
   String getName()=> this.name;
 
@@ -97,6 +100,21 @@ class MealPlan {
   /// Used to add a Meal to the MealPlan List.
   void addMeal(Meal meal) {
     meals.add(meal);
+  }
+
+  Map<String, dynamic> mapify(){
+    return{
+      "id": this.id,
+      "name": this.name,
+      "num_days": this.numDays,
+      "meals":[for(var meal in this.meals) meal.mapify()]
+    };
+  }
+  MealPlan.fromMap(Map mapdata){
+    this.id = mapdata["id"];
+    this.name = mapdata["name"];
+    this.numDays = mapdata["num_days"];
+    this.meals = [for(var meal in mapdata["meals"]) new Meal.fromMap(meal)];
   }
 
 }
