@@ -1,5 +1,5 @@
-import 'package:Comp2171_Project/core/nutrition/Food.dart';
-import 'package:Comp2171_Project/core/nutrition/Nutrition_Data.dart';
+import 'package:Vainfitness/core/nutrition/Food.dart';
+import 'package:Vainfitness/core/nutrition/Nutrition_Data.dart';
 
 
 class Meal {
