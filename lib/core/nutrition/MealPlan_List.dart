@@ -1,4 +1,4 @@
-import 'package:Comp2171_Project/core/nutrition/MealPlan.dart' show MealPlan;
+import 'package:Vainfitness/core/nutrition/MealPlan.dart' show MealPlan;
 
 class MealPlan_List {
   // ATTRIBUTES
