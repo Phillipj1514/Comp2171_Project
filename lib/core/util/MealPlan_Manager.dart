@@ -6,4 +6,7 @@ class MealPlan_Manager{
   MealPlan mealP;
 
   MealPlan_Manager(this.coach, this.mealP);
+
+  void addMealPlan(Fitness_Coach fcoach, MealPlan mplan)=>  this.mealP = mplan;
+
 }

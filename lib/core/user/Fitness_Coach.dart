@@ -2,7 +2,6 @@ import 'package:Vainfitness/core/nutrition/MealPlan_List.dart';
 import 'package:Vainfitness/core/nutrition/MealPlan.dart';
 import 'package:Vainfitness/core/user/Client.dart';
 import 'package:Vainfitness/core/user/User_Profile.dart';
-import 'package:Vainfitness/core/user/Client.dart';
 
 class Fitness_Coach extends User_Profile{
   // UNIQUE FITNESS COACH ATTRIBUTES__________
