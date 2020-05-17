@@ -1,8 +1,8 @@
-import 'package:Comp2171_Project/core/nutrition/MealPlan_List.dart';
-import 'package:Comp2171_Project/core/nutrition/MealPlan.dart';
-import 'package:Comp2171_Project/core/user/Client.dart';
-import 'package:Comp2171_Project/core/user/User_Profile.dart';
-import 'package:Comp2171_Project/core/user/Client.dart';
+import 'package:Vainfitness/core/nutrition/MealPlan_List.dart';
+import 'package:Vainfitness/core/nutrition/MealPlan.dart';
+import 'package:Vainfitness/core/user/Client.dart';
+import 'package:Vainfitness/core/user/User_Profile.dart';
+
 
 class Fitness_Coach extends User_Profile{
   // UNIQUE FITNESS COACH ATTRIBUTES__________
