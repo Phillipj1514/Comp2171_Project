@@ -1,4 +1,4 @@
-import 'package:Comp2171_Project/core/nutrition/Meal.dart';
+import 'package:Vainfitness/core/nutrition/Meal.dart';
 
 
 class MealPlan {
