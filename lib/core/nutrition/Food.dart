@@ -1,5 +1,5 @@
-import 'package:Comp2171_Project/core/nutrition/Nutrition_Data.dart';
-import 'package:Comp2171_Project/core/util/Nutrition_Manager.dart';
+import 'package:Vainfitness/core/nutrition/Nutrition_Data.dart';
+import 'package:Vainfitness/core/util/Nutrition_Manager.dart';
 
 enum Measure{number, weight}
 class Food{
