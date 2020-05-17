@@ -1,9 +1,9 @@
-import 'package:Comp2171_Project/core/nutrition/Daily_Consumption.dart';
-import 'package:Comp2171_Project/core/nutrition/Food.dart';
-import 'package:Comp2171_Project/core/nutrition/MealPlan_List.dart';
-import 'package:Comp2171_Project/core/user/User_Profile.dart';
-import 'package:Comp2171_Project/core/util/Report_Manager.dart';
-import 'package:Comp2171_Project/core/nutrition/MealPlan.dart' show MealPlan;
+import 'package:Vainfitness/core/nutrition/Daily_Consumption.dart';
+import 'package:Vainfitness/core/nutrition/Food.dart';
+import 'package:Vainfitness/core/nutrition/MealPlan_List.dart';
+import 'package:Vainfitness/core/user/User_Profile.dart';
+import 'package:Vainfitness/core/util/Report_Manager.dart';
+import 'package:Vainfitness/core/nutrition/MealPlan.dart' show MealPlan;
 
 class Client extends User_Profile{
   double initialWeight;
