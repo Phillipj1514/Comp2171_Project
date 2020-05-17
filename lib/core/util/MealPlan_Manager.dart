@@ -1,5 +1,5 @@
-import 'package:Comp2171_Project/core/nutrition/MealPlan.dart';
-import 'package:Comp2171_Project/core/user/Fitness_Coach.dart';
+import 'package:Vainfitness/core/nutrition/MealPlan.dart';
+import 'package:Vainfitness/core/user/Fitness_Coach.dart';
 
 class MealPlan_Manager{
   Fitness_Coach coach; 
@@ -7,6 +7,6 @@ class MealPlan_Manager{
 
   MealPlan_Manager(this.coach, this.mealP);
 
-  void addMealPlan(Fitness_Coach fcoach, MealPlan mplan)=>  ;
+  void addMealPlan(Fitness_Coach fcoach, MealPlan mplan)=>  this.mealP = mplan;
 
 }
