@@ -1,6 +1,6 @@
-import 'package:Comp2171_Project/core/nutrition/Meal.dart';
-import 'package:Comp2171_Project/core/nutrition/Food.dart';
-import 'package:Comp2171_Project/core/nutrition/Nutrition_Data.dart';
+import 'package:Vainfitness/core/nutrition/Meal.dart';
+import 'package:Vainfitness/core/nutrition/Food.dart';
+import 'package:Vainfitness/core/nutrition/Nutrition_Data.dart';
 
 class Daily_Consumption{
   /// The identifying date associated with the Daily Consumption Object
