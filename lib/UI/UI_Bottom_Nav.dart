@@ -38,7 +38,7 @@ class MyTabState extends State<Tabs> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar:  Material(
-        color: Colors.tealAccent,
+        color: Colors.redAccent[700],
         child:  TabBar(
           controller: controller,
           tabs: <Tab>[ 
