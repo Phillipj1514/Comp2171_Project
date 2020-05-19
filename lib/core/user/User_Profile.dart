@@ -3,6 +3,7 @@ class User_Profile{
   String firstname;
   String lastname;
   String username;
+  String email;
   // removed because authentication is handled by firebase
   // String password;
   DateTime dob;
@@ -11,11 +12,11 @@ class User_Profile{
   double weight;
   DateTime dateCreated;
   // Contstructor
-  User_Profile(this.uid, this.firstname, this.lastname, this.username, int month, int day, int year, this.age, this.height, this.weight){
+  User_Profile(this.uid, this.firstname, this.lastname, this.username, this.email, int month, int day, int year, this.age, this.height, this.weight){
     this.dateCreated = DateTime.now();
     this.dob = new DateTime.utc(year, month, day);
   }
-  User_Profile.withDate(this.uid, this.firstname, this.lastname, this.username, this.dob, this.age, this.height, this.weight, this.dateCreated);
+  User_Profile.withDate(this.uid, this.firstname, this.lastname, this.username, this.email, this.dob, this.age, this.height, this.weight, this.dateCreated);
 
 
   // getters
@@ -28,6 +29,8 @@ class User_Profile{
   String getName() => this.firstname+" "+this.lastname;
   
   String getUsername() => this.username;
+
+  String getEmail() => this.email;
   
   // String getpassword() => this.password;
   DateTime getDOB() => this.dob;
@@ -48,6 +51,9 @@ class User_Profile{
   void setLastname(String lastname) => this.firstname = lastname;
   
   void setUsername(String username) => this.username = username;
+
+  void setEmail(String email) => this.email = email;
+
   // void setPassword(String password, String confirmPassword){
   //   this.password = (password == confirmPassword) ? password : this.password;
   // }
@@ -64,7 +70,7 @@ class User_Profile{
   Map<String, dynamic> mapify(){}
 }
 void main(List<String> args){
-  User_Profile ab = new User_Profile("k213nk31kj23n12k3n","John","Paul","jp",3,12,1990,30,5,160);
+  User_Profile ab = new User_Profile("k213nk31kj23n12k3n","John","Paul","jp","j@p.com",3,12,1990,30,5,160);
   // print(ab.getpassword());
   print(ab.getDateCreated().toString());
   print(ab.getDOB().toString());

@@ -16,9 +16,9 @@ class Client extends User_Profile{
   Report_Manager nutritionalReportManager;
   MealPlan_List availableMealPlans;
 
-  Client(String uid, String firstname, String lastname, String username, 
+  Client(String uid, String firstname, String lastname, String username, String email,
    int month, int day, int year, int age, double height, double weight, this.expectedWeight, this.numDays)
-    :super(uid,firstname, lastname, username, month, day, year, age, height, weight){
+    :super(uid,firstname, lastname, username, email, month, day, year, age, height, weight){
       this. initialWeight = weight;
       this.dailyCalorie = 0;
       this.dailyConsumptions = [];
@@ -167,6 +167,7 @@ class Client extends User_Profile{
       "id":this.uid,
       "type":"client",
       "username":this.username,
+      "email": this.email,
       "firstname": this.firstname,
       "lastname":this.lastname,
       "age": this.age,
@@ -183,7 +184,7 @@ class Client extends User_Profile{
   }
   
   Client.fromMap(Map mapdata):super.withDate(mapdata["id"],mapdata["firstname"],mapdata["lastname"], 
-                mapdata["username"],new DateTime.fromMillisecondsSinceEpoch(mapdata["DOB"].millisecondsSinceEpoch), 
+                mapdata["username"], mapdata["email"], new DateTime.fromMillisecondsSinceEpoch(mapdata["DOB"].millisecondsSinceEpoch), 
                 mapdata["age"],mapdata["height"],mapdata["weight"],new DateTime.fromMillisecondsSinceEpoch(mapdata["date_created"].millisecondsSinceEpoch)){
     this.initialWeight = mapdata["initial_weight"];
     this.expectedWeight = mapdata["expected_weight"];
@@ -194,7 +195,7 @@ class Client extends User_Profile{
 
 }
 void main(List<String> args) async{
-  Client tc = new Client("John","Paul","jp","pswd",3,12,1990,30,5,160,140,20);
+  Client tc = new Client("John","Paul","jp","pswd","email@123.com",3,12,1990,30,5,160,140,20);
   print(tc.getExpectedWeight());
   tc.setExpectedWeight(200);
   print(tc.getExpectedWeight());

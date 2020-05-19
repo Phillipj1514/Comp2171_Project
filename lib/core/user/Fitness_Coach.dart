@@ -15,9 +15,9 @@ class Fitness_Coach extends User_Profile{
   
   // CONSTRUCTOR________________________________
   /// Default constructor for creating a Fitness Coach. 
-  Fitness_Coach(String firstname, String lastname, String username, 
-    String password, int month, int day, int year, int age, double height, double weight)
-    :super(firstname, lastname, username, password, month, day, year, age, height, weight){
+  Fitness_Coach(String uid, String firstname, String lastname, String username,String email, 
+    int month, int day, int year, int age, double height, double weight)
+    :super(uid, firstname, lastname, username, email, month, day, year, age, height, weight){
       this.allClientsId = [];
     }
     
@@ -132,6 +132,7 @@ class Fitness_Coach extends User_Profile{
       "id":this.uid,
       "type":"coach",
       "username":this.username,
+      "email": this.email,
       "firstname": this.firstname,
       "lastname":this.lastname,
       "age": this.age,
@@ -145,7 +146,7 @@ class Fitness_Coach extends User_Profile{
   }
   
   Fitness_Coach.fromMap(Map mapdata):super.withDate(mapdata["id"],mapdata["firstname"],mapdata["lastname"], 
-                mapdata["username"],new DateTime.fromMillisecondsSinceEpoch(mapdata["DOB"].millisecondsSinceEpoch), 
+                mapdata["username"], mapdata["email"], new DateTime.fromMillisecondsSinceEpoch(mapdata["DOB"].millisecondsSinceEpoch), 
                 mapdata["age"],mapdata["height"],mapdata["weight"],new DateTime.fromMillisecondsSinceEpoch(mapdata["date_created"].millisecondsSinceEpoch)){
     this.recommendedDailyCaloricValue = mapdata["recommendedDailyCaloricValue"];
     this.allClientsId = mapdata["clients"];
@@ -153,7 +154,7 @@ class Fitness_Coach extends User_Profile{
 }
 // unit testing
 void main(List<String> args) {
-  Fitness_Coach tfc = new Fitness_Coach("sd23ek32k","Simon", "Peter","sp",1,1,1982,26,5,150);
+  Fitness_Coach tfc = new Fitness_Coach("sd23ek32k","Simon", "Peter","sp","s@p.com",1,1,1982,26,5,150);
   print(tfc.getName());
   print(tfc.getDOB().toString());
 
