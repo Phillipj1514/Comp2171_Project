@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'UI_Login.dart';
+import 'package:getflutter/getflutter.dart';
 
 class SplashScreen extends StatelessWidget {
   // This widget is the root of your application.
