@@ -16,99 +16,65 @@ class Food{
 
   // Getters
   String getName() => this.name;
-  
   double getQuantity() => this.quantity;
-  
   String getMeasure(){
     if(measure == Measure.number){return "NUMBER";}
     return "WEIGHT";
   }
-  
-  Nutrition_Data getNutrients() => this.nutrition_data;
+  int getCalorie() => this.nutrition_data.getCalorie();
+  double getFat() => this.nutrition_data.getFat();
+  double getCarbohydrates() => this.nutrition_data.getCarbohydrates();
+  double getSugar() => this.nutrition_data.getSugar();
+  double getProtein() => this.nutrition_data.getProtein();
 
   // Setters
   void setName(String name) => this.name = name;
-  
   void setQuantity(double quantity) => this.quantity = quantity;
-  
   void  setMeasure(String measure){
     this.measure = measure == "NUMBER" ? Measure.number : Measure.weight;
   }
 
   // Modifiers
   Future<void> updateCalorie() async{
-    try{
-      String food = this.quantity.toString()+" "+this.name;
-      var foodData = await nutrition_manager.queryFood(food);
-      this.nutrition_data.setCalorie(nutrition_manager.extractCalorie(foodData));
-    }catch(e){
-      print(e.toString());
-    }
-    
+    String food = this.quantity.toString()+" "+this.name;
+    var foodData = await nutrition_manager.queryFood(food);
+    this.nutrition_data.setCalorie(nutrition_manager.extractCalorie(foodData));
   }
 
   Future<void> updateFat() async{
-    try{
-      String food = this.quantity.toString()+" "+this.name;
-      var foodData = await nutrition_manager.queryFood(food);
-      this.nutrition_data.setFat(nutrition_manager.extractFat(foodData));
-    }catch(e){
-      print(e.toString());
-    }
-   
+    String food = this.quantity.toString()+" "+this.name;
+    var foodData = await nutrition_manager.queryFood(food);
+    this.nutrition_data.setFat(nutrition_manager.extractFat(foodData));
   }
 
   Future<void> updateCarbohydrates() async{
-    try{
-      String food = this.quantity.toString()+" "+this.name;
-      var foodData = await nutrition_manager.queryFood(food);
-      this.nutrition_data.setCarbohydrates(nutrition_manager.extractCarbohydrate(foodData));
-    }catch(e){
-      print(e.toString());
-    }
     String food = this.quantity.toString()+" "+this.name;
     var foodData = await nutrition_manager.queryFood(food);
     this.nutrition_data.setCarbohydrates(nutrition_manager.extractCarbohydrate(foodData));
   }
 
   Future<void> updateSugar() async{
-    try{
-      String food = this.quantity.toString()+" "+this.name;
-      var foodData = await nutrition_manager.queryFood(food);
-      this.nutrition_data.setSugar(nutrition_manager.extractSugar(foodData));
-    }catch(e){
-      print(e.toString());
-    }
-    
+    String food = this.quantity.toString()+" "+this.name;
+    var foodData = await nutrition_manager.queryFood(food);
+    this.nutrition_data.setSugar(nutrition_manager.extractSugar(foodData));
   }
 
   Future<void> updateProtein() async{
-    try{
-      String food = this.quantity.toString()+" "+this.name;
-      var foodData = await nutrition_manager.queryFood(food);
-      this.nutrition_data.setProtein(nutrition_manager.extractProtien(foodData));
-    }catch(e){
-      print(e.toString());
-    }
-    
+    String food = this.quantity.toString()+" "+this.name;
+    var foodData = await nutrition_manager.queryFood(food);
+    this.nutrition_data.setProtein(nutrition_manager.extractProtien(foodData));
   }
 
   Future<void> updateNutritionalDetail() async{
-    try{
-      String food = this.quantity.toString()+" "+this.name;
-      var foodData = await nutrition_manager.queryFood(food);
-      this.nutrition_data.setCalorie(nutrition_manager.extractCalorie(foodData));
-      this.nutrition_data.setFat(nutrition_manager.extractFat(foodData));
-      this.nutrition_data.setCarbohydrates(nutrition_manager.extractCarbohydrate(foodData));
-      this.nutrition_data.setSugar(nutrition_manager.extractSugar(foodData));
-      this.nutrition_data.setProtein(nutrition_manager.extractProtien(foodData));
-    }catch(e){
-      print(e.toString());
-    }
-    
+    String food = this.quantity.toString()+" "+this.name;
+    var foodData = await nutrition_manager.queryFood(food);
+    this.nutrition_data.setCalorie(nutrition_manager.extractCalorie(foodData));
+    this.nutrition_data.setFat(nutrition_manager.extractFat(foodData));
+    this.nutrition_data.setCarbohydrates(nutrition_manager.extractCarbohydrate(foodData));
+    this.nutrition_data.setSugar(nutrition_manager.extractSugar(foodData));
+    this.nutrition_data.setProtein(nutrition_manager.extractProtien(foodData));
   }
 
-  // Database manager methods
   Map<String, dynamic> mapify(){
     return{
       "name": this.name,
@@ -117,7 +83,6 @@ class Food{
       "nutrition_detail": this.nutrition_data.mapify()
     };
   }
-  
   Food.fromMap(Map mapdata){
     this.name = mapdata["name"];
     this.quantity = mapdata["quantity"];
@@ -131,12 +96,12 @@ void main(List<String> args) async{
   print(tf.getMeasure());
   tf.setMeasure("WEIGHT");
   print(tf.getMeasure());
-  print("cal "+tf.getNutrients().getCalorie().toString());
+  print("cal "+tf.getCalorie().toString());
   await tf.updateNutritionalDetail();
-  print("cal "+tf.getNutrients().getCalorie().toString());
-  print("fat "+tf.getNutrients().getFat().toString());
-  print("car "+tf.getNutrients().getCarbohydrates().toString());
-  print("sug "+tf.getNutrients().getSugar().toString());
-  print("pro "+tf.getNutrients().getProtein().toString());
+  print("cal "+tf.getCalorie().toString());
+  print("fat "+tf.getFat().toString());
+  print("car "+tf.getCarbohydrates().toString());
+  print("sug "+tf.getSugar().toString());
+  print("pro "+tf.getProtein().toString());
 
 }

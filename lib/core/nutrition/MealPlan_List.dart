@@ -4,88 +4,94 @@ class MealPlan_List {
   // ATTRIBUTES
   static List<MealPlan> mealPlanLst = [];
 
+  //CONSTRUCTOR
+  /// Builds a MealPlan List object which consist of a list containing all created MealPlans. 
+  MealPlan_List(){
+    // Initializing dynamic list.
+  }
+
+
   //GETTERS
   /// Allows a MealPlan to be retieved from the MealPlan List given the ID of the MealPlan.
-  static MealPlan getMealPlanByID(String planId){
-    try{
-      MealPlan gotit = mealPlanLst.firstWhere((MealPlan mealPlan) => mealPlan.getId() == planId);
-      return gotit;
-    }catch(e){
-      print(e.toString());
-      print("No such MealPlan exists, ERROR!");
-      return null;
+  MealPlan getMealPlanByID(int planID){
+    MealPlan gotit;
+    flow :for(var plan in mealPlanLst){
+      if(plan.getMealPlanID() == planID){
+        gotit = plan;
+        break flow;
+      }else{
+        print("No such MealPlan exists, ERROR!");
+      }
     }
+    return gotit;
   }
     
   /// Allows a MealPlan to be retieved from the MealPlan List given the name of the MealPlan.
-  static MealPlan getMealPlanByName(String planName){
-    try{
-      MealPlan gotit = mealPlanLst.firstWhere((MealPlan mealPlan) => mealPlan.getName() == planName);
-      return gotit;
-    }catch(e){
-      print(e.toString());
-      print("No such MealPlan exists, ERROR!");
-      return null;
+  MealPlan getMealPlanByName(String planName){
+    MealPlan gotit;
+    flow:for(var plan in mealPlanLst){
+      if(plan.getName() == planName){
+        gotit = plan;
+        break flow;
+      }else{
+        print("No such MealPlan exists, ERROR!");
+      }
     }
+    return gotit;
   }
 
   /// get mealplan by the index
-  static MealPlan getMealPlan(int index){
+  MealPlan getMealPlan(int index){
     try{
-      MealPlan gotit = mealPlanLst[index];
-      return gotit;
-    }catch(e){
-      print(e.toString());
-      print("No such MealPlan exists, ERROR!");
-      return null;
+        mealPlanLst.removeAt(index);
+    } on Exception catch(e){
+      print('Exception details:\n $e');
     }
   }
 
   /// Gives the number of plans created. 
-  static int getPlanCount()=> mealPlanLst.length;
+  int getPlanCount()=> mealPlanLst.length;
 
   // MODIFIERS
   /// Allows a MealPlan Object to be added to the MealPlan List.
-  static void addMealPlan(MealPlan mPlan){
+  void addMealPlan(MealPlan mPlan){
     mealPlanLst.add(mPlan);
   }
 
   /// Allows a mealPlan to be removed  given the mealPlan Object.
-  static void removeMealPlan(MealPlan mealplan){
+  void removeMealPlan(MealPlan mealplan){
     try{
       mealPlanLst.remove(mealplan);
-    }catch(e){
-      print(e.toString());
-      print("No such MealPlan");
+    } catch(e, s){
+      print("$e \n $s");
     }
   }
 
   /// Allows a mealPlan to be removed from the MealPlan List given a particular index.
-  static void removeMealPlanAt(int index){
+  void removeMealPlanAt(int index){
     try{
       mealPlanLst.removeAt(index);
-    }catch(e){
-      print(e.toString());
-      print("No such MealPlan");
+    } catch(e, s){
+      print("$e \n $s");
     }
   }
 
   /// Allows a mealPlan to be removed from the MealPlan List given the name of the MealPlan.
-  static void removeMealPlanThroughName(String mealplanName){
+  void removeMealPlanThroughName(String mealplanName){
     try{
       mealPlanLst.forEach((mealplan) {if(mealplan.getName() == mealplanName){mealPlanLst.remove(mealplan);}});
-    }catch(e){
-      print(e.toString());
-      print("No such MealPlan");
+    } catch(e, s){
+      print("$e \n $s");
     }
   }
 
 }
 // Unit testing
 void main(List<String> args) {
-  MealPlan_List.addMealPlan(new MealPlan.noMeals());
-  MealPlan_List.addMealPlan(new MealPlan.noMeals());
-  print(MealPlan_List.getPlanCount());
-  MealPlan_List.removeMealPlanAt(0);
-  print(MealPlan_List.getPlanCount());
+  MealPlan_List tmpl = new MealPlan_List();
+  tmpl.addMealPlan(new MealPlan.defaultConst());
+  tmpl.addMealPlan(new MealPlan.defaultConst());
+  print(tmpl.getPlanCount());
+  tmpl.removeMealPlanAt(0);
+  print(tmpl.getPlanCount());
 }

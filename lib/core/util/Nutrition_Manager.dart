@@ -62,19 +62,16 @@ class Nutrition_Manager{
   }
 
   Future<void> testApiExtraction() async{
-    try{
-      var foodData = await this.queryFood("1 cup juice");
-      // print(foodData);
-      print(extractCalorie(foodData));
-      if(extractCalorie(foodData) > 0){
-        print(extractFat(foodData));
-        print(extractCarbohydrate(foodData));
-        print(extractSugar(foodData));
-        print(extractProtien(foodData));
-      }
-    }catch(e){
-      print(e.toString());
+    var foodData = await this.queryFood("1 cup juice");
+    // print(foodData);
+    print(extractCalorie(foodData));
+    if(extractCalorie(foodData) > 0){
+      print(extractFat(foodData));
+      print(extractCarbohydrate(foodData));
+      print(extractSugar(foodData));
+      print(extractProtien(foodData));
     }
+    
   }
   
 }
