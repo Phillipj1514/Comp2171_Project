@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:Vainfitness/UI/UI_Dashboard.dart' as first;
 import 'package:Vainfitness/UI/UI_ConsumptionLst.dart' as second;
-import 'package:Vainfitness/UI/UI_MealPlans.dart' as first;
-import 'package:Vainfitness/UI/UI_Dashboard.dart';
-import 'package:Vainfitness/UI/UI_ConsumptionLst.dart';
-import 'package:Vainfitness/UI/UI_MealPlans.dart';
-
-
-
+import 'package:Vainfitness/UI/UI_MealPlans.dart' as third;
 
 void main() {
   runApp(
-    new MaterialApp(
-      home: new Tabs(),
+     MaterialApp(
+      home:  Tabs(),
       routes: <String, WidgetBuilder> {}   
   )
   );
@@ -21,7 +15,7 @@ void main() {
 class Tabs extends StatefulWidget {
   @override
   
-  MyTabState createState() => new MyTabState();
+  MyTabState createState() =>  MyTabState();
 }
 
 
@@ -31,7 +25,7 @@ class MyTabState extends State<Tabs> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    controller = new TabController(vsync: this, length: 3);
+    controller =  TabController(vsync: this, length: 3);
   }
 
   @override
@@ -42,24 +36,24 @@ class MyTabState extends State<Tabs> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      bottomNavigationBar: new Material(
+    return Scaffold(
+      bottomNavigationBar:  Material(
         color: Colors.tealAccent,
-        child: new TabBar(
+        child:  TabBar(
           controller: controller,
           tabs: <Tab>[ 
-            new Tab(icon: new Icon(Icons.home)),
-            new Tab(icon: new Icon(Icons.favorite)),
-            new Tab(icon: new Icon(Icons.portrait)),  
+             Tab(icon:  Icon(Icons.home)),
+             Tab(icon:  Icon(Icons.favorite)),
+             Tab(icon:  Icon(Icons.portrait)),  
           ] 
         )
       ),
-      body: new TabBarView(
+      body:  TabBarView(
         controller: controller,
         children: <Widget>[
-          new first.Homepage(),
-          new second.UI_ConsumptionLst(),
-          new third.UI_MealPlans()
+           first.UI_Dashboard(),
+           second.UI_ConsumptionLst(),
+           third.UI_MealPlans()
         ]
       )
     );
