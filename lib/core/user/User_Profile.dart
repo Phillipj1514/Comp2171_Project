@@ -20,21 +20,33 @@ class User_Profile{
 
   // getters
   String getUid() => this.uid; 
+  
   String getFirstname() => this.firstname;
+  
   String getLastname() => this.lastname;
+  
   String getName() => this.firstname+" "+this.lastname;
+  
   String getUsername() => this.username;
+  
   // String getpassword() => this.password;
   DateTime getDOB() => this.dob;
+  
   int getAge() => this.age;
+  
   double getHeight() => this.height;
+  
   double getWeight() => this.weight;
+  
   DateTime getDateCreated() => this.dateCreated;
   
   // setters
   void setUid(String uid) => this.uid = uid;
+  
   void setFirstname(String firstname) => this.firstname = firstname;
+  
   void setLastname(String lastname) => this.firstname = lastname;
+  
   void setUsername(String username) => this.username = username;
   // void setPassword(String password, String confirmPassword){
   //   this.password = (password == confirmPassword) ? password : this.password;
@@ -42,9 +54,13 @@ class User_Profile{
   void setDOB(int month, int day, int year){
     this.dob = DateTime.utc(year, month, day);
   }
+  
   void setAge(int age) => this.age = age;
+  
   void setHeight(double height) => this.height =  height;
+  
   void setWeight(double weight) => this.weight = weight;
+  
   Map<String, dynamic> mapify(){}
 }
 void main(List<String> args){
