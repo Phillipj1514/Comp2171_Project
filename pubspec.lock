@@ -121,6 +121,23 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.4"
+<<<<<<< HEAD
+  image:
+    dependency: transitive
+    description:
+      name: image
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.12"
+  intl:
+    dependency: "direct main"
+    description:
+      name: intl
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.16.1"
+=======
+>>>>>>> 3fcc5f5efab8b90b786fa3d54b6deb436ae13fa7
   js:
     dependency: transitive
     description:
