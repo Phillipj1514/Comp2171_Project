@@ -124,7 +124,7 @@ class Fitness_Coach extends User_Profile{
   void removeMealPlan(MealPlan mealplanObj) => MealPlan_List.removeMealPlan(mealplanObj);
   /// Allows for the removal of a particular MealPlan from the Global MealPlan List 
   /// given a MealPlan name.
-  void removeMealPlanThroughName(String name) => MealPlan_List.removeMealPlanThroughName(name);
+  void removeMealPlanThroughName(String name) => MealPlan_List.removeMealPlanByName(name);
 
   //Database Manager methods
   Map<String, dynamic> mapify(){

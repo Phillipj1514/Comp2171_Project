@@ -16,6 +16,7 @@ class DatabaseManager{
   // document creation for each object or table creation for reg database
   Future addNewUser(User_Profile user) async{
     try{
+      await this.updateStatic(); 
       return await userCollection.document(user.getUid()).setData(user.mapify());
     }catch(e){
       print(e.toString());
@@ -25,6 +26,7 @@ class DatabaseManager{
   
   Future addNewMealPlan(MealPlan mealplan) async{
     try{
+      await this.updateStatic(); 
       return await mealPlanCollection.document(mealplan.getId()).setData(mealplan.mapify());
     }catch(e){
       print(e.toString());
@@ -34,6 +36,7 @@ class DatabaseManager{
 
   Future addNewDailyConsumption(Daily_Consumption daily_consumption, String uid) async{
     try{
+      await this.updateStatic(); 
       return await userCollection.document(uid).updateData({"daily_consumptions": FieldValue.arrayUnion([daily_consumption.mapify()])});
     }catch(e){
       print(e.toString());
@@ -53,6 +56,7 @@ class DatabaseManager{
         });
       // update the consumption with the meal then re add it to the list
       consump.addMeal(meal);
+      await this.updateStatic(); 
       return await userCollection.document(uid).updateData({
         "daily_consumptions":FieldValue.arrayUnion([consump.mapify()])
         });
@@ -188,10 +192,11 @@ class DatabaseManager{
 
   Future updateMealPlan(MealPlan mealPlan) async{
     try{
+      print("--> database update mealplan");
       await this.updateStatic();
       return await mealPlanCollection.document(mealPlan.getId()).updateData(mealPlan.mapify());
     }catch(e){
-      print(e.toStringa());
+      print(e.toString());
       return null;
     }
   }

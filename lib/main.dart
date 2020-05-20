@@ -6,6 +6,7 @@ import 'package:Vainfitness/core/user/Client.dart';
 import 'package:Vainfitness/core/user/Fitness_Coach.dart';
 import 'package:Vainfitness/core/util/Authenticator.dart';
 import 'package:Vainfitness/core/util/Consumption_Manager.dart';
+import 'package:Vainfitness/core/util/MealPlan_Manager.dart';
 import 'package:Vainfitness/core/util/Profile_Manager.dart';
 import 'package:Vainfitness/firebase_services/auth.dart';
 import 'package:Vainfitness/firebase_services/databaseManager.dart';
@@ -71,17 +72,32 @@ class _MyHomePageState extends State<MyHomePage> {
     // await profileManager.deleteUserprofile("c@c.com", "123456");
     // profileManager.getUser().setAge(30);
     // profileManager.updateCurrentUser();
+
     // =========================================
     // Consumption Manager Tests
-    Client client = profileManager.getUser();
+    // Client client = profileManager.getUser();
     Meal tstmeal = new Meal(name: "egg and bread",method: "fry egg and put it between the bread");
     await tstmeal.addFoodItem(new Food(name: "egg", quantity: 1));
     await tstmeal.addFoodItem(new Food(name: "slice of bread", quantity: 2));
-    print(tstmeal.getTotalNutrients().getCalorie());
-    if(client != null){
-      //client = await ConsumptionManager.addUserMeal(profileManager.getUser(), tstmeal, DateTime.now());
-      await ConsumptionManager.deleteUserMeal(client, client.getDailyConsumption(0).getDate(), "meal_2");
-    }else{print("Client is null");}
+    //print(tstmeal.getTotalNutrients().getCalorie());
+    // if(client != null){
+    //   //client = await ConsumptionManager.addUserMeal(profileManager, tstmeal, DateTime.now());
+    //   await ConsumptionManager.deleteUserMeal(profileManager, client.getDailyConsumption(0).getDate(), "meal_2");
+    // }else{print("Client is null");}
+
+    //==============================================
+    // MealPlan Manager Test
+    MealPlan testmp = new MealPlan.noMeals(name:"breakfast");
+    //testmp.addMeal(tstmeal);
+    //testmp.addMeal(tstmeal);
+    //testmp.id = "mealplan_3";
+    //MealPlanManager.addMealPlan(profileManager, testmp);
+    //MealPlanManager.deleteMealPlan(profileManager, "mealplan_4");
+    //MealPlanManager.updateMealPlan(profileManager, testmp);
+    //MealPlanManager.addUserMealPlanSubscription(profileManager, DateTime.now(), "mealplan_1");
+    //MealPlanManager.removeUserMealPlanSubscription(profileManager, "mealplan_2");
+    // List<MealPlan> submealplans = await MealPlanManager.getClientMealPlanSubscriptions(profileManager);
+    // print(submealplans[1].getId());
    
     
     // The Firebase Test grounds 

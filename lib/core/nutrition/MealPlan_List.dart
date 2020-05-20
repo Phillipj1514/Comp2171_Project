@@ -55,6 +55,22 @@ class MealPlan_List {
     mealPlanLst.add(mPlan);
   }
 
+  /// Update and existing MealPlan in the list
+  static void updateMealPlan(MealPlan mealPlan){
+    try{
+      print("--> Updating a meal plan object");
+      int index = mealPlanLst.indexWhere((MealPlan mealplan) => mealplan.getId() == mealPlan.getId());
+      if(index == -1){
+        print("mealplan doesnt exist adding it instead");
+        MealPlan_List.addMealPlan(mealPlan);
+      }else{
+        mealPlanLst[index] = mealPlan;
+      }
+    }catch(e){
+      print(e.toString());
+    }
+  }
+
   /// Allows a mealPlan to be removed  given the mealPlan Object.
   static void removeMealPlan(MealPlan mealplan){
     try{
@@ -76,9 +92,19 @@ class MealPlan_List {
   }
 
   /// Allows a mealPlan to be removed from the MealPlan List given the name of the MealPlan.
-  static void removeMealPlanThroughName(String mealplanName){
+  static void removeMealPlanByName(String mealplanName){
     try{
       mealPlanLst.forEach((mealplan) {if(mealplan.getName() == mealplanName){mealPlanLst.remove(mealplan);}});
+    }catch(e){
+      print(e.toString());
+      print("No such MealPlan");
+    }
+  }
+
+  /// Allows a mealPlan to be removed from the MealPlan List given the id of the MealPlan.
+  static void removeMealPlanById(String mealPlanId){
+    try{
+      mealPlanLst.removeWhere((MealPlan mealPlan) => mealPlan.getId() == mealPlanId);
     }catch(e){
       print(e.toString());
       print("No such MealPlan");
