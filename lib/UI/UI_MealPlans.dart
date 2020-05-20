@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'Profile_Drawer.dart';
+
 class UI_MealPlans extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -11,12 +13,12 @@ class UI_MealPlans extends StatelessWidget {
           title: 
             SizedBox(
               height: kToolbarHeight,
-              child: Image.asset("images/Logo_Red_out.png"),
+              child: Image.asset("images/Logo_Blue_out.png"),
             ),
           leading:
             IconButton(
               icon: Icon(Icons.menu),
-              onPressed: () {},
+              onPressed: () {Profile_Drawer();},
             ), 
         ),
       body: Container(
