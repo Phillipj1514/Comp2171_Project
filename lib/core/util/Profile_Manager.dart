@@ -16,7 +16,10 @@ class ProfileManager{
   ProfileManager(this.authenticatedUser);
   
   // GETTERS
-  User_Profile getUser() => this.authenticatedUser;
+  User_Profile getUser() {
+    if (this.authenticatedUser == null) { return null;}
+    return this.authenticatedUser;
+  }
 
   /// check if an authenticated user is available
   bool isUserAvailable() => this.authenticatedUser != null;

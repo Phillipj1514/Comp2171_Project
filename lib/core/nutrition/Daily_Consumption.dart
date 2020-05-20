@@ -72,6 +72,7 @@ class Daily_Consumption{
   void updateMeal (int index, Meal newMeal){ 
     try{
       meals[index] = newMeal;
+      this.updateNutritionData();
     }catch(e){
       print(e.toString());
       print("meal wasnt updated");
@@ -85,6 +86,7 @@ class Daily_Consumption{
       if(oldMeal != null){
         int index = meals.indexOf(oldMeal);
         this.meals[index] = newMeal;
+        this.updateNutritionData();
       }else{
         print("meal wasnt updated");
       }
@@ -98,6 +100,7 @@ class Daily_Consumption{
   void removeMealAt(int index){
     try{
       meals.removeAt(index);
+      this.updateNutritionData();
     }catch(e){
       print(e.toString());
     }
@@ -107,6 +110,8 @@ class Daily_Consumption{
   void removeMeal(Meal meal){
     try{
       meals.remove(meal);
+      this.updateNutritionData();
+      this.updateNutritionData();
     }catch(e){
       print(e.toString());
       print("meal doesnt exists");
@@ -117,6 +122,7 @@ class Daily_Consumption{
   void removeMealWithID(String id){
     try{
       meals.removeWhere((Meal meal) => meal.getId() == id);
+      this.updateNutritionData();
     }catch(e){
       print(e.toString());
       print("meal doesnt exists");
@@ -127,6 +133,7 @@ class Daily_Consumption{
   void removeMealWithMealPlanId(String mealPlanid){
     try{
       meals.removeWhere((Meal meal) => (meal.getMealPlanId() == mealPlanid && meal.isFromMealPlan() == true));
+      this.updateNutritionData();
     }catch(e){
       print(e.toString());
       print("meal from mealplan doesnt exists");

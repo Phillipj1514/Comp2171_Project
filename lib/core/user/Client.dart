@@ -14,7 +14,7 @@ class Client extends User_Profile{
   List<Daily_Consumption> dailyConsumptions;
   int numDays;
   Report_Manager nutritionalReportManager;
-  List<String> mealPlanSubscriptions;
+  List mealPlanSubscriptions;
 
   Client(String uid, String firstname, String lastname, String username, String email,
    int month, int day, int year, int age, double height, double weight, this.expectedWeight, this.numDays)
@@ -42,7 +42,7 @@ class Client extends User_Profile{
       Daily_Consumption daily_consumption = this.dailyConsumptions.elementAt(index);
       return daily_consumption;
     }catch(e){
-      print(e.toStringa());
+      print(e.toString());
       print("no such daily consumption");
       return null;
     }
@@ -76,6 +76,38 @@ class Client extends User_Profile{
   void setMealPlanSubscription(List<String> mealPlanSubcriptions) => this.mealPlanSubscriptions = mealPlanSubcriptions;
 
   //modifiers
+  
+  /// Add a meal to todays daily consumption
+  String addMealToConsumption(Meal meal, DateTime date){
+    try{
+      Daily_Consumption consump = this.getDailyConsumptionByDate(date);
+      if(consump == null){
+        consump = new Daily_Consumption.dateTime(date);
+      }
+      consump.addMeal(meal);
+      this.updateDailyConsumption(consump);
+    }catch(e){
+      print(e.toString());
+      return null;
+    }
+  }
+
+  void deleteMealFromConsumption(String mealid, DateTime consumptionDate){
+    try{
+      this.getDailyConsumptionByDate(consumptionDate).removeMealWithID(mealid);
+    }catch(e){
+      print(e.toString());
+    }
+  }
+
+  void updateMealInConsumption(Meal meal, DateTime consumptionDate){
+    try{
+      this.getDailyConsumptionByDate(consumptionDate).updateMeal2(meal);
+    }catch(e){
+      print(e.toString());
+    }
+  }
+
   /// Add a new dailyConsumption to the list
   void addDailyConsumption( Daily_Consumption consumption){
     try{
