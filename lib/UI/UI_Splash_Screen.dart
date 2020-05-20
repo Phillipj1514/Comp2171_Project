@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'UI_Login.dart';
+import 'package:getflutter/getflutter.dart';
 
 class SplashScreen extends StatelessWidget {
   // This widget is the root of your application.
@@ -33,7 +34,7 @@ class SplashingScreen extends State<Screen> {
     super.initState();
     Timer(
       Duration(
-        seconds: 2
+        seconds: 5
       ), 
       () =>  Navigator.push(
         context,
@@ -51,7 +52,7 @@ class SplashingScreen extends State<Screen> {
         fit: StackFit.expand,
         children: <Widget>[
           Container(
-            decoration: BoxDecoration(color:Colors.lightBlue[50]),
+            decoration: BoxDecoration(color:Colors.lightBlue[600]),
             child: Column(              
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
@@ -60,9 +61,9 @@ class SplashingScreen extends State<Screen> {
                   child: Container(
                     child: Center(
                       child: 
-                        Image.asset('images/Logo_Red_out.png', 
+                        Image.asset('images/Logo_Blue_out.png', 
                           width: 180.0, 
-                          height: 120.0
+                          height: 180.0
                         ),
                     ),
                   ),
@@ -85,7 +86,7 @@ class SplashingScreen extends State<Screen> {
                           TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 18.0,
-                            color: Colors.blue
+                            color: Colors.white
                           )
                       )
                     ],

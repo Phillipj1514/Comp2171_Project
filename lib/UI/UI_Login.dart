@@ -6,9 +6,9 @@ class LoginPage extends StatelessWidget{
   
   Widget build(BuildContext context){
     
-    return new Scaffold(      
+    return  Scaffold(      
       resizeToAvoidBottomPadding: false,
-      appBar: new AppBar(
+      appBar:  AppBar(
         backgroundColor: Colors.lightBlue[50],
         elevation: 0.0,
       ),
@@ -17,18 +17,18 @@ class LoginPage extends StatelessWidget{
           color: Colors.lightBlue[50]
         ),
         width: double.infinity,
-        child: new Column(
+        child:  Column( 
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            new Image.asset('images/Logo_Red_out.png',width:180.0,height:120.0),
-            new Row(
+          children:  <Widget>[
+             Image.asset('images/Logo_Blue_out.png',width:180.0,height:120.0),
+             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.only(top: 8.0,bottom: 80.0),
-                  child: new Text(
+                  padding: const EdgeInsets.only(top: 8.0,bottom: 70.0),
+                  child:  Text(
                     "Smart Nutrition",
-                    style: new TextStyle(
+                    style:  TextStyle(
                       fontSize: 20.0,
                       fontWeight: FontWeight.w300
                     ),
@@ -38,22 +38,22 @@ class LoginPage extends StatelessWidget{
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 0.0),
-              child: new TextField(
+              child:  TextField(
                 autofocus: true,
-                decoration: new InputDecoration(focusColor: Colors.blue,labelText: 'Email or Username',hoverColor: Colors.blue),
+                decoration:  InputDecoration(focusColor: Colors.blue,labelText: 'Email or Username',hoverColor: Colors.blue),
               ),
             ),
-            new SizedBox(
+             SizedBox(
               height: 15.0,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 0.0),
-              child: new TextField(
+              child:  TextField(
                 obscureText: true,
-                decoration: new InputDecoration(labelText:"Password"),  
+                decoration:  InputDecoration(labelText:"Password"),  
               ),                  
             ),
-            new Column(
+             Column(
               children: <Widget>[
                 Row(                
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -71,16 +71,16 @@ class LoginPage extends StatelessWidget{
                             );
                           },
                     
-                          child: new Container(
+                          child: Container(
                             alignment: Alignment.center,
-                            height: 60.0,
-                            decoration: new BoxDecoration(
+                            height: 45.0,
+                            decoration: BoxDecoration(
                               color: Colors.blueAccent,
-                              borderRadius: new BorderRadius.circular(30.0)
+                              borderRadius: BorderRadius.circular(30.0)
                             ),
-                            child: new Text(
+                            child:  Text(
                               "Login",
-                              style: new TextStyle(
+                              style:  TextStyle(
                                 fontSize: 20.0, 
                                 color: Colors.white
                               )
@@ -91,17 +91,17 @@ class LoginPage extends StatelessWidget{
                     ),
                   ]
                 ),
-                new Row(                                    
+                 Row(                                    
                   children:<Widget>[ 
                     Padding(
                       padding: const EdgeInsets.only(
                         left: 130.0, right: 20.0, top: 10.0
                       ),
-                      child: new Container(
+                      child:  Container(
                         alignment: Alignment.center,
-                        height: 60.0,
-                        child: new Text("Forgot Password?",
-                          style: new TextStyle(
+                        height: 50,
+                        child:  Text("Forgot Password?",
+                          style:  TextStyle(
                             fontSize: 12.0, color: Colors.blueAccent
                           )
                         )
@@ -111,34 +111,6 @@ class LoginPage extends StatelessWidget{
                 ),
               ],
             ),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 20.0),
-                    child: GestureDetector(
-                      onTap: (){
-                        Navigator.push(
-                          context, 
-                          MaterialPageRoute(
-                            builder: (context) => Tabs()
-                          )
-                        );
-                      },
-                      child: new Text(
-                        "Sign Up", 
-                        style: new TextStyle(
-                          fontSize: 17.0, 
-                          color: Colors.blueAccent,
-                          fontWeight: FontWeight.bold
-                        )
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            )
           ],
         ),
       )
