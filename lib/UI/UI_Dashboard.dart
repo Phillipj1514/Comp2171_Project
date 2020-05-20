@@ -11,7 +11,7 @@ class UI_Dashboard extends StatelessWidget {
           title: 
             SizedBox(
               height: kToolbarHeight,
-              child: Image.asset("images/Logo_Red_out.png"),
+              child: Image.asset("images/Logo_Blue_out.png"),
             ),
           leading:
             IconButton(
