@@ -61,7 +61,7 @@ class SplashingScreen extends State<Screen> {
                   child: Container(
                     child: Center(
                       child: 
-                        Image.asset('images/Logo_Blue_out.png', 
+                        Image.asset('assets/images/Logo_Blue_out.png', 
                           width: 180.0, 
                           height: 180.0
                         ),
