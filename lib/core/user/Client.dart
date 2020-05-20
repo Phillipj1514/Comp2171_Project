@@ -24,6 +24,7 @@ class Client extends User_Profile{
       this.dailyConsumptions = [];
       nutritionalReportManager = new Report_Manager();
       mealPlanSubscriptions = [];
+      
     }
     
 
