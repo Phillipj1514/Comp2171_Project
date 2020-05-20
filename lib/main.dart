@@ -15,8 +15,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
-  //runApp(SplashScreen());
+  //runApp(MyApp());
+  runApp(SplashScreen());
 }
 
 class MyApp extends StatelessWidget {
