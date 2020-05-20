@@ -20,7 +20,7 @@ class LoginPage extends StatelessWidget{
         child:  Column( 
           crossAxisAlignment: CrossAxisAlignment.center,
           children:  <Widget>[
-             Image.asset('images/Logo_Blue_out.png',width:180.0,height:120.0),
+             Image.asset('assets/images/Logo_Blue_out.png',width:180.0,height:120.0),
              Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[

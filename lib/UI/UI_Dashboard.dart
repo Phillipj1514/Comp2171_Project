@@ -4,21 +4,6 @@ class UI_Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: 
-        AppBar(
-          centerTitle: true,
-        
-          title: 
-            SizedBox(
-              height: kToolbarHeight,
-              child: Image.asset("images/Logo_Red_out.png"),
-            ),
-          leading:
-            IconButton(
-              icon: Icon(Icons.menu),
-              onPressed: () {},
-            ), 
-        ),
       body: Container(
         child: ListView(
           padding: const EdgeInsets.all(8),
