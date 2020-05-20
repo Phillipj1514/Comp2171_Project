@@ -1,3 +1,4 @@
+import 'package:Vainfitness/UI/Settings.dart';
 import 'package:getflutter/components/drawer/gf_drawer.dart';
 import 'package:getflutter/components/drawer/gf_drawer_header.dart';
 import 'package:flutter/material.dart';
@@ -13,38 +14,79 @@ class _Profile_DrawerState extends State<Profile_Drawer> {
   Widget build(
     BuildContext context
   ) => GFDrawer(
+    color: Colors.white,
     child: ListView(
-      padding: EdgeInsets.zero,
+    padding: EdgeInsets.zero,
       children: <Widget>[
-        GFDrawerHeader(
-          currentAccountPicture: GFAvatar(
-            radius: 80.0,
-            backgroundImage: NetworkImage("https://cdn.pixabay.com/photo/2017/12/03/18/04/christmas-balls-2995437_960_720.jpg"),
-          ),
-          otherAccountsPictures: <Widget>[
-            Image(
-              image: NetworkImage("https://cdn.pixabay.com/photo/2019/12/20/00/03/road-4707345_960_720.jpg"),
-              fit: BoxFit.cover,
+        Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: const [Color(0xFFD685FF), Color(0xFF7466CC)])),
+            height: 250,
+            child: GFDrawerHeader(
+              closeButton: InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Icon(
+                    Icons.arrow_back,
+                    color: Colors.amber,
+                  ),
+                ),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: const [Color(0xFFD685FF), Color(0xFF7466CC)],
+                  ),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    const GFAvatar(
+                      radius: 40,
+                      backgroundImage: AssetImage(
+                        'assets/images/avatar_woman.jpg',
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      'username',
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    const Text(
+                      'email',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+              ),
             ),
-            GFAvatar(
-              child: Text("ab"),
-            )
-          ],
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text('user name'),
-              Text('user@userid.com'),
-            ],
-          ),
+        ListTile(
+          title: Text('Settings'),
+          onTap: (){
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) =>
+                Settings(),
+              ),
+            );
+          }
         ),
         ListTile(
-          title: Text('Item 1'),
-          onTap: null,
-        ),
-        ListTile(
-          title: Text('Item 2'),
+          title: Text('Progress Report'),
           onTap: null,
         ),
       ],
