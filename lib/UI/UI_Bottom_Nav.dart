@@ -39,6 +39,7 @@ class MyTabState extends State<Tabs> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Profile_Drawer(),
       appBar: 
         AppBar(
           centerTitle: true,
@@ -54,15 +55,15 @@ class MyTabState extends State<Tabs> with SingleTickerProviderStateMixin {
               onPressed: () {Profile_Drawer();},
             ), 
         ),
-      drawer: Profile_Drawer(),
+  
       bottomNavigationBar:  Material(
         color: Colors.blue[700],
         child:  TabBar(
           controller: controller,
           tabs: <Tab>[ 
-             Tab(icon:  Icon(Icons.dashboard)),
-             Tab(icon:  Icon(CustomIcons.plan)),
-             Tab(icon:  Icon(Icons.fastfood)),  
+             Tab(icon:  Icon(Icons.dashboard), text: 'Dashboard'),
+             Tab(icon:  Icon(CustomIcons.plan) ),
+             Tab(icon:  Icon(Icons.fastfood), text: 'MealPlans'),  
           ] 
         )
       ),
