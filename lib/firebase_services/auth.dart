@@ -18,6 +18,7 @@ class AuthService{
   /// Sign in user with eamil and password
   Future signInUser(String email, String password) async{
     try{
+      print("--> In firebase auth sign in");
       AuthResult result = await _auth.signInWithEmailAndPassword(email: email, password: password);
       FirebaseUser user = result.user;
       return user;
@@ -53,7 +54,19 @@ class AuthService{
   /// Sign user out 
   Future signOut() async{
     try{
+      print("--> Signing out user");
       await _auth.signOut();
+    }catch(e){
+      print(e.toString());
+      return null;
+    }
+  }
+  Future deleteUserAccount(String email, String password) async{
+    try{
+      print("--> deleting user");
+      AuthResult result = await _auth.signInWithEmailAndPassword(email: email, password: password);
+      FirebaseUser user = result.user;
+      await user.delete();
     }catch(e){
       print(e.toString());
       return null;

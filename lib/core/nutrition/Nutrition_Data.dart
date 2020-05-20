@@ -50,6 +50,33 @@ class Nutrition_Data{
     this.sugar = sugar;
     this.protein = protein;
   }
+
+  // Modifiers
+  /// Set the caloric value
+  void addCalorie(int calorie) => this.calorie += calorie;
+
+  /// Set the fat value
+  void addFat(double fat) => this.fat += fat;
+
+  /// Set the carbohydrates value
+  void addCarbohydrates(double carbohydrates) => this.carbohydrates += carbohydrates;
+
+  /// Set the sugar value
+  void addSugar(double sugar) => this.sugar += sugar;
+
+  /// Set the protein value
+  void addProtein(double protein) => this.protein += protein;
+
+  /// Set all the values
+  void addAll(int calorie, double fat, double carbohydrates, double sugar, double protein){
+    this.calorie += calorie;
+    this.fat += fat;
+    this.carbohydrates += carbohydrates;
+    this.sugar += sugar;
+    this.protein += protein;
+  }
+
+  // Database Management methods
   Map<String, dynamic> mapify(){
     return{
       "calorie": this.calorie,

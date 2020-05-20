@@ -52,8 +52,10 @@ class DatabaseManager{
       var data = await userCollection.document(uid).get();
       var map = data.data;
       if(map["type"] == "client"){
+        print("--> fetching client");
         return new Client.fromMap(map);
       }else if(map["type"] == "coach"){
+        print("--> fetching coach");
         return new Fitness_Coach.fromMap(map);
       }
     }catch(e){

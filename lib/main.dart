@@ -3,6 +3,8 @@ import 'package:Vainfitness/core/nutrition/Meal.dart';
 import 'package:Vainfitness/core/nutrition/MealPlan.dart';
 import 'package:Vainfitness/core/user/Client.dart';
 import 'package:Vainfitness/core/user/Fitness_Coach.dart';
+import 'package:Vainfitness/core/util/Authenticator.dart';
+import 'package:Vainfitness/core/util/Profile_Manager.dart';
 import 'package:Vainfitness/firebase_services/auth.dart';
 import 'package:Vainfitness/firebase_services/databaseManager.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -57,6 +59,19 @@ class _MyHomePageState extends State<MyHomePage> {
 
   // Just a testing space for console code before ui
   void testArea() async{
+    // Default Admin Users 
+    //Fitness_Coach newCoach = new Fitness_Coach("2UFaaqlMNDNAqcAIxJDT1In5BZn1", "admin", "admin", "admin", "a@a.com", 1, 2, 1990, 30, 1.7, 150);
+    //await db.addNewUser(newCoach);
+    ProfileManager profileManager = await Authenticator.authenticateUser("a@a.com", "123456");
+    //profileManager.createClientProfile("firstname", "lastname", "username", "b@b.com", 3, 2, 1995, 25, 1.5, 200, 150, 10, "123456");
+    // await profileManager.createFitnessCoachProfile("firstname", "lastname", "usernameC", "c@c.com", 2, 20, 1980, 40, 1.9, 160, "123456");
+    // await _auth.deleteUserAccount("c@c.com", "123456");
+    // await profileManager.deleteUserprofile("c@c.com", "123456");
+    // profileManager.getUser().setAge(30);
+    // profileManager.updateCurrentUser();
+    
+    // The Firebase Test grounds 
+    // ======================================================================
     // await _auth.signInAnon();
     
     // dynamic regUser = await _auth.registerUser("test@text.com", "123456");
