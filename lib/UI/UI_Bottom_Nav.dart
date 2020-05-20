@@ -41,13 +41,13 @@ class MyTabState extends State<Tabs> with SingleTickerProviderStateMixin {
     return Scaffold(
       drawer: Profile_Drawer(),
       bottomNavigationBar:  Material(
-        color: Colors.redAccent[700],
+        color: Colors.blue[700],
         child:  TabBar(
           controller: controller,
           tabs: <Tab>[ 
-             Tab(icon:  Icon(Icons.home)),
+             Tab(icon:  Icon(Icons.dashboard)),
              Tab(icon:  Icon(Icons.favorite)),
-             Tab(icon:  Icon(Icons.portrait)),  
+             Tab(icon:  Icon(Icons.fastfood)),  
           ] 
         )
       ),
