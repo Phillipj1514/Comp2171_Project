@@ -9,11 +9,11 @@ class MealPlanManager{
   static DatabaseManager db = DatabaseManager();
 
   /// Get all the mealplans that a client subscribes to 
-  static Future<List> getClientMealPlanSubscriptions(ProfileManager profileManager)async{
+  static Future<List> getClientMealPlanSubscriptions()async{
     try{
       print("--> getting user mealplan subscription");
-      if(profileManager.isClient()){
-        Client client =  profileManager.getUser();
+      if(ProfileManager.isClient()){
+        Client client =  ProfileManager.getUser();
         List<String> clientMealPlanSubs = client.getMealPlanSubscriptions();
         List<MealPlan> mealPlanSubscriptions = [];
         if(MealPlan_List.mealPlanLst == null || MealPlan_List.mealPlanLst == []){
@@ -34,39 +34,39 @@ class MealPlanManager{
   }
 
   // Add MealPlan the the clients mealPlan subscriptions
-  static Future addUserMealPlanSubscription(ProfileManager profileManager,DateTime startTime ,String mealPlanId) async{
+  static Future addUserMealPlanSubscription(DateTime startTime ,String mealPlanId) async{
     try{
       print("--> adding user mealplan subscription");
-      if(profileManager.isClient()){
-        Client client = profileManager.getUser();
+      if(ProfileManager.isClient()){
+        Client client = ProfileManager.getUser();
         if(MealPlan_List.mealPlanLst == null || MealPlan_List.mealPlanLst == []){
           await MealPlanManager.loadMealPlanList();
         }
         MealPlan mealPlan = MealPlan_List.getMealPlanByID(mealPlanId);
         client.addMealPlanToConsumptions(startTime, mealPlan);
         await db.updateUser(client);
+        ProfileManager.setUser(client);
       }
     }catch(e){
       print(e.toString());
-      return null;
     }
   }
   
   // Remove a mealPlan from Clients subscription
-  static Future removeUserMealPlanSubscription(ProfileManager profileManager, String mealPlanId) async{
+  static Future removeUserMealPlanSubscription(String mealPlanId) async{
     try{
       print("--> removing user mealplan subscription");
-      if(profileManager.isClient()){
-        Client client = profileManager.getUser();
+      if(ProfileManager.isClient()){
+        Client client = ProfileManager.getUser();
         if(MealPlan_List.mealPlanLst == null || MealPlan_List.mealPlanLst == []){
           await MealPlanManager.loadMealPlanList();
         }
         client.removeMealPlanFromConsumption(mealPlanId);
         await db.updateUser(client);
+        ProfileManager.setUser(client);
       }
     }catch(e){
       print(e.toString());
-      return null;
     }
   }
 
@@ -80,10 +80,11 @@ class MealPlanManager{
       print(e.toString());
     }
   }
+  
   /// Adds the given meal plan to the list of mealplans should only be used by the admin
-  static Future addMealPlan(ProfileManager profileManager, MealPlan mealplan) async{
+  static Future addMealPlan(MealPlan mealplan) async{
     try{
-      if(profileManager.isFitnessCoach()){
+      if(ProfileManager.isFitnessCoach()){
         print("--> Adding Mealplan to list of meal plans");
         if(mealplan != null){
           if(MealPlan_List.mealPlanLst == null || MealPlan_List.mealPlanLst == []){
@@ -99,9 +100,9 @@ class MealPlanManager{
   }
 
   // Remove a meal Plan given the meal plan id
-  static Future deleteMealPlan(ProfileManager profileManager, String  mealPlanId) async{
+  static Future deleteMealPlan(String  mealPlanId) async{
     try{
-      if(profileManager.isFitnessCoach()){
+      if(ProfileManager.isFitnessCoach()){
         print("--> deleting Mealplan to list of meal plans");
         if(MealPlan_List.mealPlanLst == null || MealPlan_List.mealPlanLst == []){
           await MealPlanManager.loadMealPlanList();
@@ -115,9 +116,9 @@ class MealPlanManager{
   }
 
   // update a meal Plan given the meal plan
-  static Future updateMealPlan(ProfileManager profileManager, MealPlan  mealPlan) async{
+  static Future updateMealPlan(MealPlan  mealPlan) async{
     try{
-      if(profileManager.isFitnessCoach()){
+      if(ProfileManager.isFitnessCoach()){
         print("--> updating Mealplan to list of meal plans");
         if(MealPlan_List.mealPlanLst == null || MealPlan_List.mealPlanLst == []){
           await MealPlanManager.loadMealPlanList();

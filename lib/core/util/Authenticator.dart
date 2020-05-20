@@ -14,17 +14,15 @@ class Authenticator{
       String uid = authUser.uid.toString();
       print(uid);
       User_Profile user = await db.fetchUser(uid);
-      ProfileManager profileManager = new ProfileManager(user);
-      return profileManager;
+      ProfileManager.setUser(user);
     }catch(e){
       print(e.toString());
-      return null;
     }
   }
 
-  static Future logoutUser(ProfileManager profileManager) async{
+  static Future logoutUser() async{
     try{
-      await profileManager.updateCurrentUser();
+      await ProfileManager.updateCurrentUser();
       await _auth.signOut();
     }catch(e){
       print(e.toString());

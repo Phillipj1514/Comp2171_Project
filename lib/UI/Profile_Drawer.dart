@@ -1,4 +1,4 @@
-import 'package:Vainfitness/UI/Settings.dart';
+// import 'package:Vainfitness/UI/Settings.dart';
 import 'package:getflutter/components/drawer/gf_drawer.dart';
 import 'package:getflutter/components/drawer/gf_drawer_header.dart';
 import 'package:flutter/material.dart';
@@ -73,18 +73,18 @@ class _Profile_DrawerState extends State<Profile_Drawer> {
                 ),
               ),
             ),
-        ListTile(
-          title: Text('Settings'),
-          onTap: (){
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (BuildContext context) =>
-                Settings(),
-              ),
-            );
-          }
-        ),
+        // ListTile(
+        //   title: Text('Settings'),
+        //   onTap: (){
+        //     Navigator.push(
+        //       context,
+        //       MaterialPageRoute(
+        //         builder: (BuildContext context) =>
+        //         Settings(),
+        //       ),
+        //     );
+        //   }
+        // ),
         ListTile(
           title: Text('Progress Report'),
           onTap: null,
