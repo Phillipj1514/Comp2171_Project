@@ -6,21 +6,6 @@ class UI_MealPlans extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: 
-        AppBar(
-          centerTitle: true,
-        
-          title: 
-            SizedBox(
-              height: kToolbarHeight,
-              child: Image.asset("images/Logo_Blue_out.png"),
-            ),
-          leading:
-            IconButton(
-              icon: Icon(Icons.menu),
-              onPressed: () {Profile_Drawer();},
-            ), 
-        ),
       body: Container(
         child: ListView(
           padding: const EdgeInsets.all(8),
