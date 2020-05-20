@@ -24,7 +24,6 @@ class Client extends User_Profile{
       this.dailyConsumptions = [];
       nutritionalReportManager = new Report_Manager();
       mealPlanSubscriptions = [];
-      
     }
     
 
@@ -42,7 +41,7 @@ class Client extends User_Profile{
       Daily_Consumption daily_consumption = this.dailyConsumptions.elementAt(index);
       return daily_consumption;
     }catch(e){
-      print(e.toStringa());
+      print(e.toString());
       print("no such daily consumption");
       return null;
     }
@@ -50,6 +49,9 @@ class Client extends User_Profile{
 
   Daily_Consumption getDailyConsumptionByDate(DateTime date){
     try{
+      if(this.dailyConsumptions == null || this.dailyConsumptions == []){
+        return null;
+      }
       Daily_Consumption daily_consumption = this.dailyConsumptions.firstWhere((consump) 
         => DateFormat('yyyy-MM-dd').format(consump.getDate()) == DateFormat('yyyy-MM-dd').format(date));
       return daily_consumption;
@@ -76,6 +78,38 @@ class Client extends User_Profile{
   void setMealPlanSubscription(List<String> mealPlanSubcriptions) => this.mealPlanSubscriptions = mealPlanSubcriptions;
 
   //modifiers
+  
+  /// Add a meal to todays daily consumption
+  String addMealToConsumption(Meal meal, DateTime date){
+    try{
+      Daily_Consumption consump = this.getDailyConsumptionByDate(date);
+      if(consump == null){
+        consump = new Daily_Consumption.dateTime(date);
+      }
+      consump.addMeal(meal);
+      this.updateDailyConsumption(consump);
+    }catch(e){
+      print(e.toString());
+      return null;
+    }
+  }
+
+  void deleteMealFromConsumption(String mealid, DateTime consumptionDate){
+    try{
+      this.getDailyConsumptionByDate(consumptionDate).removeMealWithID(mealid);
+    }catch(e){
+      print(e.toString());
+    }
+  }
+
+  void updateMealInConsumption(Meal meal, DateTime consumptionDate){
+    try{
+      this.getDailyConsumptionByDate(consumptionDate).updateMeal2(meal);
+    }catch(e){
+      print(e.toString());
+    }
+  }
+
   /// Add a new dailyConsumption to the list
   void addDailyConsumption( Daily_Consumption consumption){
     try{
@@ -134,16 +168,19 @@ class Client extends User_Profile{
 
   void addMealPlanToConsumptions(DateTime startTime, MealPlan mealPlan){
     try{
-      for(var day= 0; day < mealPlan.getNumDays(); day++){
-        DateTime date = startTime.add(new Duration(days: day));
-        Daily_Consumption days_consumption = this.getDailyConsumptionByDate(date);
-        if(days_consumption == null){
-          days_consumption = new Daily_Consumption.dateTime(date);
+      print("--> adding user mealplan subscription to object");
+      if(!this.mealPlanSubscriptions.contains(mealPlan.getId())){
+        for(var day= 0; day < mealPlan.getNumDays(); day++){
+          DateTime date = startTime.add(new Duration(days: day));
+          Daily_Consumption days_consumption = this.getDailyConsumptionByDate(date);
+          if(days_consumption == null){
+            days_consumption = new Daily_Consumption.dateTime(date);
+          }
+          days_consumption.addMeal(mealPlan.getMeal(day));      
+          this.updateDailyConsumption(days_consumption);
         }
-        days_consumption.addMeal(mealPlan.getMeal(day));      
-        this.updateDailyConsumption(days_consumption);
-      }
-      this.mealPlanSubscriptions.add(mealPlan.getId());
+        this.mealPlanSubscriptions.add(mealPlan.getId());
+      }else{print("wasnt added as meal plan already got added");}
     }catch(e){
       print(e.toString());
       print("MealPlan wasnt added successfully");
@@ -200,7 +237,7 @@ class Client extends User_Profile{
     this.dailyCalorie = mapdata["daily_calorie"];
     this.numDays = mapdata["num_days"];
     this.dailyConsumptions = [for(var dailyCon in mapdata["daily_consumptions"]) new Daily_Consumption.fromMap(dailyCon)];
-    this.mealPlanSubscriptions = mapdata["mealPlanSubscription"];
+    this.mealPlanSubscriptions = [ for(String mealplanid in mapdata["mealPlanSubscription"]) mealplanid];
   }
 
 }

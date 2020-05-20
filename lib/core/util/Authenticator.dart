@@ -10,21 +10,35 @@ class Authenticator{
   static Future authenticateUser(String email, String password) async{
     try{  
       dynamic authUser = await _auth.signInUser(email, password);
-      print("--> in authenticator authent");
+      print("--> in authenticator authenticaate");
       String uid = authUser.uid.toString();
       print(uid);
       User_Profile user = await db.fetchUser(uid);
-      ProfileManager profileManager = new ProfileManager(user);
-      return profileManager;
+      ProfileManager.setUser(user);
+      return true;
     }catch(e){
       print(e.toString());
-      return null;
+      return false;
     }
   }
 
-  static Future logoutUser(ProfileManager profileManager) async{
+  static Future isUserLoggedIn() async{
     try{
-      await profileManager.updateCurrentUser();
+      print("--> Checking the current signed in user");
+      dynamic user = await _auth.getUser();
+      String currentUID = user.uid.toString();
+      if(currentUID == ProfileManager.getUser().getUid()){
+        return true;
+      }else{return false;}
+    }catch(e){
+      print(e.toString());
+      return false;
+    }
+  }
+
+  static Future logoutUser() async{
+    try{
+      await ProfileManager.updateCurrentUser();
       await _auth.signOut();
     }catch(e){
       print(e.toString());

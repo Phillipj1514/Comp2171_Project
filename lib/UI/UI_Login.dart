@@ -1,9 +1,102 @@
+import 'package:Vainfitness/core/util/Authenticator.dart';
+
 import 'UI_Bottom_Nav.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget{
-  @override
+class LoginPage extends StatefulWidget {
   
+  // final String title;
+  
+  // LoginPage({Key key, this.title}) : super(key: key);
+  
+  @override
+  _LoginPageState createState() => _LoginPageState();
+
+}
+
+class _LoginPageState extends State<LoginPage> {
+  
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  String error ="";
+
+  Widget loginButtonText =  Text(
+    "Login",
+    style:  TextStyle(
+      fontSize: 20.0, 
+      color: Colors.white
+    )
+  );
+
+
+  Future validateUser(String email, String password) async{
+    try{
+      //set the login button to circular progress var
+      setState(() {
+        loginButtonText = CircularProgressIndicator();
+      });
+      return await Authenticator.authenticateUser(email, password);
+    }catch(e){
+      print(e.toString());
+      return false;
+    }
+  }
+
+  Future login() async{
+    String email = emailController.text;
+    String password  = passwordController.text;
+    emailController.clear();
+    passwordController.clear();
+    if(! await Authenticator.isUserLoggedIn()){
+      if(await validateUser(email, password)){
+        setState(() {
+          loginButtonText = Text(
+            "Login",
+            style:  TextStyle(
+              fontSize: 20.0, 
+              color: Colors.white
+            )
+          );
+      
+        });
+        Navigator.push(context, 
+                      MaterialPageRoute(builder: (context) => Tabs()));
+      }else{ 
+        setState(() {
+          error = "Try Again!";
+          loginButtonText =  Text(
+            "Login",
+            style:  TextStyle(
+              fontSize: 20.0, 
+              color: Colors.white
+            )
+          );
+        });
+      }
+    }else{
+      print(await Authenticator.isUserLoggedIn());
+      Navigator.push(context, 
+                      MaterialPageRoute(builder: (context) => Tabs()));
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is removed from the
+    // widget tree.
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context){
     
     return  Scaffold(      
@@ -25,7 +118,7 @@ class LoginPage extends StatelessWidget{
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.only(top: 8.0,bottom: 70.0),
+                  padding: const EdgeInsets.only(top: 8.0,bottom: 10.0),
                   child:  Text(
                     "Smart Nutrition",
                     style:  TextStyle(
@@ -37,10 +130,23 @@ class LoginPage extends StatelessWidget{
               ],
             ),
             Padding(
+              padding: const EdgeInsets.only(top: 8.0,bottom: 50.0),
+              child:  Text(
+                error,
+                style:  TextStyle(
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.w300,
+                  color: Colors.red
+
+                ),
+              ),
+            ),
+            Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 0.0),
               child:  TextField(
                 autofocus: true,
                 decoration:  InputDecoration(focusColor: Colors.blue,labelText: 'Email or Username',hoverColor: Colors.blue),
+                controller: emailController,
               ),
             ),
              SizedBox(
@@ -50,7 +156,8 @@ class LoginPage extends StatelessWidget{
               padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 0.0),
               child:  TextField(
                 obscureText: true,
-                decoration:  InputDecoration(labelText:"Password"),  
+                decoration:  InputDecoration(labelText:"Password"),
+                controller: passwordController,  
               ),                  
             ),
              Column(
@@ -64,11 +171,7 @@ class LoginPage extends StatelessWidget{
                         padding: const EdgeInsets.only(left: 100.0 , right:100.0, top: 10.0),
                         child: GestureDetector( 
                           onTap: (){
-                            Navigator.push(
-                              context, MaterialPageRoute(
-                                builder: (context) => Tabs()
-                              )
-                            );
+                            login();
                           },
                     
                           child: Container(
@@ -78,13 +181,7 @@ class LoginPage extends StatelessWidget{
                               color: Colors.blueAccent,
                               borderRadius: BorderRadius.circular(30.0)
                             ),
-                            child:  Text(
-                              "Login",
-                              style:  TextStyle(
-                                fontSize: 20.0, 
-                                color: Colors.white
-                              )
-                            )
+                            child: loginButtonText,
                           ),
                         ),
                       ),                          
@@ -116,6 +213,7 @@ class LoginPage extends StatelessWidget{
       )
     );     
   }
+
 }
 
 void main() {

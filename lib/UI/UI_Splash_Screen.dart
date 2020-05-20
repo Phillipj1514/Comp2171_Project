@@ -1,3 +1,5 @@
+import 'package:Vainfitness/UI/UI_Bottom_Nav.dart';
+import 'package:Vainfitness/core/util/Authenticator.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'UI_Login.dart';
@@ -36,13 +38,9 @@ class SplashingScreen extends State<Screen> {
       Duration(
         seconds: 5
       ), 
-      () =>  Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => LoginPage()
-        )
-      )
-    );
+      () => Navigator.push(context,MaterialPageRoute(
+        builder: (context) => LoginPage()))
+      );
   }
 
   @override
@@ -74,6 +72,37 @@ class SplashingScreen extends State<Screen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
+                      // FutureBuilder(
+                      //   future: Authenticator.isUserLoggedIn(),
+                      //   builder: (context, snapshot){
+                      //     if(snapshot.hasData){
+                      //       if(snapshot.data == true){
+                      //         //push the user to the HomeScreen if previously logged in
+                      //         Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => Tabs()));
+                      //         // return Container(
+                      //         //     child: Text(
+                      //         //       'Login already',
+                      //         //       textAlign: TextAlign.center),
+                      //         //   );
+                      //       }else{
+                      //         //Push the user to the login screen if no loggin data found
+                      //         Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => LoginPage()));
+                      //         //  return Container(
+                      //         //     child: Text(
+                      //         //       'Login first please',
+                      //         //       textAlign: TextAlign.center),
+                      //         //   );
+                      //       }
+                      //     }else if (snapshot.hasError) {
+                      //       return Container(
+                      //         child: Text(
+                      //           'Network Problem',
+                      //           textAlign: TextAlign.center),
+                      //       );
+                      //     }
+                      //     return CircularProgressIndicator();
+                      //   }
+                      // ),
                       CircularProgressIndicator(),
                       Padding(
                         padding: EdgeInsets.only(top: 20.0),

@@ -19,7 +19,7 @@ class MealPlan {
   String id;
 
   /// Used to enable autoincrement on assigning an ID to MealPlans
-  static int mealPlanCnt = 1;
+  static int mealPlanCnt = 0;
 
   //CONSTRUCTORS
   /// A MealPlan constructor that takes in a predefined list of Meals 
@@ -27,8 +27,8 @@ class MealPlan {
   MealPlan({this.name = "Healthy Lifestyle", List<Meal> meals}){
     this.meals = meals;
     this.numDays = meals.length;
-    this.id = "mealplan_"+mealPlanCnt.toString();
     mealPlanCnt++;
+    this.id = "mealplan_"+mealPlanCnt.toString(); 
   }
 
   /// A MealPlan constructor that initializes a Meal List while
@@ -37,8 +37,8 @@ class MealPlan {
   MealPlan.noMeals({this.name = "Healthy Lifestyle"}){
     this.meals = [];
     this.numDays = 0;
-    this.id = "mealplan_"+mealPlanCnt.toString();
     mealPlanCnt++;
+    this.id = "mealplan_"+mealPlanCnt.toString();
   }
 
 

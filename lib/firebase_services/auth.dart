@@ -30,7 +30,7 @@ class AuthService{
   
   /// Get the current user
   Future getUser() async{
-    return _auth.currentUser();
+    return await _auth.currentUser();
   }
 
   /// Get the current active user state

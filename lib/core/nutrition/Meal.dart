@@ -5,7 +5,7 @@ class Meal {
   //ATTRIBUTES
 
   ///counting variable for the meals
-  static int cnt = 1;
+  static int cnt = 0;
 
   /// The id given to the meal. set automatically
   String id;
@@ -34,8 +34,8 @@ class Meal {
   /// of Meal Name, method, and a total caloric value for the meal.
   Meal({this.name = 'meal', this.method = "Prepare the meal as fit"}){
     this.foods = [];
-    this.id = "meal_"+cnt.toString();
     Meal.cnt++;
+    this.id = "meal_"+cnt.toString();
   }
 
   //SETTERS

@@ -122,7 +122,7 @@ class Food{
     this.name = mapdata["name"];
     this.quantity = mapdata["quantity"];
     this.setMeasure(mapdata["measure"]);
-    this.nutrition_data = new Nutrition_Data.fromMap(mapdata["nutrition_details"]);
+    this.nutrition_data = new Nutrition_Data.fromMap(mapdata["nutrition_detail"]);
   }
 }
 
