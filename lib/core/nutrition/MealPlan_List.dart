@@ -44,6 +44,11 @@ class MealPlan_List {
   /// Gives the number of plans created. 
   static int getPlanCount()=> mealPlanLst.length;
 
+  // SETTERS
+
+  // set the meal plan list
+  static void setMealPlanList(List<MealPlan> mealPlans) => mealPlanLst = mealPlans;
+
   // MODIFIERS
   /// Allows a MealPlan Object to be added to the MealPlan List.
   static void addMealPlan(MealPlan mPlan){

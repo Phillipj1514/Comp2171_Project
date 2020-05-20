@@ -11,7 +11,7 @@ class Fitness_Coach extends User_Profile{
   double recommendedDailyCaloricValue;
 
   /// A list containing all the clients a coach is responsible for.
-  List<String> allClientsId;
+  List allClientsId;
   
   // CONSTRUCTOR________________________________
   /// Default constructor for creating a Fitness Coach. 

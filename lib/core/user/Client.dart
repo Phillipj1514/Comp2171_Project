@@ -14,7 +14,7 @@ class Client extends User_Profile{
   List<Daily_Consumption> dailyConsumptions;
   int numDays;
   Report_Manager nutritionalReportManager;
-  MealPlan_List availableMealPlans;
+  List<String> mealPlanSubscriptions;
 
   Client(String uid, String firstname, String lastname, String username, String email,
    int month, int day, int year, int age, double height, double weight, this.expectedWeight, this.numDays)
@@ -23,6 +23,7 @@ class Client extends User_Profile{
       this.dailyCalorie = 0;
       this.dailyConsumptions = [];
       nutritionalReportManager = new Report_Manager();
+      mealPlanSubscriptions = [];
     }
     
 
@@ -61,6 +62,8 @@ class Client extends User_Profile{
   int getNumDays() => this.numDays;
   
   Report_Manager getnutritionalReportManager()=> this.nutritionalReportManager;
+
+  List<String> getMealPlanSubscriptions() => this.mealPlanSubscriptions;
   
   // Setters
   void setExpectedWeight(double expectedWeight) => this.expectedWeight = expectedWeight;
@@ -68,6 +71,8 @@ class Client extends User_Profile{
   void setDailyCalorie(int dailyCalorie) => this.dailyCalorie = dailyCalorie;
   
   void setNumDays(int numDays) => this.numDays = numDays;
+
+  void setMealPlanSubscription(List<String> mealPlanSubcriptions) => this.mealPlanSubscriptions = mealPlanSubcriptions;
 
   //modifiers
   /// Add a new dailyConsumption to the list
@@ -134,9 +139,10 @@ class Client extends User_Profile{
         if(days_consumption == null){
           days_consumption = new Daily_Consumption.dateTime(date);
         }
-        days_consumption.addMeal(mealPlan.getMeal(day));
+        days_consumption.addMeal(mealPlan.getMeal(day));      
         this.updateDailyConsumption(days_consumption);
       }
+      this.mealPlanSubscriptions.add(mealPlan.getId());
     }catch(e){
       print(e.toString());
       print("MealPlan wasnt added successfully");
@@ -148,6 +154,7 @@ class Client extends User_Profile{
       for(Daily_Consumption daily_consumption in dailyConsumptions){
         daily_consumption.removeMealWithMealPlanId(mealPlanId);
       }
+      this.mealPlanSubscriptions.remove(mealPlanId);
     }catch(e){
       print(e.toString());
       print("Meals for the selected meal plan were not found");
@@ -179,7 +186,8 @@ class Client extends User_Profile{
       "daily_calorie": this.dailyCalorie,
       "num_days": this.numDays,
       "date_created": this.dateCreated,
-      "daily_consumptions":  [for (var dailyCons in this.dailyConsumptions) dailyCons.mapify()] 
+      "daily_consumptions":  [for (var dailyCons in this.dailyConsumptions) dailyCons.mapify()], 
+      "mealPlanSubscription": this.mealPlanSubscriptions
     };
   }
   
@@ -191,6 +199,7 @@ class Client extends User_Profile{
     this.dailyCalorie = mapdata["daily_calorie"];
     this.numDays = mapdata["num_days"];
     this.dailyConsumptions = [for(var dailyCon in mapdata["daily_consumptions"]) new Daily_Consumption.fromMap(dailyCon)];
+    this.mealPlanSubscriptions = mapdata["mealPlanSubscription"];
   }
 
 }
