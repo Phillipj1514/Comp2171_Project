@@ -11,7 +11,7 @@ class SplashScreen extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Vain Nutrition',
       theme: ThemeData(
-        primarySwatch: Colors.lightGreen,
+        primarySwatch: Colors.blue,
         accentColor: const Color(0xFF6c5656),
         canvasColor: const Color(0xFFfafafa),
         visualDensity: VisualDensity.adaptivePlatformDensity,
