@@ -68,7 +68,7 @@ class MyTabState extends State<Tabs> with SingleTickerProviderStateMixin {
         children: <Widget>[
            first.UI_Dashboard(),
            second.UI_ConsumptionLst(),
-           third.UI_MealPlans()
+           third.UI_MealPlan()
         ]
       )
     );
