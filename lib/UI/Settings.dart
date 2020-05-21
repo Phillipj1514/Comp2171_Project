@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:Vainfitness/UI/SettingForm.dart';
+import 'package:Vainfitness/UI/forms/SettingForm.dart';
 
 class Settings extends StatelessWidget {
   @override
