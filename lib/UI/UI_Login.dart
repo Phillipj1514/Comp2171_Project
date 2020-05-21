@@ -1,5 +1,9 @@
+import 'package:Vainfitness/UI/forms/AddMeal.dart';
+import 'package:Vainfitness/UI/forms/addMealPlan.dart';
+import 'package:Vainfitness/UI/forms/checkCaloricValue.dart';
+import 'package:Vainfitness/UI/forms/createUserProfile.dart';
+import 'package:Vainfitness/UI/forms/updateUserProfile.dart';
 import 'package:Vainfitness/core/util/Authenticator.dart';
-
 import 'UI_Bottom_Nav.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +20,11 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   
+  void goTestZone(){
+    Navigator.push(context, 
+                      MaterialPageRoute(builder: (context) => Tabs()));
+  }
+
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -110,7 +119,9 @@ class _LoginPageState extends State<LoginPage> {
           color: Colors.lightBlue[50]
         ),
         width: double.infinity,
-        child:  Column( 
+        child: ListView(
+          children: <Widget>[
+            Column( 
           crossAxisAlignment: CrossAxisAlignment.center,
           children:  <Widget>[
              Image.asset('assets/images/Logo_Blue_out.png',width:180.0,height:120.0),
@@ -188,6 +199,13 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ]
                 ),
+                RaisedButton( 
+                  onPressed: () {
+                    goTestZone();
+                  },
+                  child: Text('Test Button', 
+                  style: TextStyle(fontSize: 10))
+                  ),
                  Row(                                    
                   children:<Widget>[ 
                     Padding(
@@ -210,6 +228,9 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ],
         ),
+      
+          ],
+        ), 
       )
     );     
   }
