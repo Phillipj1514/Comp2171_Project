@@ -94,6 +94,7 @@ class _UI_MealPlanState extends State<UI_MealPlan> {
                   children: <Widget>[
                     ListView.builder(
                       shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
                       itemCount: MealPlan_List.mealPlanLst.length,
                       itemBuilder: (context, index) {
                         return mealPlanCard(MealPlan_List.getMealPlan(index));
