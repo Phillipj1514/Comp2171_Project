@@ -3,8 +3,11 @@ import 'package:flappy_search_bar/flappy_search_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:getflutter/colors/gf_color.dart';
-import 'package:getflutter/components/progress_bar/gf_progress_bar.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:getflutter/components/button/gf_button.dart';
+import 'package:getflutter/getflutter.dart';
+
+import 'forms/checkCaloricValue.dart';
 
 class UI_Dashboard extends StatelessWidget {
   @override
@@ -19,18 +22,78 @@ class UI_Dashboard extends StatelessWidget {
               margin: EdgeInsets.all(10.0),
                 decoration: BoxDecoration(
                   border: Border.all (
-                      color: Colors.greenAccent
+                      color: Colors.blueAccent
                   ),
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                 ),
+              child: CircularProgress(2500.0, 1800.0)),
+
+            Padding(
+              padding: EdgeInsets.only(left: 15, top: 10),
+              child: GFTypography(
+                text: 'Check Your Meals, Stay on Track',
+
+                type: GFTypographyType.typo5,
+                dividerWidth: 25,
+                dividerColor: Color(0xFF19CA4B),
+              ),
+            ),
+              GFCard(
+                content: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround ,
+                    children: <Widget>[
+                      Icon(VainIcons.food_for_check_cal_val
+                      ),
+
+                      GFButton(
+                        onPressed: () {
+                          Navigator.push( context,
+                              MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                              CheckCaloricValue(),
+                              )
+                          );
+                        },
+                        child: const Text(
+                          'Check Calorie',
+                        ),
+                        color: GFColors.PRIMARY,
+                        size: GFSize.LARGE,
+                        buttonBoxShadow: true,
+                      ),
+//
+                      ],
+                )
+              ]),
+              ),
+          ]
+            )
+            )
+
+    );
+
+              /*Row(
+                      children: [
+                        Icon(VainIcons.food_for_check_cal_val),
+                        Row(children: [
+                         Text( 'Check Calorie'),
+
+                         SearchBar(onSearch: null, onItemFound: null),
+                       ]),
+                      ]
+                  ),*/
 
 
-              
-              //height: MediaQuery.of(context).size.height -140,
-              child: CircularProgress(2500.0, 1800.0))]),),);
-            // LinearCarbsProgress(),
-            // CircularProgress(2500.0, 1000.0),])),);
-             
+
+
+
               /* Row(
                 
                 mainAxisSize: MainAxisSize.min,
@@ -68,22 +131,22 @@ class UI_Dashboard extends StatelessWidget {
             //],
           //),),
          //);
-        // Card(
-        //   child: Row(
-        //     children: [  
-        //       Icon(VainIcons.food_for_check_cal_val),
-        //       SafeArea(
+     /*    Card(
+           child: Row(
+             children: [
+               Icon(VainIcons.food_for_check_cal_val),
+               SafeArea(
 
-        //         child: Row(
-        //           children: [
-        //             Text( 'Check Calorie'),
-        //             SearchBar(onSearch: null, onItemFound: null),
-        //           ]
-        //         ),
-        //       ),
-        //     ],
-        //   ),
-        // ),
+                 child: Row(
+                   children: [
+                     Text( 'Check Calorie'),
+                     SearchBar(onSearch: null, onItemFound: null),
+                   ]
+                 ),
+               ),
+             ],
+           ),
+         ),*/
         // GridView.count(
         //   crossAxisCount: 2,
         //   children: [
