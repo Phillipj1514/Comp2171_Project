@@ -38,8 +38,9 @@ dependencies:
   datetime_picker_formfield: ^1.0.0
   # card_settings: ^1.9.1
   #font_awesome_flutter: ^8.8.1
-  # dynamic_theme: ^1.0.1
-
+  dynamic_theme: ^1.0.1
+  flappy_search_bar: ^1.4.1
+  percent_indicator: ^2.1.1+1
 
 
 dev_dependencies:
@@ -68,6 +69,8 @@ flutter:
    - assets/images/Logo_Blue_out.png
    - assets/images/Logo_Red_out.png
    - assets/images/avatar_woman.jpg
+   - assets/images/meal_one.png
+   - assets/images/meal_two.png
   
 
   # fonts:
@@ -88,9 +91,9 @@ flutter:
   # example:
 
   fonts:
-    - family: CustomIcons
+    - family:  VainIcons
       fonts:
-        - asset: assets/fonts/CustomIcons.ttf
+        - asset: assets/fonts/VainIcons.ttf
   
   #
   # For details regarding fonts from package dependencies,

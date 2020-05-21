@@ -1,4 +1,5 @@
-import 'package:Vainfitness/UI/Custom_Icons.dart';
+
+import 'package:Vainfitness/UI/vain_icons_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:Vainfitness/UI/UI_Dashboard.dart' as first;
 import 'package:Vainfitness/UI/UI_ConsumptionLst.dart' as second;
@@ -38,22 +39,17 @@ class MyTabState extends State<Tabs> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    var profiledrawer = Profile_Drawer();
     return Scaffold(
-      drawer: Profile_Drawer(),
+      drawer: profiledrawer,
       appBar: 
         AppBar(
           centerTitle: true,
         
-          title: 
-            SizedBox(
-              height: kToolbarHeight,
-              child: Image.asset("assets/images/Logo_Blue_out.png"),
-            ),
-          leading:
-            IconButton(
-              icon: Icon(Icons.menu),
-              onPressed: () {Profile_Drawer();},
-            ), 
+          title: SizedBox(
+            height: kToolbarHeight,
+            child: Image.asset("assets/images/Logo_Blue_out.png"),
+          ),
         ),
   
       bottomNavigationBar:  Material(
@@ -62,7 +58,7 @@ class MyTabState extends State<Tabs> with SingleTickerProviderStateMixin {
           controller: controller,
           tabs: <Tab>[ 
              Tab(icon:  Icon(Icons.dashboard), text: 'Dashboard'),
-             Tab(icon:  Icon(CustomIcons.plan) ),
+             Tab(icon:  Icon(VainIcons.plan), text: 'Tracker'),
              Tab(icon:  Icon(Icons.fastfood), text: 'MealPlans'),  
           ] 
         )
