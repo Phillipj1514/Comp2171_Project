@@ -39,76 +39,122 @@ class _UI_MealPlanState extends State<UI_MealPlan> {
 
  // int lst = (MealPlan_List.mealPlanLst).length;
 
-  @override
-  Widget build(BuildContext context) {
-     //List<MealPlan> insMp = MealPlan_List.mealPlanLst;
-
-    return FutureBuilder(
-        //future: _mealsList,
-        future: initiateMealPlanFetch(),
-        builder: (context, insMp) {
-        //builder: (context, MealPlan_List.mealPlanLst){
-        //   if(mealsSnapshot.connectionState != ConnectionState.done) {
-        //      //return: show loading widget
-        //   }
-        //  if(mealsSnapshot.hasError) {
-        //     //return: Container();
-        //   }
-
-          Future mpl = insMp.data ?? [];
-          return ListView.builder(
-            itemCount: (MealPlan_List.mealPlanLst).length ,
-            itemBuilder: (context, index){
-              MealPlan mpl = insMp.data[index];
+  Widget mealPlanCard(MealPlan mealPlan){
+    return Container(
+      child: GFCard(
+        boxFit: BoxFit.cover,
+        image: Image.asset(
+          'assets/images/meal_two.png',
+          width: MediaQuery.of(context).size.width,
+          fit: BoxFit.fitWidth,
+        ),
+        titlePosition: GFPosition.end,
+        title: GFListTile(
+          titleText: 
+          //'Staring With A Boost!',
+          mealPlan.getName() ,
+          subtitleText: 'Daily Caloric Value: 2500',
+          icon: Icon(VainIcons.technology) ,
+        ),
+        content: Text(
+          'This meal plan will ensure you have a boost of energy that lasts all day.',
+          style: TextStyle(color: Colors.grey),
+        ),
+        buttonBar: GFButtonBar(
+          padding: const EdgeInsets.only(bottom: 10),
+          children: <Widget>[
+            GFButton(
+              text: 'More Info',
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                      MealPlanDetails() ,
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+    ); 
+  }
+  
+  Widget listOFMealPlans(){
+    return Container(
+      child: FutureBuilder(
+        future: MealPlanManager.loadMealPlanList(),
+        builder: (context, mealPlanSnap){
+  
+          if(mealPlanSnap.hasData){
               return Container(
-                child: ListView(
-                 children: <Widget>[
-                    GFCard(
-                    boxFit: BoxFit.cover,
-                    image: Image.asset(
-                      'assets/images/meal_two.png',
-                      width: MediaQuery.of(context).size.width,
-                      fit: BoxFit.fitWidth,
-                    ),
-                    titlePosition: GFPosition.end,
-                    title: GFListTile(
-                      titleText: 
-                      //'Staring With A Boost!',
-                      mpl.getName() ,
-                      subtitleText: 'Daily Caloric Value: 2500',
-                      icon: Icon(VainIcons.technology) ,
-                    ),
-                    content: Text(
-                      'This meal plan will ensure you have a boost of energy that lasts all day.',
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                    buttonBar: GFButtonBar(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      children: <Widget>[
-                        GFButton(
-                          text: 'More Info',
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                  MealPlanDetails() ,
-                              ),
-                            );
-                          },
-                        ),
-                      ],
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: MealPlan_List.mealPlanLst.length,
+                      itemBuilder: (context, index) {
+                        return mealPlanCard(MealPlan_List.getMealPlan(index));
+                        //return Text(MealPlan_List.getMealPlan(index).getName());
+                      }
+                    )
+                  ],
+                ),
+              );
+          }else if( mealPlanSnap.hasError){
+            return Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Center(
+                    child:Text("Nothing to Show",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
                     ),
                   ),
-                ]
-                )
-              ); 
-
-            }
+                ],
+              ),
+            );
+          }
+          return Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ],
+            ),
           );
-      }
-  );
-}
+            
+
+          
+        },
+      ),
+    );
+  }
+  
+  @override
+  Widget build(BuildContext context) {
+    //List<MealPlan> insMp = MealPlan_List.mealPlanLst;
+    return Scaffold(
+      body: Container(
+        child: ListView(
+          padding: const EdgeInsets.all(10),
+          children: <Widget>[
+            listOFMealPlans(),
+          ],
+        )
+      )
+    );
+  }
 }
 
 

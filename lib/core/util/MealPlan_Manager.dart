@@ -76,8 +76,10 @@ class MealPlanManager{
       print("--> Loading Mealplans from database");
       List<MealPlan> mealPlans = await db.fetchMealPlans();
       MealPlan_List.setMealPlanList(mealPlans);
+      return true;
     }catch(e){
       print(e.toString());
+      return false;
     }
   }
   
