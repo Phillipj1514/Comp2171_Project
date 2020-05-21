@@ -1,5 +1,6 @@
 import 'package:Vainfitness/UI/vain_icons_icons.dart';
 import 'package:flappy_search_bar/flappy_search_bar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:getflutter/colors/gf_color.dart';
 import 'package:getflutter/components/progress_bar/gf_progress_bar.dart';
@@ -12,31 +13,24 @@ class UI_Dashboard extends StatelessWidget {
       child: Container(
         child: ListView(
           children: <Widget>[
-            Container( 
-              height: MediaQuery.of(context).size.height -140,
+            Container(
+              //color: Colors.greenAccent ,
+              //padding: EdgeInsets.all(10.0),
+              margin: EdgeInsets.all(10.0),
+                decoration: BoxDecoration(
+                  border: Border.all (
+                      color: Colors.greenAccent
+                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                ),
+
+
+              
+              //height: MediaQuery.of(context).size.height -140,
               child: CircularProgress(2500.0, 1800.0))]),),);
             // LinearCarbsProgress(),
             // CircularProgress(2500.0, 1000.0),])),);
              
-              // GFProgressBar(
-              //   percentage: 0.5,
-              //   width: 300, 
-              //   radius: 250.0,
-              //   circleStartAngle: 45.0,
-                // child: const Padding(
-                //   padding:EdgeInsets.only(right: 5) ,
-                //   child: Text( 
-                //     '50%', 
-                //     textAlign: TextAlign.end,
-                //     style: TextStyle(
-                //       fontSize: 16, 
-                //       color: Colors.black
-                //     ),
-                //   ),
-                // ),
-                // backgroundColor: Colors.black26,
-                // progressBarColor: GFColors.WARNING,
-             // ),
               /* Row(
                 
                 mainAxisSize: MainAxisSize.min,
@@ -185,6 +179,7 @@ class _CircularProgressState extends State<CircularProgress> {
   @override
   Widget build(BuildContext context) {
       return Container(
+
         padding: EdgeInsets.all(25.0),
         child:Column(
           children: [
