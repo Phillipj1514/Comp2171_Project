@@ -1,3 +1,4 @@
+import 'package:Vainfitness/UI/clientui/MealPlanSubscriptions.dart';
 import 'package:Vainfitness/UI/vain_icons_icons.dart';
 import 'package:Vainfitness/core/nutrition/Daily_Consumption.dart';
 import 'package:Vainfitness/core/nutrition/Meal.dart';
@@ -34,8 +35,8 @@ class _UI_ConsumptionLstState extends State<UI_ConsumptionLst>{
         0xe80c,
         fontFamily: 'VainIcons',
       ),
-      'title': 'Edit Meal Plan',
-      'route': AddMeal()
+      'title': 'Meal Plan Subscriptions',
+      'route': MealPlanSubscriptions(),
     },
 
   ];
@@ -92,6 +93,7 @@ class _UI_ConsumptionLstState extends State<UI_ConsumptionLst>{
 //            Icon((icon),),
           Text(
             title,
+            textAlign: TextAlign.center,
             // style: const TextStyle(color: GFColors.WHITE, fontSize: 20),
             style: const TextStyle(color: Color(0xFF8D6E63), fontSize: 20),
 

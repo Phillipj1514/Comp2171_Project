@@ -127,4 +127,23 @@ class ProfileManager{
     }
     return false;
   }
+
+  static Future getCoachClients() async{
+    try{
+      if(isFitnessCoach()){
+        Fitness_Coach fitness_coach = ProfileManager.getUser();
+        List<Client> clients = [];
+        fitness_coach.getClientsId().forEach((clientId) async{
+          Client client = await db.fetchUser(clientId);
+          if(client != null){
+            clients.add(client);
+          }
+        });
+        return clients;
+      }
+    }catch(e){
+      print(e.toString());
+    }
+    return null;
+  }
 }
