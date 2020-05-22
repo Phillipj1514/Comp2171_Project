@@ -3,6 +3,7 @@ import 'package:Vainfitness/UI/forms/addMealPlan.dart';
 import 'package:Vainfitness/UI/forms/checkCaloricValue.dart';
 import 'package:Vainfitness/UI/forms/createUserProfile.dart';
 import 'package:Vainfitness/core/util/Authenticator.dart';
+import 'package:Vainfitness/core/util/Profile_Manager.dart';
 import 'package:flutter/material.dart';
 
 import 'clientui/UI_Bottom_Nav.dart';
@@ -24,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
   
   void goTestZone(){
     Navigator.push(context, 
-                      MaterialPageRoute(builder: (context) => Tabs()));
+                      MaterialPageRoute(builder: (context) => CoachTabs()));
   }
 
   final emailController = TextEditingController();
@@ -71,8 +72,14 @@ class _LoginPageState extends State<LoginPage> {
           );
       
         });
-        Navigator.push(context, 
+        if(ProfileManager.isClient()){
+           Navigator.push(context, 
                       MaterialPageRoute(builder: (context) => Tabs()));
+        }else if(ProfileManager.isFitnessCoach()){
+           Navigator.push(context, 
+                      MaterialPageRoute(builder: (context) => CoachTabs()));
+        }
+       
       }else{ 
         setState(() {
           error = "Try Again!";
