@@ -1,7 +1,9 @@
 import 'package:Vainfitness/UI/MealPlanDetail.dart';
 import 'package:Vainfitness/UI/vain_icons_icons.dart';
+import 'package:Vainfitness/core/nutrition/Meal.dart';
 import 'package:Vainfitness/core/nutrition/MealPlan.dart';
 import 'package:Vainfitness/core/nutrition/MealPlan_List.dart';
+import 'package:Vainfitness/core/util/Profile_Manager.dart';
 import 'package:flutter/material.dart';
 import 'package:getflutter/getflutter.dart';
 import 'package:Vainfitness/core/util/MealPlan_Manager.dart';
@@ -20,6 +22,45 @@ class _UI_CoachMealPlanState extends State<UI_CoachMealPlan> {
 
 	//Future<List<MealPlan>> mealsLst = Future<List<MealPlan>>.delayed(Duration(seconds:2),() => 'Fetching MealPlans',);
 	static Future _mealsList;
+
+  String mealPlanDetails(MealPlan mealPlan){
+    String result = "This meal plan have the meals: \n";
+    try{
+      mealPlan.getMealList().forEach((Meal meal) { 
+        String textmeal = "--> "+meal.getName()+"\n";
+        result+=textmeal;
+      });
+    }catch(e){
+      print(e.toString());
+    }
+    return result;
+  }
+
+  Future removeMealPlan(String mealPlanId) async{
+    try{
+      if(ProfileManager.isFitnessCoach()){
+         var response = await MealPlanManager.deleteMealPlan(mealPlanId);
+        setState(() {
+          MealPlan_List.mealPlanLst;
+        });
+        if(response){
+          final snackBar = SnackBar(content: Text('Meal Plan Deleted '));
+          Scaffold.of(context).showSnackBar(snackBar);
+        }else{
+          final snackBar = SnackBar(content: Text("Meal Plan wasn't deleted"));
+          Scaffold.of(context).showSnackBar(snackBar);
+        }
+      }else{
+        final snackBar = SnackBar(content: Text('You need to be a fitness Coach'));
+        Scaffold.of(context).showSnackBar(snackBar);
+      }
+     
+    }catch(e){
+      print(e.toString());
+      final snackBar = SnackBar(content: Text("Meal Plan wasn't deleted "));
+      Scaffold.of(context).showSnackBar(snackBar);
+    }
+  }
 
 	Future initiateMealPlanFetch() async{
 		try{
@@ -54,26 +95,22 @@ class _UI_CoachMealPlanState extends State<UI_CoachMealPlan> {
 					titleText:
 					//'Staring With A Boost!',
 					mealPlan.getName() ,
-					subtitleText: 'Daily Caloric Value: 2500',
+					subtitleText: 'Total Caloric Value: '+mealPlan.getTotalNutrition().getCalorie().toString(),
 					icon: Icon(VainIcons.technology) ,
 				),
 				content: Text(
-					'This meal plan will ensure you have a boost of energy that lasts all day.',
+					'This meal plan will ensure you have a boost of energy that lasts all the days.\n ------------------------------------------------------------\n'
+          +mealPlanDetails(mealPlan),
 					style: TextStyle(color: Colors.grey),
 				),
 				buttonBar: GFButtonBar(
 					padding: const EdgeInsets.only(bottom: 10),
 					children: <Widget>[
 						GFButton(
-							text: 'Edit',
+              color: Colors.red,
+							text: 'Remove',
 							onPressed: () {
-								Navigator.push(
-									context,
-									MaterialPageRoute(
-										builder: (BuildContext context) =>
-												MealPlanDetails() ,
-									),
-								);
+                removeMealPlan(mealPlan.getId());
 							},
 						),
 					],
@@ -84,13 +121,9 @@ class _UI_CoachMealPlanState extends State<UI_CoachMealPlan> {
 
 	Widget listOFMealPlans(){
 		return Container(
-			child:
-
-
-			FutureBuilder(
+			child:FutureBuilder(
 				future: MealPlanManager.loadMealPlanList(),
 				builder: (context, mealPlanSnap){
-
 					if(mealPlanSnap.hasData){
 						return Container(
 							child: Column(
