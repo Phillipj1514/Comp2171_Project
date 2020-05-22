@@ -29,7 +29,7 @@ class MealPlanManager{
       }else{print("Only clients have meal plan subscription");}
     }catch(e){
       print(e.toString());
-      return null;
+      return [];
     }
   }
 
