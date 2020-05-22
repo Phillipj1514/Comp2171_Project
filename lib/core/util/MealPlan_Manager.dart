@@ -113,10 +113,12 @@ class MealPlanManager{
         }
         await db.deleteMealPlan(mealPlanId);
         MealPlan_List.removeMealPlanById(mealPlanId);
+        return true;
       }else{ print("Only coaches can add mealplan");}
     }catch(e){
       print(e.toString());
     }
+    return false;
   }
 
   // update a meal Plan given the meal plan
