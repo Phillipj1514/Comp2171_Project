@@ -1,6 +1,7 @@
 import 'package:Vainfitness/UI/UI_CoachViewClients.dart';
 import 'package:Vainfitness/UI/forms/AddMeal.dart';
 import 'package:Vainfitness/UI/forms/addMealPlan.dart';
+import 'package:Vainfitness/UI/forms/createUserProfile.dart';
 import 'package:Vainfitness/core/util/Profile_Manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -29,21 +30,21 @@ class UI_CoachDashboard extends StatelessWidget {
 
 
 	List vainGridComp = [
-		{
-			'icon': const IconData(
-				0xe80a,
-				fontFamily: 'VainIcons',
-			),
-			'title': 'Total Clients: ${totalClients.toString()} ',
-			'route': null
-		},
+		// {
+		// 	'icon': const IconData(
+		// 		0xe80a,
+		// 		fontFamily: 'VainIcons',
+		// 	),
+		// 	'title': 'Total Clients: ${totalClients.toString()} ',
+		// 	'route': 10
+		// },
 		{
 			'icon': const IconData(
 				0xe80e,
 				fontFamily: 'VainIcons',
 			),
 			'title': 'Add New Client',
-			'route': AddMealPlan()
+			'route': CreateUserProfile()
 		},
 		{
 			'icon': const IconData(

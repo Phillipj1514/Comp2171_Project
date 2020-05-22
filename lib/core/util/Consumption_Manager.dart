@@ -40,12 +40,14 @@ class ConsumptionManager{
         client.deleteMealFromConsumption(mealId, consumpId);
         await db.updateDailyConsumption(client.getUid(), client.getDailyConsumptionByDate(consumpId));
         ProfileManager.setUser(client);
+        return true;
       }else{
         print("client is invalid");
       }
     }catch(e){
       print(e.toString());
     }
+    return false;
   }
 
   /// Update a meal in a specific daily consumption

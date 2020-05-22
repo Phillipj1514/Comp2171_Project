@@ -2,10 +2,12 @@ import 'package:Vainfitness/UI/vain_icons_icons.dart';
 import 'package:Vainfitness/core/nutrition/Daily_Consumption.dart';
 import 'package:Vainfitness/core/nutrition/Meal.dart';
 import 'package:Vainfitness/core/user/Client.dart';
+import 'package:Vainfitness/core/util/Consumption_Manager.dart';
 import 'package:Vainfitness/core/util/Profile_Manager.dart';
 import 'package:flutter/material.dart';
 import 'package:Vainfitness/UI/forms/AddMeal.dart';
 import 'package:Vainfitness/UI/forms/addMealPlan.dart';
+import 'package:getflutter/components/button/gf_button.dart';
 import 'package:timeline_list/timeline.dart';
 import 'package:timeline_list/timeline_model.dart';
 
@@ -37,6 +39,26 @@ class _UI_ConsumptionLstState extends State<UI_ConsumptionLst>{
     },
 
   ];
+
+  Future removeMeal(DateTime consumpId, String mealId) async{
+    try{
+      var response  = await ConsumptionManager.deleteUserMeal(consumpId, mealId);
+      setState(() {
+        todaysConsumption;
+      });
+      if(response){
+        final snackBar = SnackBar(content: Text("Meal Removed"));
+        Scaffold.of(context).showSnackBar(snackBar); 
+      }else{
+        final snackBar = SnackBar(content: Text("Something went wrong / network issue"));
+        Scaffold.of(context).showSnackBar(snackBar); 
+      }
+    }catch(e){
+      print(e.toString());
+      final snackBar = SnackBar(content: Text("Something went wrong / network issue"));
+      Scaffold.of(context).showSnackBar(snackBar); 
+    }
+  }
 
   Widget buildBoxTile(String title, IconData icon, Widget route) => InkWell(
 	  onTap: () {
@@ -126,22 +148,24 @@ class _UI_ConsumptionLstState extends State<UI_ConsumptionLst>{
 							mainAxisSize: MainAxisSize.min,
 							children: <Widget>[
 								Image.asset('assets/images/meal_one.png'),
-								const SizedBox(
-									height: 8.0,
-								),
+								const SizedBox(height: 8.0,),
 								Text(todaysConsumption.getDate().toString(), style: textTheme.caption),
-								const SizedBox(
-									height: 8.0,
-								),
+								const SizedBox(height: 8.0,),
 								Text(
-									//{todaysConsumption.getMeals()[i].getName()} ,
 									meal.getName(),
 									style: textTheme.bodyText1 ,
 									textAlign: TextAlign.center,
 								),
-								const SizedBox(
-									height: 8.0,
-								),
+                const SizedBox(height: 8.0,),
+								Text("Calories: "+meal.getTotalNutrients().getCalorie().toString(), style: textTheme.caption),
+								const SizedBox(height: 8.0,),
+                GFButton(
+                  text: 'Remove',
+                  color: Colors.red,
+                  onPressed: () {
+                    removeMeal(todaysConsumption.getDate(), meal.getId());
+                  },
+                ),
 							],
 						),
 					),
