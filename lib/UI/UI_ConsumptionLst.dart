@@ -1,9 +1,23 @@
+import 'package:Vainfitness/UI/vain_icons_icons.dart';
+import 'package:Vainfitness/core/nutrition/Daily_Consumption.dart';
+import 'package:Vainfitness/core/nutrition/Meal.dart';
+import 'package:Vainfitness/core/user/Client.dart';
+import 'package:Vainfitness/core/util/Profile_Manager.dart';
 import 'package:flutter/material.dart';
 import 'package:Vainfitness/UI/forms/AddMeal.dart';
 import 'package:Vainfitness/UI/forms/addMealPlan.dart';
-import 'package:Vainfitness/UI/timelineCL.dart';
+import 'package:timeline_list/timeline.dart';
+import 'package:timeline_list/timeline_model.dart';
 
-class UI_ConsumptionLst extends StatelessWidget {
+class UI_ConsumptionLst extends StatefulWidget {
+  _UI_ConsumptionLstState createState() => _UI_ConsumptionLstState(); 
+}
+
+class _UI_ConsumptionLstState extends State<UI_ConsumptionLst>{
+  
+  Daily_Consumption todaysConsumption ;
+	Client client = ProfileManager.getUser();
+  
   List vainGridComp = [
     {
       'icon': const IconData(
@@ -25,8 +39,6 @@ class UI_ConsumptionLst extends StatelessWidget {
   ];
 
   Widget buildBoxTile(String title, IconData icon, Widget route) => InkWell(
-
-
     child: Container(
       decoration: BoxDecoration(
         color: const Color(0xFFbbdefb),
@@ -62,11 +74,93 @@ class UI_ConsumptionLst extends StatelessWidget {
     ),
   );
 
+  void fetchConsumptionList(){
+		try{
+      if(ProfileManager.isClient()){
+			  setState(() {
+				  todaysConsumption = client.getDailyConsumptionByDate(DateTime.now());
+          
+			  });
+        print("---> Todays consumption");
+        print(todaysConsumption.getMeals().length);
+      }
+		}catch(e){
+			print(e.toString());
+		}
+	}
+  Widget timelineCL(){
+		return Container(
+      child: cLtimelineModel(TimelinePosition.Left),
+		  );
+		
+  }
+
+  cLtimelineModel(TimelinePosition position) => Timeline.builder(
+    shrinkWrap: true,
+    itemBuilder: rightTimelineBuilder,
+    itemCount: todaysConsumption != null? todaysConsumption.getMeals().length: 0,
+    physics: position == TimelinePosition.Right
+        ? ClampingScrollPhysics()
+        : BouncingScrollPhysics(),
+    position: position
+  );
+
+	TimelineModel rightTimelineBuilder(BuildContext context, int i) {
+    final textTheme = Theme.of(context).textTheme;
+		final Meal meal = todaysConsumption.getMeals()[i];
+		return TimelineModel(
+				Card(
+					margin: EdgeInsets.symmetric(vertical: 16.0),
+					shape:
+					RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+					clipBehavior: Clip.antiAlias,
+					child: Padding(
+						padding: const EdgeInsets.all(16.0),
+						child: Column(
+							mainAxisSize: MainAxisSize.min,
+							children: <Widget>[
+								Image.asset('assets/images/meal_one.png'),
+								const SizedBox(
+									height: 8.0,
+								),
+								Text(todaysConsumption.getDate().toString(), style: textTheme.caption),
+								const SizedBox(
+									height: 8.0,
+								),
+								Text(
+									//{todaysConsumption.getMeals()[i].getName()} ,
+									meal.getName(),
+									style: textTheme.bodyText1 ,
+									textAlign: TextAlign.center,
+								),
+								const SizedBox(
+									height: 8.0,
+								),
+							],
+						),
+					),
+				),
+				position:	TimelineItemPosition.right,
+				isFirst: i == 0,
+				isLast: i == todaysConsumption.getMeals().length-1,
+				iconBackground: Colors.lime,
+				icon: Icon(VainIcons.food_and_restaurant)
+		);
+	}
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchConsumptionList();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return Scaffold(
+      body: SafeArea(
         child: Container(
+<<<<<<< HEAD
             child: ListView(
                 children: <Widget>[
                   Container(
@@ -99,6 +193,41 @@ class UI_ConsumptionLst extends StatelessWidget {
                 ]
             )
         )
+=======
+          child: ListView(
+            shrinkWrap: true,
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.all(10) ,
+                child: GridView.builder(
+                  shrinkWrap: true,
+                  physics: const ScrollPhysics(),
+                  itemCount: vainGridComp.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10),
+                  itemBuilder: (BuildContext context, int index) => GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                AddMealPlan(),));
+                    },
+                    child: buildBoxTile(
+                        vainGridComp[index]['title'],
+                        vainGridComp[index]['icon'],
+                        vainGridComp[index]['route'])
+                  )
+                ),
+              ),
+              timelineCL(),
+            ],
+          )
+        ),
+      ),
+>>>>>>> d8d5c8ee1566c5108bf1223103517d31e2e1a23f
     );
   }
 }
