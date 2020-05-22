@@ -1,3 +1,6 @@
+import 'package:Vainfitness/core/nutrition/Food.dart';
+import 'package:Vainfitness/core/user/Client.dart';
+import 'package:Vainfitness/core/util/Profile_Manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -18,6 +21,27 @@ class _CheckCaloricValueState extends State<CheckCaloricValue>{
     ["WEIGHT","Pound / lb"],
     ["NUMBER","Number count of item"]
   ];
+
+
+  Future checkFoodCalorie()async{
+    try{
+      String name = nameController.text;
+      double quantity = double.parse(quantityController.text);
+      String foodmeasure  = measure; 
+      Food food = new Food(name: name, quantity: quantity, measure: foodmeasure);
+      Client client = ProfileManager.getUser();
+      int calorie = await client.checkFoodCalorie(food);
+      setState(() {
+        calorieResult = "Total Calorie of food is "+ calorie.toString();
+      });
+    }catch(e){
+      print(e.toString());
+      setState(() {
+        calorieResult = "Something went wrong!";
+      });
+    }
+
+  }
 
   Widget foodForm(){
     return Container(
@@ -123,7 +147,9 @@ class _CheckCaloricValueState extends State<CheckCaloricValue>{
               child: RaisedButton(
                 color: Colors.blue,
                 shape: StadiumBorder(),
-                onPressed: () {},
+                onPressed: () {
+                  checkFoodCalorie();
+                },
                 child: Text("Check",
                   style: TextStyle(
                     color: Colors.white,
