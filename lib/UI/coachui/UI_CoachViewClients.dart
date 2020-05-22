@@ -14,41 +14,13 @@ class ViewClientList extends StatefulWidget {
 }
 
 class _ViewClientListState extends State<ViewClientList> {
-  static Future clientList;
-  static List<String> clients;
-  static int count;
-  static Fitness_Coach bigcoach;
-  Future fetchclients() async{
-    //String result = "This meal plan have the meals: \n";
-    try{
-      if(ProfileManager.isFitnessCoach()){
-        Fitness_Coach activeCoach =  ProfileManager.getUser();
-        List<String> clientlst =  activeCoach.getClientsId();
+  List<Client> clients = [];
 
-        setState(() {
-          _update(clientlst);
-          count= clientlst.length;
-          clientlst = clientlst;
-          bigcoach = activeCoach;
-        });
-      }
-    }catch(e){
-      print(e.toString());
-    }
-  }
-  
-  void _update(clientLst) async{
-    setState(()=>clientList = clientLst);
-  
-  }
-
-
-  Widget ClientCard(Client client){
+  Widget clientCard(Client client){
     return Container(
       child: Column( children: [
       GFCard(
         content: GFListTile(
-
           titleText: '${client.getFirstname()} ${client.getLastname()}',
           //subtitleText: 'Open source UI library',
           icon: Icon(Icons.account_circle ),
@@ -80,9 +52,9 @@ class _ViewClientListState extends State<ViewClientList> {
   Widget listOfAllClients(){
     return Container(
       child: FutureBuilder(
-        future: clientList,
+        future: ProfileManager.getCoachClients(),
         builder: (context, clientSnap){
-
+          clients = clientSnap.data;
           if(clientSnap.hasData){
             return Container(
               child: Column(
@@ -91,10 +63,9 @@ class _ViewClientListState extends State<ViewClientList> {
                   ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: count,
-                      itemBuilder: (context, i) {
-                        //TODO Fix this such that we get the list of clients iterating
-                        return ClientCard( bigcoach.getClientByIndex(i) );
+                      itemCount: clients.length,
+                      itemBuilder: (context, index) {
+                        return clientCard(clients[index]);
                       }
                   )
                 ]
@@ -138,6 +109,7 @@ class _ViewClientListState extends State<ViewClientList> {
   Widget build(BuildContext context) {
     //List<MealPlan> insMp = MealPlan_List.mealPlanLst;
     return Scaffold(
+      appBar:  AppBar(title:  Text("Coach Clients"), backgroundColor: Colors.amberAccent),
         body: Container(
             child: ListView(
               padding: const EdgeInsets.all(10),
@@ -147,34 +119,5 @@ class _ViewClientListState extends State<ViewClientList> {
             )
         )
     );
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }

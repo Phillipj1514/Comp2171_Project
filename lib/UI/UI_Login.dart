@@ -208,13 +208,13 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ]
                 ),
-                RaisedButton( 
-                  onPressed: () {
-                    goTestZone();
-                  },
-                  child: Text('Test Button', 
-                  style: TextStyle(fontSize: 10))
-                  ),
+                // RaisedButton( 
+                //   onPressed: () {
+                //     goTestZone();
+                //   },
+                //   child: Text('Test Button', 
+                //   style: TextStyle(fontSize: 10))
+                //   ),
                  Row(                                    
                   children:<Widget>[ 
                     Padding(
