@@ -65,7 +65,7 @@ class _UI_CoachMealPlanState extends State<UI_CoachMealPlan> {
 					padding: const EdgeInsets.only(bottom: 10),
 					children: <Widget>[
 						GFButton(
-							text: 'Subscribe',
+							text: 'Edit',
 							onPressed: () {
 								Navigator.push(
 									context,
@@ -189,7 +189,7 @@ class _UI_CoachMealPlanState extends State<UI_CoachMealPlan> {
 														Expanded(
 															flex: 1,
 															child:
-															Icon(VainIcons.food_for_check_cal_val),
+															Icon(VainIcons.recipe_1 ),
 														),
 														Expanded(
 															flex: 2,
@@ -204,7 +204,7 @@ class _UI_CoachMealPlanState extends State<UI_CoachMealPlan> {
 																	);
 																},
 																child: const Text(
-																	'Check Calorie',
+																	'Add New MealPlan',
 																),
 																color: GFColors.PRIMARY,
 																size: GFSize.LARGE,
