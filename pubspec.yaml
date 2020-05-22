@@ -41,7 +41,8 @@ dependencies:
   dynamic_theme: ^1.0.1
   flappy_search_bar: ^1.4.1
   percent_indicator: ^2.1.1+1
-  flutter_slidable: "^0.5.4"
+  flutter_slidable: ^0.5.4
+  timeline_list: ^0.0.5
 
 
 

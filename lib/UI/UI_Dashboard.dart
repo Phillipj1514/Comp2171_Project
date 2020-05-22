@@ -60,7 +60,7 @@ class UI_Dashboard extends StatelessWidget {
   List vainGridComp = [
     {
       'icon': const IconData(
-        0xe800,
+        0xe805,
         fontFamily: 'VainIcons',
       ),
       'title': 'Add Breakfast',
