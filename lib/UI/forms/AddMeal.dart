@@ -49,13 +49,21 @@ class _AddMealState extends State<AddMeal> {
       if(ProfileManager.isClient()){
         var response = await ConsumptionManager.addUserMeal(meal, date);
         if(response){
-          setState(() { message = "Meal Added Successfully";});
-        }else{setState(() { message = "Something went wrong!";});}
-      }else{setState(() { message = "Only Clients Allowed!";});}
+          final snackBar = SnackBar(content: Text("Meal Added Successfully"));
+          Scaffold.of(context).showSnackBar(snackBar); 
+        }else{
+          final snackBar = SnackBar(content: Text("Something went wrong / network issue"));
+          Scaffold.of(context).showSnackBar(snackBar); 
+        }
+      }else{
+        final snackBar = SnackBar(content: Text("Only Clients Allowed!"));
+        Scaffold.of(context).showSnackBar(snackBar); 
+        }
     }catch(e){
       print(e.toString());
-      setState(() { message = "Something went wrong!";});
-    }
+      final snackBar = SnackBar(content: Text("Something went wrong / network issue"));
+      Scaffold.of(context).showSnackBar(snackBar); 
+      }
   }
 
   @override
@@ -305,15 +313,7 @@ class _AddMealState extends State<AddMeal> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(top: 5, bottom:15),
-                      child: Text(message,
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.red,
-                        ),
-                      ),
-                    ),
+                    
                     mealDetails(),
                     foodItems(),
                     controlButtons()
