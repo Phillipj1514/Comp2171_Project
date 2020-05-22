@@ -74,6 +74,7 @@ flutter:
    - assets/images/avatar_woman.jpg
    - assets/images/meal_one.png
    - assets/images/meal_two.png
+   - assets/images/coach.png
   
 
   # fonts:
