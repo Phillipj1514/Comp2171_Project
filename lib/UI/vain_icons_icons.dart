@@ -34,8 +34,11 @@ class VainIcons {
   static const IconData diner = IconData(0xe806, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData food_for_check_cal_val = IconData(0xe807, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData technology = IconData(0xe808, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData viewclients = IconData(0xe809, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData user = IconData(0xe80a, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData recipe = IconData(0xe80c, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData event = IconData(0xe80d, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData add = IconData(0xe80e, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData recipe_1 = IconData(0xe80f, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData calendar_edit = IconData(0xe810, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData calendar_full = IconData(0xe836, fontFamily: _kFontFam, fontPackage: _kFontPkg);
