@@ -64,7 +64,7 @@ class _UI_MealPlanState extends State<UI_MealPlan> {
           padding: const EdgeInsets.only(bottom: 10),
           children: <Widget>[
             GFButton(
-              text: 'More Info',
+              text: 'Subscribe',
               onPressed: () {
                 Navigator.push(
                   context,
@@ -181,41 +181,3 @@ class _UI_MealPlanState extends State<UI_MealPlan> {
 
 
 
-
-
-//  Scaffold(
-//       body: Container(
-//         child: ListView(
-//           padding: const EdgeInsets.all(8),
-//           children: <Widget>[
-//             Container(
-//               height: 50,
-//               color: Colors.amber[600],
-//               child: const Center(
-//                 child: Text(
-//                   'Entry A'
-//                 )
-//               ),
-//             ),
-//             Container(
-//               height: 50,
-//               color: Colors.amber[500],
-//               child: const Center(
-//                 child: Text(
-//                   'MealPlans'
-//                 )
-//               ),
-//             ),
-//             Container(
-//               height: 50,
-//               color: Colors.amber[100],
-//               child: const Center(
-//                 child: Text(
-//                   'Entry C'
-//                 )
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//    
