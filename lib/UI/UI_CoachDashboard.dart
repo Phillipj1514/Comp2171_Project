@@ -1,4 +1,5 @@
 import 'package:Vainfitness/UI/forms/AddMeal.dart';
+import 'package:Vainfitness/UI/forms/addMealPlan.dart';
 import 'package:Vainfitness/core/util/Profile_Manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,7 @@ class UI_CoachDashboard extends StatelessWidget {
 				fontFamily: 'VainIcons',
 			),
 			'title': 'Total Clients: ${totalClients.toString()} ',
-			'route': AddMeal()
+			'route': null
 		},
 		{
 			'icon': const IconData(
@@ -41,7 +42,7 @@ class UI_CoachDashboard extends StatelessWidget {
 				fontFamily: 'VainIcons',
 			),
 			'title': 'Add New Client',
-			'route': AddMeal()
+			'route': AddMealPlan()
 		},
 		{
 			'icon': const IconData(
@@ -49,7 +50,7 @@ class UI_CoachDashboard extends StatelessWidget {
 				fontFamily: 'VainIcons',
 			),
 			'title': 'View Clients',
-			'route': AddMeal()
+			'route': ViewClientList()
 		},
 
 	];
