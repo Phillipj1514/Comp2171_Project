@@ -44,10 +44,8 @@ class _MealPlanSubscriptionsState extends State<MealPlanSubscriptions> {
       if(ProfileManager.isClient()){
         await MealPlanManager.removeUserMealPlanSubscription(mealPlanId);
         setState(() {
-          
+          mealplans;
         });
-        final snackBar = SnackBar(content: Text('Meal Plan removed'));
-        Scaffold.of(this.context).showSnackBar(snackBar);
       }
     }catch(e){
       print(e.toString());
@@ -172,40 +170,5 @@ class _MealPlanSubscriptionsState extends State<MealPlanSubscriptions> {
         )
       )
     );
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-class MealPlanPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-  
-    
   }
 }
