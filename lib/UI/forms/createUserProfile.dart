@@ -47,14 +47,23 @@ class _CreateUserProfileState extends State<CreateUserProfile>{
           var response = await ProfileManager.createClientProfile(
           firstname, lastname, username, email, date.month, date.day, date.year, age, height, weight, expectedWeight, numDays, password);
           if(response){
-            setState(() { message = "Client Profile created for "+username; });  
-          }else{ setState(() { message = "Something went wrong / user unavailable"; }); }
+            final snackBar = SnackBar(content: Text("Client Profile created for "+username));
+            Scaffold.of(context).showSnackBar(snackBar);
+          }else{ 
+            final snackBar = SnackBar(content: Text("Something went wrong / network issue"));
+            Scaffold.of(context).showSnackBar(snackBar); }
           
-        }else{ setState(() { message = "password and confirgm password must be the same"; }); }
-      }else{ setState(() { message = "Only fitness coach can create a new user"; }); }
+        }else{ 
+          final snackBar = SnackBar(content: Text("password and confirgm password must be the same"));
+          Scaffold.of(context).showSnackBar(snackBar);}
+      }else{ 
+        final snackBar = SnackBar(content: Text("Something went wrong / network issue"));
+        Scaffold.of(context).showSnackBar(snackBar); 
+      }
     }catch(e){
       print(e.toString());
-      setState(() { message = "Something went wrong!";});
+      final snackBar = SnackBar(content: Text("Something went wrong / network issue"));
+      Scaffold.of(context).showSnackBar(snackBar);
 
       
     }
@@ -65,15 +74,6 @@ class _CreateUserProfileState extends State<CreateUserProfile>{
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(top: 5, bottom:15),
-            child: Text(message,
-              style: TextStyle(
-                fontSize: 15,
-                color: Colors.red,
-              ),
-            ),
-          ),
           // Name edit text 
           Padding(
             padding: EdgeInsets.only(top: 5, bottom:15),
