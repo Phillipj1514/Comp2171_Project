@@ -49,27 +49,27 @@ class _Profile_DrawerState extends State<Profile_Drawer> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    const GFAvatar(
+                    GFAvatar(
                       radius: 40,
                       backgroundImage: AssetImage(
                         'assets/images/avatar_woman.jpg',
                       ),
                     ),
-                    const SizedBox(
+                    SizedBox(
                       height: 5,
                     ),
                     Text(
-                      'username',
+                      ProfileManager.isUserAvailable()? ProfileManager.getUser().getUsername():"Username",
                       style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
                           color: Colors.white),
                     ),
-                    const SizedBox(
+                    SizedBox(
                       height: 5,
                     ),
-                    const Text(
-                      'email',
+                    Text(
+                      ProfileManager.isUserAvailable()? ProfileManager.getUser().getEmail():'email',
                       style: TextStyle(color: Colors.white),
                     ),
                   ],

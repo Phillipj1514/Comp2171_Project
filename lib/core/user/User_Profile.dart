@@ -48,7 +48,7 @@ class User_Profile{
   
   void setFirstname(String firstname) => this.firstname = firstname;
   
-  void setLastname(String lastname) => this.firstname = lastname;
+  void setLastname(String lastname) => this.lastname = lastname;
   
   void setUsername(String username) => this.username = username;
 

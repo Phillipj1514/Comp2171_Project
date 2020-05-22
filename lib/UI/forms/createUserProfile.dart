@@ -225,6 +225,7 @@ class _CreateUserProfileState extends State<CreateUserProfile>{
             padding: EdgeInsets.only(top: 5, bottom:15),
             child: TextField(
               controller: passwordController,
+              obscureText: true,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Password (6 charater or more)',
@@ -237,6 +238,7 @@ class _CreateUserProfileState extends State<CreateUserProfile>{
             padding: EdgeInsets.only(top: 5, bottom:15),
             child: TextField(
               controller: confirmPassController,
+              obscureText: true,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Confirm Password',
