@@ -44,14 +44,14 @@ class UI_CoachDashboard extends StatelessWidget {
 			'title': 'Add New Client',
 			'route': AddMealPlan()
 		},
-		{
-			'icon': const IconData(
-				0xe809,
-				fontFamily: 'VainIcons',
-			),
-			'title': 'View Clients',
-			// 'route': ViewClientList()
-		},
+		// {
+		// 	'icon': const IconData(
+		// 		0xe809,
+		// 		fontFamily: 'VainIcons',
+		// 	),
+		// 	'title': 'View Clients',
+		// 	'route': ViewClientList()
+		// },
 
 	];
 

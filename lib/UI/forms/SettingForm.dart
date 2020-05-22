@@ -1,4 +1,5 @@
 import 'package:Vainfitness/core/user/Client.dart';
+import 'package:Vainfitness/core/user/Fitness_Coach.dart';
 import 'package:Vainfitness/core/util/Profile_Manager.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:intl/intl.dart';
@@ -37,10 +38,10 @@ class _SettingFormState extends State<SettingForm>{
       int age  = int.parse(ageController.text);
       double height = double.parse(heightController.text);
       double weight = double.parse(weightController.text);
-      double expectedWeight = double.parse(expectedWController.text);
-      int numDays = int.parse(numDaysController.text);
-
+     
       if(ProfileManager.isClient()){
+        double expectedWeight = double.parse(expectedWController.text);
+        int numDays = int.parse(numDaysController.text);
 
         Client client =  ProfileManager.getUser();
 
@@ -63,7 +64,27 @@ class _SettingFormState extends State<SettingForm>{
           final snackBar = SnackBar(content: Text("Something went wrong / network issue"));
           Scaffold.of(context).showSnackBar(snackBar);
         } 
-      }else{ 
+      }else if(ProfileManager.isFitnessCoach()){
+        Fitness_Coach fitness_coach = ProfileManager.getUser();
+        fitness_coach.setFirstname(firstname);
+        fitness_coach.setLastname(lastname);
+        fitness_coach.setUsername(username);
+        fitness_coach.setEmail(email);
+        fitness_coach.setDOB(date.month, date.day, date.year);
+        fitness_coach.setAge(age);
+        fitness_coach.setHeight(height);
+        fitness_coach.setWeight(weight);
+        ProfileManager.setUser(fitness_coach);
+        var response = await ProfileManager.updateCurrentUser();
+        if(response){
+          final snackBar = SnackBar(content: Text("Coach Profile updated for "+username ));
+          Scaffold.of(context).showSnackBar(snackBar);
+        }else{ 
+          final snackBar = SnackBar(content: Text("Something went wrong / network issue"));
+          Scaffold.of(context).showSnackBar(snackBar);
+        } 
+
+      }else { 
         final snackBar = SnackBar(content: Text("Something went wrong / network issue"));
         Scaffold.of(context).showSnackBar(snackBar);
       }
@@ -90,7 +111,22 @@ class _SettingFormState extends State<SettingForm>{
       setState(() {
         date = client.getDOB();
       });
+    }else if(ProfileManager.isFitnessCoach()){
+      Fitness_Coach fitness_coach = ProfileManager.getUser();
+      fnameController = TextEditingController(text: fitness_coach.getFirstname());
+      lnameController = TextEditingController(text: fitness_coach.getLastname());
+      usernameController = TextEditingController(text: fitness_coach.getUsername());
+      emailController = TextEditingController(text: fitness_coach.getEmail());
+      ageController = TextEditingController(text: fitness_coach.getAge().toString());
+      heightController = TextEditingController(text: fitness_coach.getHeight().toString());
+      weightController = TextEditingController(text: fitness_coach.getWeight().toString());
+      setState(() {
+        date = fitness_coach.getDOB();
+      });
+
+
     }
+
    
   }
 

@@ -35,12 +35,12 @@ class AddMealPlan extends StatefulWidget{
         return true;
       }else{ 
         final snackBar = SnackBar(content: Text("You need to be a coach!"));
-        Scaffold.of(context).showSnackBar(snackBar); 
+        Scaffold.of(this.context).showSnackBar(snackBar); 
         }
     }catch(e){
       print(e.toString());
       final snackBar = SnackBar(content: Text("Something went wrong / network issue"));
-      Scaffold.of(context).showSnackBar(snackBar); 
+      Scaffold.of(this.context).showSnackBar(snackBar); 
     }
     return false;
   }
@@ -71,12 +71,17 @@ class AddMealPlan extends StatefulWidget{
       if(mealPlanValid){
         var response = await MealPlanManager.addMealPlan(MealPlan_List.getMealPlanByID(mealPlanId));
         if(response){
-          setState(() { message = "MealPlan Created Successfully"; });
-        }else{setState(() { message = "something went wrong!"; });}
+          // final snackBar = SnackBar(content: Text("MealPlan Created Successfully"));
+          // Scaffold.of(context).showSnackBar(snackBar); 
+        }else{
+          // final snackBar = SnackBar(content: Text("Something went wrong / network issue"));
+          // Scaffold.of(context).showSnackBar(snackBar); 
+        }
       }
     }catch(e){
       print(e.toString());
-      setState(() { message = "something went wrong!"; });
+    //  final snackBar = SnackBar(content: Text("Something went wrong / network issue"));
+    //   Scaffold.of(context).showSnackBar(snackBar); 
     }
   }
 
@@ -299,7 +304,6 @@ class AddMealPlan extends StatefulWidget{
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    
                     mealPlanDetails(),
                     meals(mealPlanId),
                     controlButtons(),

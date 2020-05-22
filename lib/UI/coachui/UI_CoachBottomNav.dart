@@ -27,7 +27,7 @@ class MyTabState extends State<CoachTabs> with SingleTickerProviderStateMixin {
 	@override
 	void initState() {
 		super.initState();
-		controller =  TabController(vsync: this, length: 3);
+		controller =  TabController(vsync: this, length: 2);
 	}
 
 	@override
