@@ -1,4 +1,7 @@
 import 'package:Vainfitness/UI/Settings.dart';
+import 'package:Vainfitness/UI/UI_Login.dart';
+import 'package:Vainfitness/core/util/Authenticator.dart';
+import 'package:Vainfitness/core/util/Profile_Manager.dart';
 import 'package:getflutter/components/drawer/gf_drawer.dart';
 import 'package:getflutter/components/drawer/gf_drawer_header.dart';
 import 'package:flutter/material.dart';
@@ -88,6 +91,19 @@ class _Profile_DrawerState extends State<Profile_Drawer> {
         ListTile(
           title: Text('Progress Report'),
           onTap: null,
+        ),
+        ListTile(
+          title: Text('Logout'),
+          onTap: (){
+            Authenticator.logoutUser();
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) =>
+                LoginPage(),
+              ),
+            );
+          }
         ),
       ],
     ),
