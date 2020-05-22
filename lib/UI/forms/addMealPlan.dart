@@ -33,10 +33,14 @@ class AddMealPlan extends StatefulWidget{
         MealPlan_List.addMealPlan(mealPlan);
         setState(() { mealPlanId = mealPlan.getId(); });
         return true;
-      }else{ setState(() { message = "You need to be a coach!"; }); }
+      }else{ 
+        final snackBar = SnackBar(content: Text("You need to be a coach!"));
+        Scaffold.of(context).showSnackBar(snackBar); 
+        }
     }catch(e){
       print(e.toString());
-      setState(() { message = "something went wrong!"; });
+      final snackBar = SnackBar(content: Text("Something went wrong / network issue"));
+      Scaffold.of(context).showSnackBar(snackBar); 
     }
     return false;
   }
@@ -295,15 +299,7 @@ class AddMealPlan extends StatefulWidget{
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(top: 5, bottom:15),
-                      child: Text(message,
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.red,
-                        ),
-                      ),
-                    ),
+                    
                     mealPlanDetails(),
                     meals(mealPlanId),
                     controlButtons(),
