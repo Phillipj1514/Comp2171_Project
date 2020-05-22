@@ -94,7 +94,7 @@ class _ViewClientListState extends State<ViewClientList> {
                       itemCount: count,
                       itemBuilder: (context, i) {
                         //TODO Fix this such that we get the list of clients iterating
-                        return ClientCard( bigcoach.getClientByIndex(i) );
+//                        return ClientCard( bigcoach.getClientByIndex(i) );
                       }
                   )
                 ]
@@ -152,29 +152,3 @@ class _ViewClientListState extends State<ViewClientList> {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
