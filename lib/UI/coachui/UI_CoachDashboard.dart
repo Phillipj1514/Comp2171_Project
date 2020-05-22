@@ -1,4 +1,4 @@
-import 'file:///C:/Users/lenovo/Documents/GitHub/Comp2171_Project/lib/UI/coachui/UI_CoachViewClients.dart';
+import 'package:Vainfitness/UI/coachui/UI_CoachViewClients.dart';
 import 'package:Vainfitness/UI/forms/AddMeal.dart';
 import 'package:Vainfitness/UI/forms/addMealPlan.dart';
 import 'package:Vainfitness/UI/forms/createUserProfile.dart';
@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:getflutter/getflutter.dart';
 import 'package:Vainfitness/core/user/Fitness_Coach.dart';
+
 
 
 class UI_CoachDashboard extends StatelessWidget {
