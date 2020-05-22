@@ -45,18 +45,18 @@ class UI_CoachDashboard extends StatelessWidget {
 			'title': 'Add New Client',
 			'route': AddMealPlan()
 		},
-		// {
-		// 	'icon': const IconData(
-		// 		0xe809,
-		// 		fontFamily: 'VainIcons',
-		// 	),
-		// 	'title': 'View Clients',
-		// 	'route': ViewClientList()
-		// },
+		{
+			'icon': const IconData(
+				0xe809,
+				fontFamily: 'VainIcons',
+			),
+			'title': 'View Clients',
+			'route': ViewClientList()
+		},
 
 	];
 
-	Widget buildBoxTile(String title, IconData icon, Widget route) => InkWell(
+	Widget buildBoxTile(BuildContext context, String title, IconData icon, Widget route) => InkWell(
 		onTap: () {
 			Navigator.push(
 				context,
@@ -144,6 +144,7 @@ class UI_CoachDashboard extends StatelessWidget {
 //																						AddMeal(),));
 //																},
 																child: buildBoxTile(
+                                    context,
 																		vainGridComp[index]['title'],
 																		vainGridComp[index]['icon'],
 																		vainGridComp[index]['route']))
