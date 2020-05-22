@@ -21,7 +21,7 @@ class _LoginPageState extends State<LoginPage> {
   
   void goTestZone(){
     Navigator.push(context, 
-                      MaterialPageRoute(builder: (context) => AddMealPlan()));
+                      MaterialPageRoute(builder: (context) => Tabs()));
   }
 
   final emailController = TextEditingController();

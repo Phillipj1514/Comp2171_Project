@@ -1,6 +1,9 @@
 import 'package:Vainfitness/UI/forms/AddMeal.dart';
 //import 'package:Vainfitness/UI/grid_dash.dart';
 import 'package:Vainfitness/UI/vain_icons_icons.dart';
+import 'package:Vainfitness/core/nutrition/Daily_Consumption.dart';
+import 'package:Vainfitness/core/user/Client.dart';
+import 'package:Vainfitness/core/util/Profile_Manager.dart';
 import 'package:flappy_search_bar/flappy_search_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +15,48 @@ import 'package:getflutter/getflutter.dart';
 import 'forms/checkCaloricValue.dart';
 
 class UI_Dashboard extends StatelessWidget {
+
+  String greeting(){
+    DateTime date = DateTime.now();
+    if(date.hour >= 6  && date.hour < 12){ return "Good morning";}
+    else if(date.hour >= 12  && date.hour < 18){return "Good afternoon";}
+    else if(date.hour >= 18  && date.hour < 21){return "Good evening";}
+    return "Good night";
+  }
+
+  Widget clientDailyProgress(){
+    int total = 0;
+    int used  = 0;
+    try{
+      if(ProfileManager.isClient()){
+        Client client =  ProfileManager.getUser();
+        total = client.getDailyCalorie();
+
+        Daily_Consumption daily_consumption = client.getDailyConsumptionByDate(DateTime.now());
+        daily_consumption.getMeals().forEach((meal) { 
+          used += meal.getTotalNutrients().getCalorie();
+        });
+      }
+    }catch(e){
+      print(e.toString());
+    }
+    print(used);
+    print(total);
+    
+    return Container(
+      //color: Colors.greenAccent ,
+      //padding: EdgeInsets.all(10.0),
+      margin: EdgeInsets.all(10.0),
+        decoration: BoxDecoration(
+          border: Border.all (
+              color: Colors.blueAccent
+          ),
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+        ),
+      child: CircularProgress(double.parse(total.toString()), double.parse(used.toString()))
+    );
+  }
+
   List vainGridComp = [
     {
       'icon': const IconData(
@@ -95,7 +140,7 @@ class UI_Dashboard extends StatelessWidget {
               padding: EdgeInsets.only(left: 15, top: 10),
               child: GFTypography(
 
-                text: 'Good Morning',
+                text: greeting(),
 
                 type: GFTypographyType.typo5,
                 dividerWidth: 25,
@@ -103,17 +148,8 @@ class UI_Dashboard extends StatelessWidget {
               ),
             ),
             //Text( 'Good Morning'),
-            Container(
-              //color: Colors.greenAccent ,
-              //padding: EdgeInsets.all(10.0),
-              margin: EdgeInsets.all(10.0),
-                decoration: BoxDecoration(
-                  border: Border.all (
-                      color: Colors.blueAccent
-                  ),
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                ),
-              child: CircularProgress(2500.0, 1800.0)),
+            
+            clientDailyProgress(),
 
             const SizedBox(
               height: 10,
