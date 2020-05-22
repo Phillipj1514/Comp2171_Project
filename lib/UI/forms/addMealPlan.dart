@@ -1,26 +1,97 @@
 import 'package:Vainfitness/UI/forms/AddMeal.dart';
+import 'package:Vainfitness/UI/forms/addCurrentPlanMeal.dart';
 import 'package:Vainfitness/core/nutrition/Meal.dart';
+import 'package:Vainfitness/core/nutrition/MealPlan.dart';
 import 'package:Vainfitness/core/nutrition/MealPlan_List.dart';
 import 'package:Vainfitness/core/util/MealPlan_Manager.dart';
+import 'package:Vainfitness/core/util/Profile_Manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class AddMealPlan extends StatefulWidget{
-   @override
+  @override
   _AddMealPlanState createState() => _AddMealPlanState();
 }
 
  class _AddMealPlanState extends State<AddMealPlan>{
    
 
-  final nameController = TextEditingController();
-  final numDaysController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController numDaysController = TextEditingController();
+  TextEditingController maxCalorieController = TextEditingController();
+
+  String mealPlanId = "";
+  String message = "";
+
+  bool createMealPlan(){
+    try{
+      String name = nameController.text;
+      String numDays = numDaysController.text;
+      int maxCalorie = int.parse(maxCalorieController.text);
+      if(ProfileManager.isFitnessCoach()){
+        MealPlan mealPlan = new MealPlan.noMeals(name:name);
+        MealPlan_List.addMealPlan(mealPlan);
+        setState(() { mealPlanId = mealPlan.getId(); });
+        return true;
+      }else{ setState(() { message = "You need to be a coach!"; }); }
+    }catch(e){
+      print(e.toString());
+      setState(() { message = "something went wrong!"; });
+    }
+    return false;
+  }
+
+  Future addMealToPlan() async{
+    try{
+      bool mealPlanValid = true;
+      if(mealPlanId == ""){
+        mealPlanValid = createMealPlan();
+      }
+      if(mealPlanValid){
+        final mealPlanID = await Navigator.push(context, 
+                      MaterialPageRoute(builder: (context) => AddCurrentPlanMeal(mealPlanId)));
+      setState(() { mealPlanId = mealPlanID; });
+      }
+    }catch(e){
+      print(e.toString());
+      setState(() { message = "something went wrong!"; });
+    }
+  }
+
+  Future saveMealPlan() async{
+    try{
+      bool mealPlanValid = true;
+      if(mealPlanId == ""){
+        mealPlanValid = createMealPlan();
+      }
+      if(mealPlanValid){
+        var response = await MealPlanManager.addMealPlan(MealPlan_List.getMealPlanByID(mealPlanId));
+        if(response){
+          setState(() { message = "MealPlan Created Successfully"; });
+        }else{setState(() { message = "something went wrong!"; });}
+      }
+    }catch(e){
+      print(e.toString());
+      setState(() { message = "something went wrong!"; });
+    }
+  }
+
+  void setUpFields(){
+    MealPlan mealPlan = MealPlan_List.getMealPlanByID(mealPlanId);
+    nameController = TextEditingController(text: mealPlan.getName());
+    numDaysController = TextEditingController(text: mealPlan.getNumDays().toString());
+  }
 
   @override
   void initState() {
     // TODO: implement initState
-    MealPlanManager.loadMealPlanList().then((value) => null);
     super.initState();
+
+    if(mealPlanId == ""){
+      MealPlanManager.loadMealPlanList().then((value) => null);
+    }else{
+      setUpFields();
+    }
   }
 
   Widget mealElement(Meal meal) {
@@ -28,12 +99,12 @@ class AddMealPlan extends StatefulWidget{
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text(meal.getName(),
+          Text("Name: "+meal.getName(),
           style: TextStyle(
             fontSize: 18
             ),
           ),
-          Text(meal.getTotalNutrients().getCalorie().toString(),
+          Text("Calorie: "+meal.getTotalNutrients().getCalorie().toString(),
           style: TextStyle(
             fontSize: 15
             ),
@@ -50,13 +121,13 @@ class AddMealPlan extends StatefulWidget{
         children: <Widget>[
           // Name edit text 
           Padding(
-            padding: EdgeInsets.only(top: 5, bottom:15),
+            padding: EdgeInsets.only(top: 5, bottom:10),
             child: TextField(
               controller: nameController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                labelText: 'Meal Name',
-                hintText: 'Enter the meal name',
+                labelText: 'MealPlan Name',
+                hintText: 'Enter the mealplan name',
               ),
               
             )
@@ -79,7 +150,7 @@ class AddMealPlan extends StatefulWidget{
           Padding(
             padding: EdgeInsets.only(top: 5, bottom:15),
             child: TextField(
-              controller: numDaysController,
+              controller: maxCalorieController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Max Daily Calorie',
@@ -133,9 +204,8 @@ class AddMealPlan extends StatefulWidget{
           Padding(
             padding: EdgeInsets.only(top: 15, bottom:10),
             child:GestureDetector(
-              onTap: () {
-                 Navigator.push(context, 
-                      MaterialPageRoute(builder: (context) => AddMeal()));
+              onTap: () async{
+                 await addMealToPlan();
               },
               child: ClipOval(
                 child: Container(
@@ -157,6 +227,7 @@ class AddMealPlan extends StatefulWidget{
       ),
     );
   }
+  
   Widget controlButtons(){
     return Container(
       child: Column(
@@ -171,7 +242,9 @@ class AddMealPlan extends StatefulWidget{
               child: RaisedButton(
                 color: Colors.blue,
                 shape: StadiumBorder(),
-                onPressed: () {},
+                onPressed: () async{
+                  saveMealPlan();
+                },
                 child: Text("Save",
                   style: TextStyle(
                     color: Colors.white,
@@ -208,7 +281,6 @@ class AddMealPlan extends StatefulWidget{
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -223,8 +295,17 @@ class AddMealPlan extends StatefulWidget{
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(top: 5, bottom:15),
+                      child: Text(message,
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.red,
+                        ),
+                      ),
+                    ),
                     mealPlanDetails(),
-                    meals(""),
+                    meals(mealPlanId),
                     controlButtons(),
                   ],
                 ),

@@ -94,11 +94,13 @@ class MealPlanManager{
           }
           await db.addNewMealPlan(mealplan);
           MealPlan_List.addMealPlan(mealplan);
+          return true;
         }else{print("Invalid mealplan submitted");}
       }else{ print("Only coaches can add mealplan");}
     }catch(e){
       print(e.toString());
     }
+    return false;
   }
 
   // Remove a meal Plan given the meal plan id
@@ -127,10 +129,12 @@ class MealPlanManager{
         }
         await db.updateMealPlan(mealPlan);
         MealPlan_List.updateMealPlan(mealPlan);
+        return true;
       }else{ print("Only coaches can add mealplan");}
     }catch(e){
       print(e.toString());
     }
+    return false;
   }
 
 }

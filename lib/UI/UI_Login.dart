@@ -2,7 +2,6 @@ import 'package:Vainfitness/UI/forms/AddMeal.dart';
 import 'package:Vainfitness/UI/forms/addMealPlan.dart';
 import 'package:Vainfitness/UI/forms/checkCaloricValue.dart';
 import 'package:Vainfitness/UI/forms/createUserProfile.dart';
-import 'package:Vainfitness/UI/forms/updateUserProfile.dart';
 import 'package:Vainfitness/core/util/Authenticator.dart';
 import 'UI_Bottom_Nav.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +21,7 @@ class _LoginPageState extends State<LoginPage> {
   
   void goTestZone(){
     Navigator.push(context, 
-                      MaterialPageRoute(builder: (context) => CreateUserProfile()));
+                      MaterialPageRoute(builder: (context) => AddMealPlan()));
   }
 
   final emailController = TextEditingController();

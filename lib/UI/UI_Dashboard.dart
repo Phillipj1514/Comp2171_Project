@@ -1,5 +1,4 @@
 import 'package:Vainfitness/UI/forms/AddMeal.dart';
-import 'package:Vainfitness/UI/forms/addMealPlan.dart';
 //import 'package:Vainfitness/UI/grid_dash.dart';
 import 'package:Vainfitness/UI/vain_icons_icons.dart';
 import 'package:flappy_search_bar/flappy_search_bar.dart';
@@ -205,7 +204,7 @@ class UI_Dashboard extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                 builder: (BuildContext context) =>
-                                AddMealPlan(),));
+                                AddMeal(),));
                           },
                           child: buildBoxTile(
                               vainGridComp[index]['title'],

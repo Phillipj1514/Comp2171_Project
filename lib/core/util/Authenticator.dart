@@ -40,9 +40,13 @@ class Authenticator{
     try{
       await ProfileManager.updateCurrentUser();
       await _auth.signOut();
+      ProfileManager.authenticatedUser = null;
+      return true;
     }catch(e){
       print(e.toString());
     }
+    return false;
   }
+  
 
 }

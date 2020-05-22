@@ -120,9 +120,11 @@ class ProfileManager{
     try{
       if( authenticatedUser != null){
         await db.updateUser( authenticatedUser);
+        return true;
       }else{print("No user available");}
     }catch(e){
       print(e.toString());
     }
+    return false;
   }
 }

@@ -1,3 +1,5 @@
+import 'package:Vainfitness/core/user/Client.dart';
+import 'package:Vainfitness/core/util/Profile_Manager.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
@@ -11,24 +13,94 @@ class SettingForm extends StatefulWidget{
   }
 
 class _SettingFormState extends State<SettingForm>{
-  final fnameController = TextEditingController();
-  final lnameController = TextEditingController();
-  final usernameController = TextEditingController();
-  final emailController = TextEditingController();
-  final ageController = TextEditingController();
-  final heightController = TextEditingController();
-  final weightController = TextEditingController();
-  final expectedWController = TextEditingController();
-  final numDaysController = TextEditingController();
+
+  TextEditingController fnameController = TextEditingController();
+  TextEditingController lnameController = TextEditingController();
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController ageController = TextEditingController();
+  TextEditingController heightController = TextEditingController();
+  TextEditingController weightController = TextEditingController();
+  TextEditingController expectedWController = TextEditingController();
+  TextEditingController numDaysController = TextEditingController();
 
   final format = DateFormat("yyyy-MM-dd HH:mm");
   DateTime date;
+  String message = "";
+
+  Future updateProfileDetails() async{
+    try{
+      String firstname = fnameController.text;
+      String lastname = lnameController.text;
+      String username = usernameController.text;
+      String email = emailController.text;
+      int age  = int.parse(ageController.text);
+      double height = double.parse(heightController.text);
+      double weight = double.parse(weightController.text);
+      double expectedWeight = double.parse(expectedWController.text);
+      int numDays = int.parse(numDaysController.text);
+
+      if(ProfileManager.isClient()){
+
+        Client client =  ProfileManager.getUser();
+
+        client.setFirstname(firstname);
+        client.setLastname(lastname);
+        client.setUsername(username);
+        client.setEmail(email);
+        client.setDOB(date.month, date.day, date.year);
+        client.setAge(age);
+        client.setHeight(height);
+        client.setWeight(weight);
+        client.setExpectedWeight(expectedWeight);
+        client.setNumDays(numDays);
+        ProfileManager.setUser(client);
+        var response = await ProfileManager.updateCurrentUser();
+        if(response){
+          setState(() { message = "Client Profile updates for "+username; });  
+        }else{ setState(() { message = "Something went wrong / network issue"; }); }
+
+      }else{ setState(() { message = "Only a client is allowed here"; }); }
+    }catch(e){
+      print(e.toString());
+      setState(() { message = "Something went wrong!";});
+    }
+  }
+
+  void populateFields(){
+    print("--> Inital state change");
+    if(ProfileManager.isClient()){
+      Client client = ProfileManager.getUser();
+      fnameController = TextEditingController(text: client.getFirstname());
+      lnameController = TextEditingController(text: client.getLastname());
+      usernameController = TextEditingController(text: client.getUsername());
+      emailController = TextEditingController(text: client.getEmail());
+      ageController = TextEditingController(text: client.getAge().toString());
+      heightController = TextEditingController(text: client.getHeight().toString());
+      weightController = TextEditingController(text: client.getWeight().toString());
+      expectedWController = TextEditingController(text: client.getExpectedWeight().toString());
+      numDaysController = TextEditingController(text: client.getNumDays().toString());
+      setState(() {
+        date = client.getDOB();
+      });
+    }
+   
+  }
 
   Widget userCreationForm(){
      return Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(top: 5, bottom:15),
+            child: Text(message,
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.red,
+              ),
+            ),
+          ),
           // Name edit text 
           Padding(
             padding: EdgeInsets.only(top: 5, bottom:15),
@@ -81,6 +153,7 @@ class _SettingFormState extends State<SettingForm>{
 
           DateTimeField(
             format: format,
+            initialValue: date,
             decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Date Of birth',
@@ -165,7 +238,7 @@ class _SettingFormState extends State<SettingForm>{
           Padding(
             padding: EdgeInsets.only( top: 5, bottom:15),
             child: TextField(
-              controller: ageController,
+              controller: numDaysController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Number Of Days',
@@ -175,13 +248,11 @@ class _SettingFormState extends State<SettingForm>{
               inputFormatters: <TextInputFormatter>[WhitelistingTextInputFormatter.digitsOnly],
             )
           ),
-          
         ],
       ),
     );
   }
 
-  
   Widget controlButtons(){
     return Container(
       child: Column(
@@ -196,7 +267,9 @@ class _SettingFormState extends State<SettingForm>{
               child: RaisedButton(
                 color: Colors.blue,
                 shape: StadiumBorder(),
-                onPressed: () {},
+                onPressed: () async{
+                  await updateProfileDetails();
+                },
                 child: Text("Save",
                   style: TextStyle(
                     color: Colors.white,
@@ -233,6 +306,11 @@ class _SettingFormState extends State<SettingForm>{
     );
   }
 
+  @override
+  void initState() {
+    super.initState();
+    populateFields();
+  }
 
   @override
   Widget build(BuildContext context) {

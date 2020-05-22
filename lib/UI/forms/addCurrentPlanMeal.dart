@@ -1,23 +1,23 @@
 import 'package:Vainfitness/core/nutrition/Food.dart';
 import 'package:Vainfitness/core/nutrition/Meal.dart';
+import 'package:Vainfitness/core/nutrition/MealPlan_List.dart';
 import 'package:Vainfitness/core/util/Consumption_Manager.dart';
 import 'package:Vainfitness/core/util/Profile_Manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 
-class AddMeal extends StatefulWidget {
-  
-  // final String title;
-  
-  // LoginPage({Key key, this.title}) : super(key: key);
+class AddCurrentPlanMeal extends StatefulWidget {
+
+  final String mealPlanId;
+  AddCurrentPlanMeal(this.mealPlanId);
   
   @override
-  _AddMealState createState() => _AddMealState();
+  _AddCurrentPlanMealState createState() => _AddCurrentPlanMealState();
 
 }
 
-class _AddMealState extends State<AddMeal> {
+class _AddCurrentPlanMealState extends State<AddCurrentPlanMeal> {
 
   List<Widget> foodFields = [];
   List<Map> foodControlers = [];
@@ -31,7 +31,7 @@ class _AddMealState extends State<AddMeal> {
 
   String message = "";
 
-  Future addMealToUserConsumption() async{
+  Future addMealToMealPlan() async{
     try{
       String name = _nameCtrl.text;
       String method = _methodCtrl.text;
@@ -40,18 +40,16 @@ class _AddMealState extends State<AddMeal> {
         String name = controller["name"].text;
         double quantity = double.parse(controller["quantity"].text); 
         String measure = controller["measure"];
-        if(name.length > measure.length  || quantity != null){
+        if(name.length > 0 && measure.length > 0  && quantity != null){
           Food food = new Food(name: name, quantity: quantity, measure: measure);
-          await meal.addFoodItem(food);
+          await setState(() async{ await meal.addFoodItem(food); });
         }
       });
-      DateTime date = DateTime.now();
-      if(ProfileManager.isClient()){
-        var response = await ConsumptionManager.addUserMeal(meal, date);
-        if(response){
-          setState(() { message = "Meal Added Successfully";});
-        }else{setState(() { message = "Something went wrong!";});}
-      }else{setState(() { message = "Only Clients Allowed!";});}
+      if(ProfileManager.isFitnessCoach()){
+        MealPlan_List.getMealPlanByID(widget.mealPlanId).addMeal(meal);
+        Navigator.pop(context, widget.mealPlanId);
+        
+      }else{setState(() { message = "Only Coaches Allowed!";});}
     }catch(e){
       print(e.toString());
       setState(() { message = "Something went wrong!";});
@@ -253,8 +251,8 @@ class _AddMealState extends State<AddMeal> {
               child: RaisedButton(
                 color: Colors.blue,
                 shape: StadiumBorder(),
-                onPressed: () {
-                  addMealToUserConsumption();
+                onPressed: () async{
+                  await addMealToMealPlan();
                 },
                 child: Text("Save",
                   style: TextStyle(
@@ -275,7 +273,7 @@ class _AddMealState extends State<AddMeal> {
                 color: Colors.red,
                 shape: StadiumBorder(),
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.pop(context, widget.mealPlanId);
                 },
                 child: Text("Back",
                   style: TextStyle(
