@@ -21,9 +21,10 @@ class MealPlanSubscriptions extends StatefulWidget {
 }
 
 class _MealPlanSubscriptionsState extends State<MealPlanSubscriptions> {
-  
+
+  List<MealPlan> mealplans;
+
   //Future<List<MealPlan>> mealsLst = Future<List<MealPlan>>.delayed(Duration(seconds:2),() => 'Fetching MealPlans',);
-  static Future _mealsList;
 
   String mealPlanDetails(MealPlan mealPlan){
     String result = "This meal plan have the meals: \n";
@@ -42,29 +43,15 @@ class _MealPlanSubscriptionsState extends State<MealPlanSubscriptions> {
     try{
       if(ProfileManager.isClient()){
         await MealPlanManager.removeUserMealPlanSubscription(mealPlanId);
+        setState(() {
+          
+        });
         final snackBar = SnackBar(content: Text('Meal Plan removed'));
         Scaffold.of(this.context).showSnackBar(snackBar);
       }
     }catch(e){
       print(e.toString());
     }
-  }
-
-  Future initiateMealPlanFetch() async{
-    try{
-      var list = await MealPlanManager.loadMealPlanList();
-      setState(() {
-        _update(list);
-      });
-      //return list;
-    }catch(e){
-      print(e.toString());
-      return false;
-    }
-  }
-
-  void _update(Future listMP) async{
-      setState(() => _mealsList = listMP);
   }
 
  // int lst = (MealPlan_List.mealPlanLst).length;
@@ -117,25 +104,26 @@ class _MealPlanSubscriptionsState extends State<MealPlanSubscriptions> {
   Widget listOFMealPlans(){
     return Container(
       child: FutureBuilder(
-        future: MealPlanManager.loadMealPlanList(),
+        future: MealPlanManager.getClientMealPlanSubscriptions(),
         builder: (context, mealPlanSnap){
           if(mealPlanSnap.hasData){
-              return Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: MealPlan_List.mealPlanLst.length,
-                      itemBuilder: (context, index) {
-                        return mealPlanCard(MealPlan_List.getMealPlan(index));
-                        //return Text(MealPlan_List.getMealPlan(index).getName());
-                      }
-                    )
-                  ],
-                ),
-              );
+            mealplans = mealPlanSnap.data;  
+            return Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: mealplans.length,
+                    itemBuilder: (context, index) {
+                      return mealPlanCard(mealplans[index]);
+                      //return Text(MealPlan_List.getMealPlan(index).getName());
+                    }
+                  )
+                ],
+              ),
+            );
           }else if( mealPlanSnap.hasError){
             return Container(
               child: Column(
@@ -164,15 +152,13 @@ class _MealPlanSubscriptionsState extends State<MealPlanSubscriptions> {
                 ),
               ],
             ),
-          );
-            
-
-          
+          );  
         },
       ),
     );
   }
   
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
