@@ -22,10 +22,12 @@ class ConsumptionManager{
         await db.addNewMeal(meal, client.getUid(), consump.getDate());
         client.addMealToConsumption(meal, date);
         ProfileManager.setUser(client);
+        return true;
       }else{print("client is invalid");}
     }catch(e){
       print(e.toString());
     }
+    return false;
   }
 
   /// Delete a meal from the consumption list for a specific day

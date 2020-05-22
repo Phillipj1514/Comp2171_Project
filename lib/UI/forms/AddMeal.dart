@@ -1,6 +1,7 @@
 import 'package:Vainfitness/core/nutrition/Food.dart';
 import 'package:Vainfitness/core/nutrition/Meal.dart';
 import 'package:Vainfitness/core/util/Consumption_Manager.dart';
+import 'package:Vainfitness/core/util/Profile_Manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -28,6 +29,8 @@ class _AddMealState extends State<AddMeal> {
   final _nameCtrl = TextEditingController();
   final _methodCtrl = TextEditingController();
 
+  String message = "";
+
   Future addMealToUserConsumption() async{
     try{
       String name = _nameCtrl.text;
@@ -43,14 +46,17 @@ class _AddMealState extends State<AddMeal> {
         }
       });
       DateTime date = DateTime.now();
-      ConsumptionManager.addUserMeal(meal, date);
+      if(ProfileManager.isClient()){
+        var response = await ConsumptionManager.addUserMeal(meal, date);
+        if(response){
+          setState(() { message = "Meal Added Successfully";});
+        }else{setState(() { message = "Something went wrong!";});}
+      }else{setState(() { message = "Only Clients Allowed!";});}
     }catch(e){
       print(e.toString());
+      setState(() { message = "Something went wrong!";});
     }
-    
-
   }
-
 
   @override
   void initState() {
@@ -247,7 +253,9 @@ class _AddMealState extends State<AddMeal> {
               child: RaisedButton(
                 color: Colors.blue,
                 shape: StadiumBorder(),
-                onPressed: () {},
+                onPressed: () {
+                  addMealToUserConsumption();
+                },
                 child: Text("Save",
                   style: TextStyle(
                     color: Colors.white,
@@ -297,6 +305,15 @@ class _AddMealState extends State<AddMeal> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(top: 5, bottom:15),
+                      child: Text(message,
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.red,
+                        ),
+                      ),
+                    ),
                     mealDetails(),
                     foodItems(),
                     controlButtons()
