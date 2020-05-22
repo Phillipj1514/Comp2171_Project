@@ -26,7 +26,7 @@ class Fitness_Coach extends User_Profile{
 
   /// Used to retrieve a list containing all the clients 
   /// a coach is responsible for.
-  List<String> getClientsId()=> this.allClientsId;
+  List getClientsId()=> this.allClientsId;
 
   // /// Used to retrieve a specific Client via their username.
   // Client getSpecificClient(String username){
