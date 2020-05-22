@@ -1,4 +1,4 @@
-import 'package:Vainfitness/UI/UI_CoachViewClients.dart';
+import 'file:///C:/Users/lenovo/Documents/GitHub/Comp2171_Project/lib/UI/coachui/UI_CoachViewClients.dart';
 import 'package:Vainfitness/UI/forms/AddMeal.dart';
 import 'package:Vainfitness/UI/forms/addMealPlan.dart';
 import 'package:Vainfitness/core/util/Profile_Manager.dart';
@@ -57,12 +57,12 @@ class UI_CoachDashboard extends StatelessWidget {
 	];
 
 	Widget buildBoxTile(String title, IconData icon, Widget route) => InkWell(
-		onTap: () {
-			Navigator.push(
-				context,
-				MaterialPageRoute(builder: (BuildContext context) => route),
-			);
-		},
+//		onTap: () {
+//			Navigator.push(
+//				context,
+//				MaterialPageRoute(builder: (BuildContext context) => route),
+//			);
+//		},
 
 		child: Container(
 			decoration: BoxDecoration(
@@ -136,13 +136,13 @@ class UI_CoachDashboard extends StatelessWidget {
 														mainAxisSpacing: 10),
 												itemBuilder: (BuildContext context, int index) =>
 														GestureDetector(
-//																onTap: () {
-//																	Navigator.push(
-//																			context,
-//																			MaterialPageRoute(
-//																				builder: (BuildContext context) =>
-//																						AddMeal(),));
-//																},
+																onTap: () {
+																	Navigator.push(
+																			context,
+																			MaterialPageRoute(
+																				builder: (BuildContext context) =>
+																						AddMeal(),));
+																},
 																child: buildBoxTile(
 																		vainGridComp[index]['title'],
 																		vainGridComp[index]['icon'],
