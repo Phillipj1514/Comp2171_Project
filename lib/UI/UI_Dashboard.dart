@@ -1,3 +1,6 @@
+import 'package:Vainfitness/UI/forms/AddMeal.dart';
+import 'package:Vainfitness/UI/forms/addMealPlan.dart';
+//import 'package:Vainfitness/UI/grid_dash.dart';
 import 'package:Vainfitness/UI/vain_icons_icons.dart';
 import 'package:flappy_search_bar/flappy_search_bar.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,12 +13,97 @@ import 'package:getflutter/getflutter.dart';
 import 'forms/checkCaloricValue.dart';
 
 class UI_Dashboard extends StatelessWidget {
+  List vainGridComp = [
+    {
+      'icon': const IconData(
+        0xe800,
+        fontFamily: 'VainIcons',
+      ),
+      'title': 'Add Breakfast',
+      'route': AddMeal()
+    },
+    {
+      'icon': const IconData(
+        0xe803,
+        fontFamily: 'VainIcons',
+      ),
+      'title': 'Add Lunch',
+      'route': AddMeal()
+    },
+    {
+      'icon': const IconData(
+        0xe806,
+        fontFamily: 'VainIcons',
+      ),
+      'title': 'Add Dinner',
+      'route': AddMeal()
+    },
+    {
+      'icon': const IconData(
+        0xe804,
+        fontFamily: 'VainIcons',
+      ),
+      'title': 'Add Snack',
+      'route': AddMeal()
+    },
+  ];
+
+  Widget buildBoxTile(String title, IconData icon, Widget route) => InkWell(
+
+
+    child: Container(
+      decoration: BoxDecoration(
+        color: const Color(0xFFbbdefb),
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
+        boxShadow: [
+          BoxShadow(
+              color: Colors.white70,
+              blurRadius: 6,
+              spreadRadius: 0),
+        ],
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          Icon(
+            icon,
+            //color: Color(0xFFCDDC39),
+            color: Color(0xFF8D6E63),
+
+            // GFColors.SUCCESS,
+            size: 50,
+          ),
+//            Icon((icon),),
+          Text(
+            title,
+           // style: const TextStyle(color: GFColors.WHITE, fontSize: 20),
+              style: const TextStyle(color: Color(0xFF8D6E63), fontSize: 20),
+
+
+          )
+        ],
+      ),
+    ),
+  );
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
         child: ListView(
           children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(left: 15, top: 10),
+              child: GFTypography(
+
+                text: 'Good Morning',
+
+                type: GFTypographyType.typo5,
+                dividerWidth: 25,
+                dividerColor: Color(0xFFCDDC39),
+              ),
+            ),
+            //Text( 'Good Morning'),
             Container(
               //color: Colors.greenAccent ,
               //padding: EdgeInsets.all(10.0),
@@ -28,172 +116,108 @@ class UI_Dashboard extends StatelessWidget {
                 ),
               child: CircularProgress(2500.0, 1800.0)),
 
-            Padding(
-              padding: EdgeInsets.only(left: 15, top: 10),
-              child: GFTypography(
-                text: 'Check Your Meals, Stay on Track',
-
-                type: GFTypographyType.typo5,
-                dividerWidth: 25,
-                dividerColor: Color(0xFF19CA4B),
-              ),
+            const SizedBox(
+              height: 10,
             ),
+
+             Padding(
+                    padding: EdgeInsets.only(left: 15, top: 10),
+                    child: GFTypography(
+
+                      text: 'Check Your Meals, Stay on Track',
+
+                      type: GFTypographyType.typo5,
+                      dividerWidth: 25,
+                      dividerColor: Color(0xFFCDDC39),
+                    ),
+                  ),
+
+
+
               GFCard(
                 content: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                   const SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround ,
-                    children: <Widget>[
-                      Icon(VainIcons.food_for_check_cal_val
-                      ),
-
-                      GFButton(
-                        onPressed: () {
-                          Navigator.push( context,
-                              MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                              CheckCaloricValue(),
-                              )
-                          );
-                        },
-                        child: const Text(
-                          'Check Calorie',
+                      height: 10,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround ,
+                      children: <Widget>[
+                        Expanded(
+                          flex: 1,
+                          child:
+                          Icon(VainIcons.food_for_check_cal_val),
                         ),
-                        color: GFColors.PRIMARY,
-                        size: GFSize.LARGE,
-                        buttonBoxShadow: true,
-                      ),
-//
+                        Expanded(
+                          flex: 2,
+                          child:
+                              GFButton(
+                                onPressed: () {
+                                  Navigator.push( context,
+                                      MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                      CheckCaloricValue(),
+                                      )
+                                  );
+                                },
+                                child: const Text(
+                                    'Check Calorie',
+                                    ),
+                                    color: GFColors.PRIMARY,
+                                    size: GFSize.LARGE,
+                                    buttonBoxShadow: true,
+                              ),
+                        ),
                       ],
-                )
-              ]),
+                    )
+                  ]
+                ),
               ),
+            Padding(
+              padding: EdgeInsets.only(left: 15, top: 10),
+              child: GFTypography(
+
+                text: 'Keep Track of your meal',
+
+                type: GFTypographyType.typo5,
+                dividerWidth: 25,
+                dividerColor: Color(0xFFCDDC39),
+              ),
+            ),
+
+            Container(
+              margin: EdgeInsets.all(10) ,
+              child: GridView.builder(
+
+                  shrinkWrap: true,
+                  physics: const ScrollPhysics(),
+                  itemCount: vainGridComp.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10),
+                  itemBuilder: (BuildContext context, int index) =>
+                      GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                AddMealPlan(),));
+                          },
+                          child: buildBoxTile(
+                              vainGridComp[index]['title'],
+                              vainGridComp[index]['icon'],
+                              vainGridComp[index]['route']))
+              ),
+            ),
+
           ]
-            )
-            )
-
+        )
+      )
     );
-
-              /*Row(
-                      children: [
-                        Icon(VainIcons.food_for_check_cal_val),
-                        Row(children: [
-                         Text( 'Check Calorie'),
-
-                         SearchBar(onSearch: null, onItemFound: null),
-                       ]),
-                      ]
-                  ),*/
-
-
-
-
-
-              /* Row(
-                
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Column(children: [
-                    Text('Protein'),
-                    GFProgressBar(
-                      percentage: 0.9,
-                      backgroundColor: Colors.black26,
-                      progressBarColor: GFColors.DANGER
-                    ),
-                    Text('${90}.%'),
-                  ],),
-                  Column(children: [
-                    Text('Protein'),
-                    GFProgressBar(
-                      percentage: 0.9,
-                      backgroundColor: Colors.black26,
-                      progressBarColor: GFColors.DANGER
-                    ),
-                    Text('${90}.%'),
-                  ],),
-                  Column(children: [
-                      Text('Protein'),
-                      GFProgressBar(
-                        percentage: 0.9,
-                        backgroundColor: Colors.black26,
-                        progressBarColor: GFColors.DANGER
-                      ),
-                      Text('${90}.%'),
-                    ],
-                  ),
-                ],
-              ), */
-            //],
-          //),),
-         //);
-     /*    Card(
-           child: Row(
-             children: [
-               Icon(VainIcons.food_for_check_cal_val),
-               SafeArea(
-
-                 child: Row(
-                   children: [
-                     Text( 'Check Calorie'),
-                     SearchBar(onSearch: null, onItemFound: null),
-                   ]
-                 ),
-               ),
-             ],
-           ),
-         ),*/
-        // GridView.count(
-        //   crossAxisCount: 2,
-        //   children: [
-        //     Card(
-        //       child: Center(
-        //         child: Column(
-        //           children: [
-        //             Icon(VainIcons.breakfast),
-        //             Text('Add a Breakfast item', softWrap: true ),
-        //         ],
-        //         )
-        //       ),
-        //     ),
-        //     Card(
-        //       child: Center(
-        //         child: Column(
-        //           children: [
-        //             Icon(VainIcons.tray_black),
-        //             Text('Add a Lunch item', softWrap: true ),
-        //         ],
-        //         )
-        //       ),
-        //     ),
-        //     Card(
-        //       child: Center(
-        //         child: Column(
-        //           children: [
-        //             Icon(VainIcons.diner),
-        //             Text('Add a Dinner item', softWrap: true ),
-        //         ],
-        //         )
-        //       ),
-        //     ),
-        //     Card(
-        //       child: Center(
-        //         child: Column(
-        //           children: [
-        //             Icon(VainIcons.food_and_restaurant),
-        //             Text('Add a Snack item', softWrap: true ),
-        //         ],
-        //         )
-        //       ),
-        //     )
-        //   ],
-        // ),
-      //]
-   // ),);
   }
 }
 
@@ -247,7 +271,8 @@ class _CircularProgressState extends State<CircularProgress> {
         child:Column(
           children: [
             CircularPercentIndicator(
-              progressColor: Colors.redAccent,
+             progressColor: Colors.lime ,
+              //progressColor: Colors.brown ,
               percent: _getPercent(widget.changeCalorie, widget.baseCalorie),
               animation: true,
               radius: 150.0,
@@ -265,196 +290,3 @@ class _CircularProgressState extends State<CircularProgress> {
     );
   }
 }
-
-
-
-class LinearFatsProgress extends StatefulWidget {
-  LinearFatsProgress({Key key}) : super(key: key);
-
-  @override
-  _LinearFatsProgressState createState() => _LinearFatsProgressState();
-}
-
-class _LinearFatsProgressState extends State {
-
- int _calories = 2250;
-  @override
-  
-  void initState() {
-    super.initState();
-  }
-  void _incrementCalories(int increaseAmt){
-    setState(() {
-      _calories+= increaseAmt;
-    });
-  }
-
-  void _decrementCalories(int decAmount){
-    setState(() {
-      _calories -= decAmount;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-      return Container(
-        padding: EdgeInsets.all(25.0),
-        child:Column(
-          children: [
-            LinearPercentIndicator(
-              width: 100.0,
-              lineHeight: 10.0,
-              progressColor: Colors.orangeAccent,
-              percent: 0.7,
-              //center: Text("Circle"),
-              animation: true,
-            )
-          ],
-        )
-    );
-  }
-}
-
-
-
-class LinearCarbsProgress extends StatefulWidget {
-  LinearCarbsProgress({Key key}) : super(key: key);
-
-  @override
-  _LinearCCarbsProgressState createState() => _LinearCCarbsProgressState();
-}
-
-class _LinearCCarbsProgressState extends State {
-
- int _calories = 2250;
-  @override
-  
-  void initState() {
-    super.initState();
-  }
-  void _incrementCalories(int increaseAmt){
-    setState(() {
-      _calories+= increaseAmt;
-    });
-  }
-
-  void _decrementCalories(int decAmount){
-    setState(() {
-      _calories -= decAmount;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-      return Container(
-        padding: EdgeInsets.all(25.0),
-        child:Column(
-          children: [
-            LinearPercentIndicator(
-              width: 100.0,
-              lineHeight: 10.0,
-              progressColor: Colors.orangeAccent,
-              percent: 0.7,
-              //center: Text("Circle"),
-              animation: true,
-            )
-          ],
-        )
-    );
-  }
-}
-
-
-
-class LinearProteinProgress extends StatefulWidget {
-  LinearProteinProgress({Key key}) : super(key: key);
-
-  @override
-  _LinearProteinProgressState createState() => _LinearProteinProgressState();
-}
-
-class _LinearProteinProgressState extends State {
-
- int _calories = 2250;
-  @override
-  
-  void initState() {
-    super.initState();
-  }
-  void _incrementCalories(int increaseAmt){
-    setState(() {
-      _calories+= increaseAmt;
-    });
-  }
-
-  void _decrementCalories(int decAmount){
-    setState(() {
-      _calories -= decAmount;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-      return Container(
-        padding: EdgeInsets.all(25.0),
-        child:Column(
-          children: [
-            LinearPercentIndicator(
-              width: 100.0,
-              lineHeight: 10.0,
-              progressColor: Colors.orangeAccent,
-              percent: 0.7,
-              //center: Text("Circle"),
-              animation: true,
-            )
-          ],
-        )
-    );
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
