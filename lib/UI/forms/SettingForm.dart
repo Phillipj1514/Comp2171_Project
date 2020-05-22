@@ -57,13 +57,20 @@ class _SettingFormState extends State<SettingForm>{
         ProfileManager.setUser(client);
         var response = await ProfileManager.updateCurrentUser();
         if(response){
-          setState(() { message = "Client Profile updates for "+username; });  
-        }else{ setState(() { message = "Something went wrong / network issue"; }); }
-
-      }else{ setState(() { message = "Only a client is allowed here"; }); }
+          final snackBar = SnackBar(content: Text("Client Profile updated for "+username ));
+          Scaffold.of(context).showSnackBar(snackBar);
+        }else{ 
+          final snackBar = SnackBar(content: Text("Something went wrong / network issue"));
+          Scaffold.of(context).showSnackBar(snackBar);
+        } 
+      }else{ 
+        final snackBar = SnackBar(content: Text("Something went wrong / network issue"));
+        Scaffold.of(context).showSnackBar(snackBar);
+      }
     }catch(e){
       print(e.toString());
-      setState(() { message = "Something went wrong!";});
+      final snackBar = SnackBar(content: Text("Something went wrong / network issue"));
+      Scaffold.of(context).showSnackBar(snackBar);
     }
   }
 
@@ -92,15 +99,6 @@ class _SettingFormState extends State<SettingForm>{
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(top: 5, bottom:15),
-            child: Text(message,
-              style: TextStyle(
-                fontSize: 15,
-                color: Colors.red,
-              ),
-            ),
-          ),
           // Name edit text 
           Padding(
             padding: EdgeInsets.only(top: 5, bottom:15),

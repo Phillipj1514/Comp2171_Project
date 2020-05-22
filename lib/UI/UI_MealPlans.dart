@@ -1,7 +1,9 @@
 import 'package:Vainfitness/UI/MealPlanDetail.dart';
 import 'package:Vainfitness/UI/vain_icons_icons.dart';
+import 'package:Vainfitness/core/nutrition/Meal.dart';
 import 'package:Vainfitness/core/nutrition/MealPlan.dart';
 import 'package:Vainfitness/core/nutrition/MealPlan_List.dart';
+import 'package:Vainfitness/core/util/Profile_Manager.dart';
 import 'package:flutter/material.dart';
 import 'package:getflutter/getflutter.dart';
 import 'package:Vainfitness/core/util/MealPlan_Manager.dart';
@@ -19,6 +21,31 @@ class _UI_MealPlanState extends State<UI_MealPlan> {
   
   //Future<List<MealPlan>> mealsLst = Future<List<MealPlan>>.delayed(Duration(seconds:2),() => 'Fetching MealPlans',);
   static Future _mealsList;
+
+  String mealPlanDetails(MealPlan mealPlan){
+    String result = "This meal plan have the meals: \n";
+    try{
+      mealPlan.getMealList().forEach((Meal meal) { 
+        String textmeal = "--> "+meal.getName()+"\n";
+        result+=textmeal;
+      });
+    }catch(e){
+      print(e.toString());
+    }
+    return result;
+  }
+
+  Future subscribeToMeal(String mealPlanId) async{
+    try{
+      if(ProfileManager.isClient()){
+        await MealPlanManager.addUserMealPlanSubscription(DateTime.now(), mealPlanId);
+        final snackBar = SnackBar(content: Text('Meal Plan added '));
+        Scaffold.of(context).showSnackBar(snackBar);
+      }
+    }catch(e){
+      print(e.toString());
+    }
+  }
 
   Future initiateMealPlanFetch() async{
     try{
@@ -53,11 +80,11 @@ class _UI_MealPlanState extends State<UI_MealPlan> {
           titleText: 
           //'Staring With A Boost!',
           mealPlan.getName() ,
-          subtitleText: 'Daily Caloric Value: 2500',
+          subtitleText: 'Total Caloric Value: '+mealPlan.getTotalNutrition().getCalorie().toString(),
           icon: Icon(VainIcons.technology) ,
         ),
         content: Text(
-          'This meal plan will ensure you have a boost of energy that lasts all day.',
+          'This meal plan will ensure you have a boost of energy that lasts all the days.\n'+mealPlanDetails(mealPlan),
           style: TextStyle(color: Colors.grey),
         ),
         buttonBar: GFButtonBar(
@@ -66,13 +93,14 @@ class _UI_MealPlanState extends State<UI_MealPlan> {
             GFButton(
               text: 'Subscribe',
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (BuildContext context) =>
-                      MealPlanDetails() ,
-                  ),
-                );
+                subscribeToMeal(mealPlan.getId());
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (BuildContext context) =>
+                //       MealPlanDetails() ,
+                //   ),
+                // );
               },
             ),
           ],

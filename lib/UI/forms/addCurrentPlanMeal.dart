@@ -49,10 +49,14 @@ class _AddCurrentPlanMealState extends State<AddCurrentPlanMeal> {
         MealPlan_List.getMealPlanByID(widget.mealPlanId).addMeal(meal);
         Navigator.pop(context, widget.mealPlanId);
         
-      }else{setState(() { message = "Only Coaches Allowed!";});}
+      }else{
+        final snackBar = SnackBar(content: Text("Only Coaches Allowed!"));
+        Scaffold.of(context).showSnackBar(snackBar); 
+        }
     }catch(e){
       print(e.toString());
-      setState(() { message = "Something went wrong!";});
+      final snackBar = SnackBar(content: Text("Something went wrong / network issue"));
+      Scaffold.of(context).showSnackBar(snackBar); 
     }
   }
 
@@ -303,15 +307,7 @@ class _AddCurrentPlanMealState extends State<AddCurrentPlanMeal> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(top: 5, bottom:15),
-                      child: Text(message,
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.red,
-                        ),
-                      ),
-                    ),
+                    
                     mealDetails(),
                     foodItems(),
                     controlButtons()
