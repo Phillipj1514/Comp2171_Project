@@ -39,9 +39,15 @@ class _UI_ConsumptionLstState extends State<UI_ConsumptionLst>{
   ];
 
   Widget buildBoxTile(String title, IconData icon, Widget route) => InkWell(
+	  onTap: () {
+		  Navigator.push(
+			  context,
+			  MaterialPageRoute(builder: (BuildContext context) => route),
+		  );
+	  },
     child: Container(
       decoration: BoxDecoration(
-        color: const Color(0xFFbbdefb),
+        color: const Color(0xFFCDDC39),
         borderRadius: const BorderRadius.all(Radius.circular(10)),
         boxShadow: [
           BoxShadow(
@@ -174,17 +180,17 @@ class _UI_ConsumptionLstState extends State<UI_ConsumptionLst>{
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10),
                   itemBuilder: (BuildContext context, int index) => GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                AddMealPlan(),));
-                    },
+//                    onTap: () {},
+//                      Navigator.push(
+//                          context,
+//                          MaterialPageRoute(
+//                            builder: (BuildContext context) =>
+//                                AddMealPlan(),));
+
                     child: buildBoxTile(
                         vainGridComp[index]['title'],
                         vainGridComp[index]['icon'],
-                        vainGridComp[index]['route'])
+                        vainGridComp[index]['route']),
                   )
                 ),
               ),
