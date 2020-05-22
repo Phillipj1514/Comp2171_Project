@@ -74,11 +74,13 @@ class ProfileManager{
           String uid = regUser.uid.toString();
           Client newClient = new Client(uid, firstname, lastname, username, email, month, day, year, age, height, weight, expectedWeight, numDays);
           await db.addNewUser(newClient);
+          return true;
         }else{print("access denied!");}
       }else{print("No user available");}
     }catch(e){
       print(e.toString());
     }
+    return false;
   }
 
   static Future deleteUserprofile(String email, String password) async{
