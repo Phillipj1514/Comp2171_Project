@@ -69,11 +69,15 @@ class ProfileManager{
     try{
       print("--> Creating Client Profile");
       if( authenticatedUser != null){
-        if( authenticatedUser is Fitness_Coach){
+        if(isFitnessCoach()){
           dynamic regUser = await _auth.registerUser(email, password);
           String uid = regUser.uid.toString();
           Client newClient = new Client(uid, firstname, lastname, username, email, month, day, year, age, height, weight, expectedWeight, numDays);
           await db.addNewUser(newClient);
+          Fitness_Coach fitness_coach = authenticatedUser;
+          fitness_coach.addClient(newClient.getUid());
+          await updateCurrentUser();
+          authenticatedUser = fitness_coach;
           return true;
         }else{print("access denied!");}
       }else{print("No user available");}
@@ -128,22 +132,25 @@ class ProfileManager{
     return false;
   }
 
-  static Future getCoachClients() async{
+  static Future<List<Client>> getCoachClients() async{
+    print("--> Get Coach Clients");
+    List clients = [];
     try{
       if(isFitnessCoach()){
         Fitness_Coach fitness_coach = ProfileManager.getUser();
-        List<Client> clients = [];
         fitness_coach.getClientsId().forEach((clientId) async{
+          print(clientId);
           Client client = await db.fetchUser(clientId);
+          print(client);
           if(client != null){
             clients.add(client);
           }
         });
-        return clients;
       }
     }catch(e){
       print(e.toString());
     }
-    return null;
+    print("--> Get Coach Clients exit ");
+    return clients;
   }
 }
