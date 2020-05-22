@@ -1,4 +1,5 @@
 import 'package:Vainfitness/core/nutrition/Meal.dart';
+import 'package:Vainfitness/core/nutrition/Nutrition_Data.dart';
 
 
 class MealPlan {
@@ -94,6 +95,23 @@ class MealPlan {
 
   /// Get the total Meal Plan cnt 
   int getMealPlanCount() => mealPlanCnt;
+
+  Nutrition_Data getTotalNutrition(){
+    Nutrition_Data nutrition_data = new Nutrition_Data();
+    try{
+      this.meals.forEach((Meal meal) { 
+         nutrition_data.addAll(meal.getTotalNutrients().calorie,
+         meal.getTotalNutrients().getFat(),
+         meal.getTotalNutrients().getCarbohydrates(), 
+         meal.getTotalNutrients().getSugar(),
+         meal.getTotalNutrients().getProtein());
+      });
+     
+    }catch(e){
+      print(e.toString());
+    }
+    return nutrition_data;
+  }
 
 
   //MODIFIER
