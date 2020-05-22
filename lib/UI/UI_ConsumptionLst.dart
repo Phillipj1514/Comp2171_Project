@@ -95,7 +95,7 @@ class UI_ConsumptionLst extends StatelessWidget {
                                     vainGridComp[index]['route']))
                     ),
                   ),
-                  TimelineCL(),
+                 // TimelineCL(),
                 ]
             )
         )
