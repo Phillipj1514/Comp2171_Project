@@ -40,7 +40,7 @@ class _UI_MealPlanState extends State<UI_MealPlan> {
       if(ProfileManager.isClient()){
         await MealPlanManager.addUserMealPlanSubscription(DateTime.now(), mealPlanId);
         final snackBar = SnackBar(content: Text('Meal Plan added '));
-        Scaffold.of(context).showSnackBar(snackBar);
+        Scaffold.of(this.context).showSnackBar(snackBar);
       }
     }catch(e){
       print(e.toString());
@@ -84,7 +84,8 @@ class _UI_MealPlanState extends State<UI_MealPlan> {
           icon: Icon(VainIcons.technology) ,
         ),
         content: Text(
-          'This meal plan will ensure you have a boost of energy that lasts all the days.\n'+mealPlanDetails(mealPlan),
+          'This meal plan will ensure you have a boost of energy that lasts all the days.\n ------------------------------------------------------------ \n'
+          +mealPlanDetails(mealPlan),
           style: TextStyle(color: Colors.grey),
         ),
         buttonBar: GFButtonBar(
