@@ -56,15 +56,6 @@ class UI_CoachDashboard extends StatelessWidget {
 
 	];
 
-<<<<<<< HEAD
-	Widget buildBoxTile(String title, IconData icon, Widget route) => InkWell(
-//		onTap: () {
-//			Navigator.push(
-//				context,
-//				MaterialPageRoute(builder: (BuildContext context) => route),
-//			);
-//		},
-=======
 	Widget buildBoxTile(BuildContext context, String title, IconData icon, Widget route) => InkWell(
 		onTap: () {
 			Navigator.push(
@@ -72,7 +63,6 @@ class UI_CoachDashboard extends StatelessWidget {
 				MaterialPageRoute(builder: (BuildContext context) => route),
 			);
 		},
->>>>>>> fb6db9420135ec62c251728495757ace7b70858a
 
 		child: Container(
 			decoration: BoxDecoration(
