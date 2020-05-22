@@ -1,27 +1,27 @@
 
 import 'package:Vainfitness/UI/vain_icons_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:Vainfitness/UI/UI_CoachDashboard.dart' as first;
-import 'package:Vainfitness/UI/UI_CoachMealPlans.dart' as second;
-import 'package:Vainfitness/UI/Coach_Profile_Drawer.dart';
+import 'package:Vainfitness/UI/coachui/UI_CoachDashboard.dart' as first;
+import 'package:Vainfitness/UI/coachui/UI_CoachMealPlans.dart' as second;
+import 'package:Vainfitness/UI/coachui/Coach_Profile_Drawer.dart';
 
 void main() {
 	runApp(
 			MaterialApp(
-					home:  Tabs(),
+					home:  CoachTabs(),
 					routes: <String, WidgetBuilder> {}
 			)
 	);
 }
 
-class Tabs extends StatefulWidget {
+class CoachTabs extends StatefulWidget {
 	@override
 
 	MyTabState createState() =>  MyTabState();
 }
 
 
-class MyTabState extends State<Tabs> with SingleTickerProviderStateMixin {
+class MyTabState extends State<CoachTabs> with SingleTickerProviderStateMixin {
 
 	TabController controller;
 	@override

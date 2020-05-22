@@ -50,7 +50,7 @@ class UI_CoachDashboard extends StatelessWidget {
 				fontFamily: 'VainIcons',
 			),
 			'title': 'View Clients',
-			'route': ViewClientList()
+			// 'route': ViewClientList()
 		},
 
 	];

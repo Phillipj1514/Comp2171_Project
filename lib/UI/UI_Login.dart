@@ -3,8 +3,11 @@ import 'package:Vainfitness/UI/forms/addMealPlan.dart';
 import 'package:Vainfitness/UI/forms/checkCaloricValue.dart';
 import 'package:Vainfitness/UI/forms/createUserProfile.dart';
 import 'package:Vainfitness/core/util/Authenticator.dart';
-import 'UI_Bottom_Nav.dart';
 import 'package:flutter/material.dart';
+
+import 'clientui/UI_Bottom_Nav.dart';
+import 'coachui/UI_CoachBottomNav.dart';
+
 
 class LoginPage extends StatefulWidget {
   

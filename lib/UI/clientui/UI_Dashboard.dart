@@ -1,18 +1,16 @@
 import 'package:Vainfitness/UI/forms/AddMeal.dart';
+import 'package:Vainfitness/UI/forms/checkCaloricValue.dart';
 //import 'package:Vainfitness/UI/grid_dash.dart';
 import 'package:Vainfitness/UI/vain_icons_icons.dart';
 import 'package:Vainfitness/core/nutrition/Daily_Consumption.dart';
 import 'package:Vainfitness/core/user/Client.dart';
 import 'package:Vainfitness/core/util/Profile_Manager.dart';
-import 'package:flappy_search_bar/flappy_search_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:getflutter/colors/gf_color.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:getflutter/components/button/gf_button.dart';
 import 'package:getflutter/getflutter.dart';
-
-import 'forms/checkCaloricValue.dart';
 
 class UI_Dashboard extends StatelessWidget {
 

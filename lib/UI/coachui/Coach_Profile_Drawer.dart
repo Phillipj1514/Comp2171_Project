@@ -1,5 +1,5 @@
-import 'package:Vainfitness/UI/Settings.dart';
 import 'package:Vainfitness/UI/UI_Login.dart';
+import 'package:Vainfitness/UI/forms/Settings.dart';
 import 'package:Vainfitness/core/util/Authenticator.dart';
 import 'package:Vainfitness/core/util/Profile_Manager.dart';
 import 'package:getflutter/components/drawer/gf_drawer.dart';

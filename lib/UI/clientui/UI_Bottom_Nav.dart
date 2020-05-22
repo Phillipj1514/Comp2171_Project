@@ -1,9 +1,9 @@
 
 import 'package:Vainfitness/UI/vain_icons_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:Vainfitness/UI/UI_Dashboard.dart' as first;
-import 'package:Vainfitness/UI/UI_ConsumptionLst.dart' as second;
-import 'package:Vainfitness/UI/UI_MealPlans.dart' as third;
+import 'package:Vainfitness/UI/Clientui/UI_Dashboard.dart' as first;
+import 'package:Vainfitness/UI/Clientui/UI_ConsumptionLst.dart' as second;
+import 'package:Vainfitness/UI/Clientui/UI_MealPlans.dart' as third;
 import 'Profile_Drawer.dart';
 
 void main() {
