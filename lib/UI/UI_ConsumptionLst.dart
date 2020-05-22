@@ -160,40 +160,6 @@ class _UI_ConsumptionLstState extends State<UI_ConsumptionLst>{
     return Scaffold(
       body: SafeArea(
         child: Container(
-<<<<<<< HEAD
-            child: ListView(
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.all(10) ,
-                    child: GridView.builder(
-
-                        shrinkWrap: true,
-                        physics: const ScrollPhysics(),
-                        itemCount: vainGridComp.length,
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 10),
-                        itemBuilder: (BuildContext context, int index) =>
-                            GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (BuildContext context) =>
-                                            AddMealPlan(),));
-                                },
-                                child: buildBoxTile(
-                                    vainGridComp[index]['title'],
-                                    vainGridComp[index]['icon'],
-                                    vainGridComp[index]['route']))
-                    ),
-                  ),
-                 // TimelineCL(),
-                ]
-            )
-        )
-=======
           child: ListView(
             shrinkWrap: true,
             children: <Widget>[
@@ -227,7 +193,6 @@ class _UI_ConsumptionLstState extends State<UI_ConsumptionLst>{
           )
         ),
       ),
->>>>>>> d8d5c8ee1566c5108bf1223103517d31e2e1a23f
     );
   }
 }
