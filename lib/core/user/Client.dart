@@ -20,7 +20,7 @@ class Client extends User_Profile{
    int month, int day, int year, int age, double height, double weight, this.expectedWeight, this.numDays)
     :super(uid,firstname, lastname, username, email, month, day, year, age, height, weight){
       this. initialWeight = weight;
-      this.dailyCalorie = 0;
+      this.dailyCalorie = (((weight/2.2)*24*0.85)*(4.8-2*(this.numDays/(weight-this.expectedWeight)))).toInt();
       this.dailyConsumptions = [];
       nutritionalReportManager = new Report_Manager();
       mealPlanSubscriptions = [];
@@ -69,19 +69,41 @@ class Client extends User_Profile{
   List<String> getMealPlanSubscriptions() => this.mealPlanSubscriptions;
   
   // Setters
-  void setExpectedWeight(double expectedWeight) => this.expectedWeight = expectedWeight;
+  @override
+  void setWeight(double weight){
+    this.weight = weight;
+    calculateDailyCalorieIntake();
+  }
+
+  void setExpectedWeight(double expectedWeight) {
+    this.expectedWeight = expectedWeight;
+    calculateDailyCalorieIntake();
+  }
   
   void setDailyCalorie(int dailyCalorie) => this.dailyCalorie = dailyCalorie;
   
-  void setNumDays(int numDays) => this.numDays = numDays;
+  void setNumDays(int numDays){
+    this.numDays = numDays;
+    calculateDailyCalorieIntake();
+  }
 
   void setMealPlanSubscription(List<String> mealPlanSubcriptions) => this.mealPlanSubscriptions = mealPlanSubcriptions;
 
   //modifiers
+
+  ///Calculate the daily calorie value
+  void calculateDailyCalorieIntake(){
+    try{
+      this.dailyCalorie = (((this.weight/2.2)*24*0.85)*(4.8-2*(this.numDays/(this.weight-this.expectedWeight)))).toInt();
+    }catch(e){
+      print(e.toString());
+    }
+  }
   
   /// Add a meal to todays daily consumption
   String addMealToConsumption(Meal meal, DateTime date){
     try{
+      calculateDailyCalorieIntake();
       Daily_Consumption consump = this.getDailyConsumptionByDate(date);
       if(consump == null){
         consump = new Daily_Consumption.dateTime(date);
