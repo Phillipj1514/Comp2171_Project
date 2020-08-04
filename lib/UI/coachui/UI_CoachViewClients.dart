@@ -63,16 +63,9 @@ class _ViewClientListState extends State<ViewClientList> {
                   ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-<<<<<<< HEAD
-                      itemCount: count,
-                      itemBuilder: (context, i) {
-                        //TODO Fix this such that we get the list of clients iterating
-//                        return ClientCard( bigcoach.getClientByIndex(i) );
-=======
                       itemCount: clients.length,
                       itemBuilder: (context, index) {
                         return clientCard(clients[index]);
->>>>>>> 9e0a6559696424fde1234a821f718ad8be7c1d7a
                       }
                   )
                 ]
@@ -128,9 +121,3 @@ class _ViewClientListState extends State<ViewClientList> {
     );
   }
 }
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> 9e0a6559696424fde1234a821f718ad8be7c1d7a
